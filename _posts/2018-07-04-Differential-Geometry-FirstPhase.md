@@ -1,5 +1,5 @@
 ---
-layout: Differential Geometry
+layout: post
 title:  "FirstPhase"
 date:   2018-07-04 14:49:00 +0900
 categories: Differential Geometry
