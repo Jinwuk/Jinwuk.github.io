@@ -8,12 +8,15 @@ tags:
   - Differential Geometry
   - Fundamental
   - Theories
+comments: true
 ---
 
 Differential Geometry [1]
 =====================
-{:toc}
+{:.no_toc}
 
+* Table of Contents
+{:toc}
 
 ## Directional Derivatives
 
