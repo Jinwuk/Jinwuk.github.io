@@ -6,3 +6,5 @@ layout: home
 #layout: index
 #title: Home
 ---
+
+Jinwuk Seok's Blog 
