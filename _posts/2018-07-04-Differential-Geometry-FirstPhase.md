@@ -2,7 +2,8 @@
 layout: post
 title:  "FirstPhase"
 date:   2018-07-04 14:49:00 +0900
-categories: Differential Geometry
+categories: 
+  - Differential Geometry
 tags:
   - Differential Geometry
   - Fundamental
@@ -11,7 +12,7 @@ tags:
 
 Differential Geometry [1]
 =====================
-[toc]
+{:toc}
 
 
 Directional Derivatives

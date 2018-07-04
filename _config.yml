@@ -16,11 +16,11 @@
 title: Jinwuk Seok's Mathematical Pages
 email: sderoen@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Jinwuk Seok's Blog about the mathematical issues with respect to stochastic calculus, differential geometry and control/video processing 
+  Jinwuk Seok's Blog about the mathematical issues with respect to stochastic calculus, differential geometry, control, and video processing.
 baseurl: / # the subpath of your site, e.g. /blog
 url: https://Jinwuk.github.io # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+twitter_username: sderoen
+github_username:  Jinwuk
 
 # Build settings
 markdown: kramdown
