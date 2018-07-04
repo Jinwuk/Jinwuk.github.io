@@ -59,6 +59,8 @@ kramdown:
   footnote_nr:   1
   show_warnings: false
 
-# Comment 
-disqus.shortname: jinwuk
+# Comment
+disqus:
+  shortname: jinwuk
+
   
