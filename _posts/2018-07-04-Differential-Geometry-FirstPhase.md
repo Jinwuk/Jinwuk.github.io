@@ -182,12 +182,14 @@ Differential forms 는 **Association** 과 **Distribution** 이 성립되므로 
 
 ### Lemma : Differential Form의 순서
 If $\phi, \psi$ are 1-forms then
+
 $$
 \phi \wedge \psi = - \psi \wedge \phi
 $$
 
 #### Proof of Lemma
 Let $\phi = \sum f_i dx_i$ and $\psi = \sum g_k dx_k$, then
+
 $$
 \begin{align*}
 \psi \wedge \phi &= \sum_i f_i dx_i \wedge \sum_k g_k dx_k = \sum_i \sum_k f_i g_k dx_i \wedge dx_k \\
@@ -203,6 +205,7 @@ $$
 
 #### Meaning if the exteriro derivatives
 Let $ \phi = \sum_i f_i dx_i$, then
+
 $$
 d\phi = d(\sum_i f_i dx_i) = \sum_i df_i \wedge dx_i = \sum_i \sum_k \frac{\partial f_i}{\partial x_k} dx_k \wedge dx_i
 $$
@@ -211,6 +214,7 @@ $$
 
 ### Theorem : Linear Property of exterior derivatives
 Let $f, g \in \mathbb{R}$ be functions and $\phi, \psi$ be 1-forms on $\mathbb{R}^3$.
+
 $$
 \begin{align*}
 d(fg)    &= df g + f dg\\
@@ -221,8 +225,10 @@ $$
 
 #### proof of Theorem
 처음 두 방정식은 자명하므로 증명에서 뺀다.
-요는 마지막 방정식의 경우 $\wedge$ 의 영향으로 + 가 아닌 - 가 나타난다는 사실이다.
-쉽게 생각하면 첫번째 미문은 첫항에 작용하므로 부호가 변하지 않지만, 두번째 Exterior Derivative는 두번째항에 적용되기 때문에 부호가 (-)가 된다는 의미이다. 이를 증명한다.
+요는 마지막 방정식의 경우 $\wedge$ 의 영향으로 + 가 아닌 - 가 나타난다는 사실이다. 쉽게 생각하면
+
+- 첫번째 미분은 **첫항에 작용하므로 부호가 변하지 않지만,**
+- 두번째 Exterior Derivative는 **두번째항에 적용되기 때문에 부호가 (-)가 된다는 의미이다.** 이를 증명한다.
 
 Let $\phi = f dx$ and $\psi = g dy$ then
 $$
@@ -234,6 +240,7 @@ $$
 $$
 \phi \wedge d\psi = fdx \wedge d(gdy)= fdx \wedge dg \wedge dy = fdx \wedge \frac{\partial g}{\partial z}dz \wedge dy = f\frac{\partial g}{\partial z} dx \wedge dz \wedge dy = -f\frac{\partial g}{\partial z} dxdydz
 $$
+
 따라서, $ d(\phi \wedge \psi) = d\phi \wedge \psi - \phi \wedge d\psi $
 이는 앞에서 + 의 값을 가진 2개의 Component가 나오게 하기 위하여 두번째 항에 대한 Exterior Derivative 가 (-)가 되는 것이다.  
 
@@ -290,9 +297,11 @@ $$
 
 #### Solution
 $\nabla_v W$를 구하기 위해 먼저 $dw_k (v) = v[w_k]$ 를 구해야 한다.
+
 $$
 dw_1 = 2x U_1, dw_2 = 0, dw_3 = z U_2 + y U_3
 $$
+
 $$
 \begin{align*}
 v[w_1] &= dw_1(v) &= 2x(y-x) \\
@@ -300,6 +309,7 @@ v[w_2] &= dw_2(v) &= 0 \\
 v[w_3] &= dw_3(v) &= xy^2 \\
 \end{align*}
 $$
+
 $$
 \nabla_V W = 2x(y-x)U_1 + xy^2 U_3
 $$
