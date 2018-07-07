@@ -3,17 +3,18 @@ layout: post
 title:  "Deep Image Compression via End to End Learning"
 date:   2018-07-07 22:03:00 +0900
 categories:
-  - Briefs
+  - [Briefs, Machine_Learning]
 tags:
   - Machine Learning
   - Image Compression 
 comments: true
 ---
+Deep Image Compression via End to End Learning
+===
+{:no_toc .}
 
 * Table of contents
 {:toc}
-
-
 본 논문은 ariv에 올라온 논문으로 2018년 6월 5일에 올라온 가장 최신의 논문이다. 
 
 ## 요약 및 Introduction
@@ -29,6 +30,27 @@ comments: true
 	- 사실, 여기에서 모든 성능이 나오는 것은 아닌지 의심된다. 
 - Adversarial Loss를 고려하여 Wasserstein GAN (WGAN)[1]을 사용하였다. 
 
+## End to End Learning Frame work
+- Down sampling
+	- Stride-2  $4 \times 4$ Convolution Layer
+- Up samling : Super Resolution에서 사용하는 방식 그대로이다.   
+	- $3 \times 3$ Kernel을 일반적으로 사용한다.
+	- $5 \times 5$ Kernel은 First/Last Layer에서 사용한다.
 
-## Reference
-[1] 
+### Quantization and Entropy Coding
+간단한 Scalar Quantization을 사용한다. 
+$$
+X_Q = Round\left( X_E \cdot (2^Q - 1) \right)
+$$
+where $X_E \in (0,1)$ 은 Feature Map (fMAP)의 Coefficient이다. (Sigmoid 함수 출력), $Q$는 Qunatization Level 이며 6으로 세팅되어 있다. 
+- Binary Coding을 위해 이렇게 만들어진 값에 PAQ를 적용한다.
+- De-quantization은 
+$$
+{X'}_E = \frac{X_Q}{2^Q - 1}
+$$
+- Back propagation에서는 Round Function을 생략한다.
+
+### Rate Estimation 
+
+##  Reference
+[1] M. Arjovsky, S. Chintala, and L. Bottou. Wasserstein gan. arXiv preprint arXiv:1701.07875, 2017.
