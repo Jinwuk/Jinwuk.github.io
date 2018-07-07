@@ -1,5 +1,18 @@
-Deep Image Compression via End to End Learning
-=======
+---
+layout: post
+title:  "Deep Image Compression via End to End Learning"
+date:   2018-07-07 22:03:00 +0900
+categories:
+  - Briefs
+tags:
+  - Machine Learning
+  - Image Compression 
+comments: true
+---
+
+* Table of contents
+{:toc}
+
 
 본 논문은 ariv에 올라온 논문으로 2018년 6월 5일에 올라온 가장 최신의 논문이다. 
 
