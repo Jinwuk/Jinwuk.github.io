@@ -3,7 +3,7 @@ layout: post
 title:  "Deep Image Compression via End to End Learning"
 date:   2018-07-07 22:03:00 +0900
 categories:
-  - [Briefs, Machine_Learning]
+  - Briefs
 tags:
   - Machine Learning
   - Image Compression 
@@ -36,13 +36,23 @@ Deep Image Compression via End to End Learning
 - Up samling : Super Resolution에서 사용하는 방식 그대로이다.   
 	- $3 \times 3$ Kernel을 일반적으로 사용한다.
 	- $5 \times 5$ Kernel은 First/Last Layer에서 사용한다.
+- pReLu 
+$$
+f(x) = \max(0,x) + w \cdot \min(0, x) \\
+f'(x) = 
+\begin{cases}
+1 & x > 0 \\
+0 & x = 0 \\
+w & x <0
+\end{cases}
+$$
 
 ### Quantization and Entropy Coding
 간단한 Scalar Quantization을 사용한다. 
 $$
 X_Q = Round\left( X_E \cdot (2^Q - 1) \right)
 $$
-where $X_E \in (0,1)$ 은 Feature Map (fMAP)의 Coefficient이다. (Sigmoid 함수 출력), $Q$는 Qunatization Level 이며 6으로 세팅되어 있다. 
+where $X_E \in (0,1)$ 은 Feature Map (fMAP)의 Coefficient이다. (Sigmoid 함수 출력), $Q$는 Quantization Level 이며 6으로 세팅되어 있다. 
 - Binary Coding을 위해 이렇게 만들어진 값에 PAQ를 적용한다.
 - De-quantization은 
 $$
@@ -51,6 +61,47 @@ $$
 - Back propagation에서는 Round Function을 생략한다.
 
 ### Rate Estimation 
+Rate loss $L_R$은 다음과 같이 정의된다.
+$$
+L_R = - \mathbb{E}[\log_2 P_q]
+$$
+where $L_R$ 은 Bottleneck layer에서 fMaps의 Entropy approximation이다. 
+Qunatization 의 미분은 거의 0이기 때문에, Discrete 함수인 $P_q$의 Piecewise 선형근사를 사용하여 이것을 연속 및 미분 가능함수로 만들어야 한다. 
+- Balle[2]는 유사한 아이디어를 자신의 논문에 제시한 바 있다.
+
+### Network Training
+- 데이터의 크기 $128 \times 128$ 
+- 데이터의 갯수 80000 patches
+- Objective Function 
+$$
+L = \frac{1}{N}\sum_{n=1}^N \| Y_n - x_n \|^2 + \lambda L_R
+$$
+where $X_n$ Input Image, $Y_n$ Decoded Image, N is Batch size (i.e. 80000)
+
+- Network의 구조는 다음과 같다. 
+![fig_deep_01](.\fig_deep_01.png)
+
+## Visual Enhancement
+### Perception Loss
+- Feature Extraction을 위해 31-Layer의 VGGnet을 사용[2] 
+- Perceptual Loss
+$$
+L_{\text{perceptual}} = \frac{1}{N} \sum_{n=1}^N \| \Psi(Y_n) - \Psi(X_n) \|^2
+$$
+- $\Psi$ is the VGGnet to compute the feature.
+
+### Adversarial Loss
+- Discriminator neural network $D$ 는 image가 진짜인지 Fake인지를 가려낸다.
+- 본 논문에서는 일반적인 DCGAN을 Wasserstein GAN으로 구현한다. 
+  - 보다 빠른 수렴과 안정성을 나타낸다. 
+- WGAN은 [**Earth-Move divergence**](https://en.wikipedia.org/wiki/Earth_mover%27s_distance)  혹은 [다음 링크](를 사용한다.
+
+
+
+
+
+
 
 ##  Reference
 [1] M. Arjovsky, S. Chintala, and L. Bottou. Wasserstein gan. arXiv preprint arXiv:1701.07875, 2017.
+[2] K. Simonyan and A. Zisserman. Very deep convolutional networks for large-scale image recognition. arXiv preprint arXiv:1409.1556, 2014.
