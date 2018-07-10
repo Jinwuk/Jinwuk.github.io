@@ -9,9 +9,6 @@ tags:
   - Image Compression 
 comments: true
 ---
-Deep Image Compression via End to End Learning
-===
-{:no_toc .}
 
 * Table of contents
 {:toc}
@@ -79,7 +76,7 @@ $$
 where $X_n$ Input Image, $Y_n$ Decoded Image, N is Batch size (i.e. 80000)
 
 - Network의 구조는 다음과 같다. 
-![fig_deep_01](.\fig_deep_01.png)
+![fig_deep_01](http://jnwhome.iptime.org//img/research/2018/videoai/2018-07-06-brief-fig_deep_01.png)
 
 ## Visual Enhancement
 ### Perception Loss
@@ -94,14 +91,40 @@ $$
 - Discriminator neural network $D$ 는 image가 진짜인지 Fake인지를 가려낸다.
 - 본 논문에서는 일반적인 DCGAN을 Wasserstein GAN으로 구현한다. 
   - 보다 빠른 수렴과 안정성을 나타낸다. 
-- WGAN은 [**Earth-Move divergence**](https://en.wikipedia.org/wiki/Earth_mover%27s_distance)  혹은 [다음 링크](를 사용한다.
+- WGAN은 [**Earth-Move divergence**](https://en.wikipedia.org/wiki/Earth_mover%27s_distance)  혹은 [Wasserstrein Metric](https://en.wikipedia.org/wiki/Wasserstein_metric)를 사용한다.
+- Reconstructed Image가 높은 확률(?)을 가질 수 잇도록 다음과 같이 정의한다.
+$$
+L_{\text{generator}} = -D(Y_n)
+$$
+- 한편 Discereminator Loss는 다음과 같이 정의한다.
+$$
+L_{\text{Discereminator}} = D(Y_n) - D(X_n) + \beta L_{\text{Penalty}}
+$$
+여기서 $D$는 **Discreminative Neural Network** 이며 $L_{\text{penalty}}$는 improved WGAN에서 언급되는 **Penalty** term이며 $\beta$는 parameter로서 10이다.
 
+- 최종적인 Loss Function은 다음과 같다.
+$$
+L_{\text{final}} = L_2 + \lambda_1 L_R + \lambda_2 L_{\text{perceptual}} + \lambda_3 L_{\text{generator}}
+$$
+with $\lambda_2 = 0.003$, $\lambda_3 = 0.0001$. 
 
+## Performance and Conclusion
+- Kodak Data 실험 결과는 평균 약 7.81% BPG에 대하여 MSSSIM-BD-rate 상승을 보여준다.
+- CLIC test data set 에서는 33.54 ~9.65% MSSSIM-BD-rate 상승을 보여준다.
 
+## My Comment 
+- BPG가 동일한 Entopy Coding Scheme을 사용하였다면 매우 뛰어난 결과이다.
+- 그럼에도 양자화 부분에 대하여는 간단한 접근을 취했다.
+- 이것을 Inter Frame에 접근 시킨다면 결과는 알 수 없다.
+- WGAN 에 대하여 알아볼 필요성이 있음
 
+## Figure of Simulation Result
+![fig_deep_02](http://jnwhome.iptime.org//img/research/2018/videoai/2018-07-06-brief-fig_deep_02.png)
+![fig_deep_03](http://jnwhome.iptime.org//img/research/2018/videoai/2018-07-06-brief-fig_deep_03.png)
 
 
 
 ##  Reference
 [1] M. Arjovsky, S. Chintala, and L. Bottou. Wasserstein gan. arXiv preprint arXiv:1701.07875, 2017.
+
 [2] K. Simonyan and A. Zisserman. Very deep convolutional networks for large-scale image recognition. arXiv preprint arXiv:1409.1556, 2014.
