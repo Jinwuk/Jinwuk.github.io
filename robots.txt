@@ -1,8 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /about.html
-<<<<<<< HEAD:robots.txt
 Sitemap: https://Jinwuk.github.io/sitemap.xml
-=======
-Sitemap: http://Jinwuk.github.io/sitemap.xml
->>>>>>> 5ac5f56a552acc089cb3e6c7a21779d62be33dbc:robots.txt
