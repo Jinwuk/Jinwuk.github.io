@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /about.html
-Sitemap: http://Jinwuk.github.io/sitemap.xml
+Sitemap: https://Jinwuk.github.io/sitemap.xml
