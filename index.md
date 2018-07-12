@@ -28,6 +28,8 @@ comments: true
 ---
 ~~~
 
+- Markdown Source를 반드시 참조해야 한다.
+
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
   (adsbygoogle = window.adsbygoogle || []).push({

@@ -13,6 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
+
 title: Jinwuk Seok's Mathematical Pages
 email: sderoen@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
@@ -22,8 +23,17 @@ url: https://Jinwuk.github.io # the base hostname & protocol for your site, e.g.
 twitter_username: sderoen
 github_username:  Jinwuk
 
+author:
+  name:           'Andrew Fong'
+  url:            https://twitter.com/fongandrewc
+
+paginate:         5
+# paginate_path:    '/page:num'
+                    # Or '/blog/page:num' if you want to move your index pages
+
 # Build settings
 markdown: kramdown
+highlighter:      rouge
 theme: minima
 
 plugins:
