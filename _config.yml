@@ -14,32 +14,43 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Jinwuk Seok's Mathematical Pages
-email: sderoen@gmail.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Jinwuk Seok's Blog about the mathematical issues with respect to stochastic calculus, differential geometry, control, and video processing.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: https://Jinwuk.github.io # the base hostname & protocol for your site, e.g. http://example.com
+
+# Dependencies
+markdown:       kramdown
+highlighter:    rouge
+
+# Setup
+title:          Jinwuk Seok's Mathematical Pages
+email:          sderoen@gmail.com
+description:    Jinwuk Seok's Blog about the mathematical issues with respect to stochastic calculus, differential geometry, control, and video processing.
+
+url:            https://Jinwuk.github.io 
+                  # the base hostname & protocol for your site, e.g. http://example.com
+ 
+
+baseurl:        "" 
+                  # the optional subpath of your site, e.g. "/blog"
+                  # NB: This applies to all pages in your Jekyll site.
+                  # If you want to move just the blog index pages but keep
+                  # other pages at root, see the paginate_path and
+                  # sidebar_blog_link below.
+
 twitter_username: sderoen
 github_username:  Jinwuk
 
 author:
-  name:           'Andrew Fong'
-  url:            https://twitter.com/fongandrewc
+  name:           'Jinwuk Seok'
+  url:            https://twitter.com/sderoen
 
 paginate:         5
 # paginate_path:    '/page:num'
                     # Or '/blog/page:num' if you want to move your index pages
 
-# Build settings
-markdown: kramdown
-highlighter:      rouge
-theme: minima
-
 plugins:
   - jekyll-feed
   - jekyll-gist
   - jekyll-sitemap
+  - jekyll-paginate
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
@@ -53,6 +64,16 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
+
+# Custom vars
+version:            3.7.0
+sidebar_home_link:  true
+# sidebar_blog_link:  '/blog'   # By default, your home page is your blog
+                                # page. If you change your paginate_path,
+                                # set this to the root of the paginate_path
+                                # to enable a separate blog link.
+github:
+  repo:             https://github.com/fongandrew/hydeout
 
 # Markdown Processors
 rdiscount:
@@ -70,7 +91,14 @@ kramdown:
   hard_wrap:     false
   footnote_nr:   1
   show_warnings: false
+  math_engine:       mathjax
+  math_engine_opts:
+    preview:         true
+    preview_as_code: true
+#  footnote_backlink: '&#x21a9;&#xfe0e;'
 
+  
+  
 # Comment
 disqus:
   shortname: jinwuk

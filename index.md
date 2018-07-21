@@ -2,9 +2,9 @@
 # Feel free to add content and custom Front Matter to this file.
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
-layout: home
-#layout: index
-#title: Home
+#layout: home
+layout: default
+title: Home
 ---
 ## Abstract
 
@@ -29,6 +29,9 @@ comments: true
 ~~~
 
 - Markdown Source를 반드시 참조해야 한다.
+
+
+
 
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
