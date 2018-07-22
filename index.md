@@ -6,6 +6,17 @@
 layout: default
 title: Home
 ---
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122676285-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-122676285-1');
+</script>
+
+
 ## Abstract
 
 Jinwuk Seok's Blog. This page is constructed under the "Hyde Out" theme of which the detailed explanation is shown at [https://fongandrew.github.io/hydeout/](https://fongandrew.github.io/hydeout/).
