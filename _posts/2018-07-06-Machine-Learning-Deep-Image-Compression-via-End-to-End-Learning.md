@@ -2,11 +2,10 @@
 layout: post
 title:  "Deep Image Compression via End to End Learning"
 date:   2018-07-07 22:03:00 +0900
-categories:
-  - Briefs
+categories: [Briefs, Machine-Learning]
 tags:
-  - Machine Learning
-  - Image Compression 
+  - Machine-Learning
+subtitle:   "Machine Learning"  
 comments: true
 ---
 
