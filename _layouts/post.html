@@ -4,7 +4,25 @@ layout: default
 
 <header>
   <h1 class="post-title">{{ page.title }}</h1>
-</header>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122676285-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'UA-122676285-1');
+	</script>
+  
+	<!-- google Adsence -->
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script> (adsbygoogle = window.adsbygoogle || []).push({
+	google_ad_client: "ca-pub-2352406350095521",
+	enable_page_level_ads: true
+	});
+	</script>
+
+  </header>
 <script type="text/x-mathjax-config">
    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
@@ -19,25 +37,6 @@ layout: default
     {% include post-tags.html post=page %}
   </div>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122676285-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-122676285-1');
-</script>
-  
-  
-  <!-- google Adsence -->
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script> (adsbygoogle = window.adsbygoogle || []).push({
-google_ad_client: "ca-pub-2352406350095521",
-enable_page_level_ads: true
-});
-</script>
-  
   
   {% include comments.html %}
   {% include related_posts.html %}
