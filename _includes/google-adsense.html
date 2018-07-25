@@ -1,0 +1,11 @@
+<!-- google_ad_client: "ca-pub-2352406350095521" -->
+
+{% if jekyll.environment == 'production' and google_ad_client %}
+	<!-- google Adsence -->
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script> (adsbygoogle = window.adsbygoogle || []).push({
+	google_ad_client: "{{ site.google_ad_client }}",
+	enable_page_level_ads: true
+	});
+	</script>
+{% endif %}
