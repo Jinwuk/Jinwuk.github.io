@@ -6,16 +6,6 @@
 layout: default
 title: Home
 ---
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122676285-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-122676285-1');
-</script>
-
 
 ## Abstract
 
@@ -29,8 +19,7 @@ In addition, when you write an article with markdown as a post, you shall paste 
 layout: post
 title:  "Differential Forms Essential"
 date:   2018-07-04 14:49:00 +0900
-categories:
-  - Differential Geometry
+categories: [Mathematics, Differential Geometry]
 tags:
   - Differential Geometry
   - Differential Forms 
@@ -40,16 +29,5 @@ comments: true
 ~~~
 
 - Markdown Source를 반드시 참조해야 한다.
-
-
-
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-2352406350095521",
-    enable_page_level_ads: true
-  });
-</script>
 
 ---
