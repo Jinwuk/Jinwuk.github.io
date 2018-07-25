@@ -113,7 +113,9 @@ kramdown:
 disqus:
   shortname: jinwuk
 
-# Set your Google Analytics id to receive `pageview` events.
-# To remove Google Anaylics from your page, remove the line below.
-google_analytics:    UA-122676285-1
+  
+# Set your Google Analytics id and Google Adsense id to receive `pageview` events.
+# To remove Google Anaylics or Google Adsense from your page, remove the line below.
+google_analytics: UA-122676285-1
+google_ad_client: ca-pub-2352406350095521
 
