@@ -81,7 +81,7 @@ sidebar_home_link:  true
                                 # to enable a separate blog link.
 
 # Fallback image and color
-image:               /assets/img/space.png
+#image:               /assets/img/space.png
 								
 								
 github:
