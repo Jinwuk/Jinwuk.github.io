@@ -52,7 +52,7 @@ Let $\mathcal{X}, f, L, x_0$  and $R$ be as in Theorem 2.1. Fix $\epsilon > 0$. 
 $$
 T = O \left( R^2 \cdot \max \left(\frac{2B}{K \epsilon^2}, \frac{L}{\epsilon} \right)  \right), \;\;then \;\; \mathbb{E}
 \left[ f\left(  \frac{1}{T} \sum_{t=0}^T x_t \right)\right] - \min_{x \in \mathcal{X}} f(x)
- \leq \epsilon 
+ \leq \epsilon
 $$
 
 ## Quantized Stochastic Gradient Descent (QSGD)
@@ -64,7 +64,10 @@ $$
 Q_s(v_i) = \| v \|_2 \cdot sgn (v_i) \cdot \xi _i (v,s)
 $$
 where $\xi _i (v,s)$ 's  are independent random variables defined as follows.
-- Let  $0 \leq l  < s$ be an integer such that $\frac{|v_i|}{\|v\|}_2 \in [ l/s, (l+1)/s]$. 
+- Let  $0 \leq l  < s$ be an integer such that 
+$$
+\frac{|v_i|}{\|v\|}_2 \in [ l/s, (l+1)/s]
+$$. 
 - That is  $[ l/s, (l+1)/s]$ is the quantization interval .Then 
 $$
 \xi_i(v,s) = 
@@ -75,12 +78,16 @@ l/s        & \text{ with probablity } 1 - p\left(  \frac{v_i}{\|v\|_2}, s \right
 $$
 - 여기서, $p(a,s)  = as - l$ for any $a \in [0,1]$. If $v = 0$ then we define $Q(v,s)=0$ 
   -$p(a,s)  = as - l$ 에서 
+  
   $$
   \frac{|v_i|}{\|v\|_2} \cdot s -l \Rightarrow \frac{l}{s} \cdot s - l = 0 \text{ or } \frac{l+1}{s} \cdot s - l = 1
   $$
   - 그러므로 $\xi_i(v,s) $ 이 1이 될 확률로 $p\left(  \frac{v_i}{\|v\|_2}, s \right)$를 간주하면 된다. 
 
-- Expectation은 $\mathbb{E}(\xi(v,s)) = \frac{|v_i|}{\|v\|_2}$ 
+- Expectation은 
+$$ 
+\mathbb{E}(\xi(v,s)) = \frac{ \left| v_i \right| }{ \|v\|_2 }
+$$ 
 
 #### Lemma 3.1
 For any $v \in \mathbb{R}^n$, we have that
@@ -133,9 +140,9 @@ $$
 
 #### Theorem 3.6
 
-Let $f(x) = \frac{1}{m} \sum_{i=1}^m f_i(x)$, where $f$ is l-strongly convex, and $f_i$ are convex and L-smooth, for all $i$, Let $x^*$ be the unique minimizer of $f$ over $\mathbb{R}^n$. Then, if $\eta = O(1/L)$ and $T = O(L/l)$, then QSVRG with initial point $y^{(1)}$ ensures $\mathbb{E}[f(y^{(p+1)})] - f(x^*) \leq 0.9^p \left( f(y^{(1)} - f(x^* ) \right)$ for any epoch $p \geq 1$. Moreover, QSVRG with $T$ iterations per epoch requires $ \leq (F + 2.8n) (T+1) + Fn$ bits of communication per epoch.
+Let $f(x) = \frac{1}{m} \sum_{i=1}^m f_i(x)$, where $f$ is l-strongly convex, and $f_i$ are convex and L-smooth, for all $i$, Let $x^* $ be the unique minimizer of $f$ over $\mathbb{R}^n$. Then, if $\eta = O(1/L)$ and $T = O(L/l)$, then QSVRG with initial point $y^{(1)}$ ensures $\mathbb{E}[f(y^{(p+1)})] - f(x^* )\leq 0.9^p \left( f(y^{(1)} - f(x^* ) \right)$ for any epoch $p \geq 1$. Moreover, QSVRG with $T$ iterations per epoch requires $ \leq (F + 2.8n) (T+1) + Fn$ bits of communication per epoch.
 
-- 방정식 $\mathbb{E}[f(y^{(p+1)})] - f(x^*) \leq 0.9^p \left( f(y^{(1)} - f(x^* ) \right)$ Epoch가 크면 클수록 Converge 됨을 증명하였다.
+- 방정식 $\mathbb{E}[f(y^{(p+1)})] - f(x^* ) \leq 0.9^p \left( f(y^{(1)} - f(x^* ) \right)$ Epoch가 크면 클수록 Converge 됨을 증명하였다.
 - 필요 비트량 역시 제시 하였다.
 - 만일, 내가 생각하는 알고리즘이라고 한다면, 비트량이 일정하게 되므로 일종의 Threshold로 위 조건을 놓을 수 있을 것이다.  
 
