@@ -68,9 +68,6 @@ plugins:
 #  Collections
 # -----------------------------------------------------------------------------
 collections:
-#  sub_tags:
-#    permalink:       /sub_tag/:name/
-#    output:          true
   projects:
     permalink:       /projects/:path/
     output:          true

@@ -1,9 +1,8 @@
 ---
 layout: category
 title: Differential Geometry
-slug: Differential_Geometry
-menu: true
-submenu: true
+category: Mathematics
+menu: false
 order: 2
 ---
 

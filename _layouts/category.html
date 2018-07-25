@@ -7,15 +7,30 @@ layout: page
 {% endunless %}
 
 <ul class="posts-list">
-  {% assign category = page.category | default: page.title %}
-  {% for post in site.categories[category] %}
-    <li>
-      <h3>
-        <a href="{{ site.baseurl }}{{ post.url }}">
-          {{ post.title }}
-          <small>{{ post.date | date_to_string }}</small>
-        </a>
-      </h3>
-    </li>
-  {% endfor %}
+	{% assign category = page.category | default: page.title %}
+	{% if page.submenu %}
+		{% for post in site.categories[category] %}
+			<li>
+				<h3>
+					<a href="{{ site.baseurl }}{{ post.url }}">
+					{{ post.title }}
+					<small>{{ post.date | date_to_string }}</small>
+					</a>
+				</h3>
+			</li>
+		{% endfor %}
+	{% else %}
+		{% assign subcategories = page.title %}
+		{% for post in site.categories[subcategories] %}
+			<li>
+				<h3>
+					<a href="{{ site.baseurl }}{{ post.url }}">
+					{{ post.title }}
+					<small>{{ post.date | date_to_string }}</small>
+					</a>
+				</h3>
+			</li>
+		{% endfor %}
+	{% endif %}
+
 </ul>

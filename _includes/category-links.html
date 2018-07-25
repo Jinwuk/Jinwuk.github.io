@@ -22,12 +22,6 @@
 					<li>
 					<a class="sidebar-nav-subitem{% if page.url == subnode.url %} active{% endif %}" href="{{ subnode.url | relative_url }}">{{ subnode.title }}</a>
 					</li>
-				<!--
-				<li>
-				<a class="sidebar-nav-subitem{% if page.url == subnode.url %} active{% endif %}" href="{{ subnode.url | relative_url }}">{{ subnode.title }}</a>
-				</li>
-				 -->
-
 				{% endif %}
             {% endif %}
 		{% endfor %}

@@ -2,12 +2,10 @@
 layout: post
 title:  "Differential Forms Essential"
 date:   2018-07-04 14:49:00 +0900
-categories:
-  - Differential Geometry
+categories: [Mathematics, Differential Geometry]
 tags:
   - Differential Geometry
   - Differential Forms 
-  - Theories
 comments: true
 ---
 
@@ -240,7 +238,6 @@ $$
 
 $$
 w = \frac{d}{du} \tan^{-1} (u) = \frac{\partial }{\partial x} \tan^{-1} (u) dx + \frac{\partial }{\partial y} \tan^{-1} (u) dy
-
 $$
 
 이기 때문에 $u$에 대한 $x, y$의 미분을 구하면

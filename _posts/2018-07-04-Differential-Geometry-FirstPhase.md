@@ -1,19 +1,13 @@
 ---
 layout: post
-title:  "FirstPhase"
+title:  "Differential Geometry [1]"
 date:   2018-07-04 14:49:00 +0900
-categories:
-  - Differential Geometry
+categories: [Mathematics, Differential Geometry]
 tags:
   - Differential Geometry
   - Fundamental
-  - Theories
 comments: true
 ---
-
-Differential Geometry [1]
-=====================
-{:.no_toc}
 
 * Table of Contents
 {:toc}
@@ -182,6 +176,8 @@ Differential forms 는 **Association** 과 **Distribution** 이 성립되므로 
    &= -x^2z dxdydz
   \end{align*}
   $$
+
+
 
 ### Lemma : Differential Form의 순서
 If $\phi, \psi$ are 1-forms then
