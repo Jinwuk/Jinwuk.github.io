@@ -1,1 +1,18 @@
 <!-- Optional additional links to insert for icons links -->
+
+<!-- ORCID 
+<div itemscope itemtype="https://schema.org/Person">
+	<a itemprop="sameAs" content="https://orcid.org/0000-0001-5318-1237" href="https://orcid.org/0000-0001-5318-1237" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;">
+		<img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1.1em;margin-right:.5em;" alt="ORCID iD icon">
+	</a>
+</div>
+-->
+
+{% if site.mendeley.info_url %}
+	<a id="github-link"
+		class="mendeley" title="mendeley/Jinwuk" aria-label="mendeley"
+		href="{{ site.mendeley.info_url }}">
+	{% include svg/Antu_mendeley.svg %}
+	</a>
+{% endif %}
+

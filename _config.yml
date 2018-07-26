@@ -108,6 +108,9 @@ kramdown:
     preview_as_code: true
 #  footnote_backlink: '&#x21a9;&#xfe0e;'
 
+# For mendeley
+mendeley:
+  info_url:  https://www.mendeley.com/profiles/jinwuk-seok/ 	
   
 # Comment
 disqus:
