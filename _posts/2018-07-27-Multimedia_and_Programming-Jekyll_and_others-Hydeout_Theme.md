@@ -23,32 +23,9 @@ Hydeout Theme를 꾸미는데 있어 맨 처음으로 하는 것은 원래 검�
 sidebar.html 분석
 -----------------
 
-~~~~~~ 
-<div id="sidebar">
-<header>
-<{% if page.layout == "index" %}h1{% else %}div{% endif %} class="site-title">
-   <a href="{{ site.baseurl }}/">
-   {% unless page.url == "/" %}
-      <span class="back-arrow icon">{% include svg/back-arrow.svg %}</span>
-   {% endunless %}
-   {{ site.title }}
-</a>
-</{% if page.layout == "index" %}h1{% else %}div{% endif %}>
-   <p class="lead">{{ site.description }}</p>
-</header>
-{% include sidebar-nav-links.html %}
+Jekyll의 kramdown markdown renderer는 HTML 파일에 대한 Code block을 올바로 Parsing 하여 rendering 하지 못한다. 따라서 Typora에서 코드를 Parsing 한 후, 이것을 PNG로 변환하여 코드를 올리는 수 밖에 없다. 다음은 그 결과이다. 
 
-{% if site.version %}
-   <span class="site-version">Currently v{{ site.version }}</span>
-{% endif %}
-
-{% include sidebar-icon-links.html %}
-{% include copyright.html %}
-</div>
-~~~~~~
-
-
-
+![](http://jnwhome.iptime.org/redmine/attachments/download/805/picture593-1.png)
 
 -   여기서 `{{ xxx }}` 로 나타나는 부분이 Hydeout의 변수 부분이다.
     -   **site.xxx** 로 나타나는 변수는 \_config.yml 에서 수정하거나
@@ -63,20 +40,18 @@ Back ground 색상 변화
 
 `_sass\hydeout\_variables.scss` 에서,
 
-```ruby
-    <code class="ruby">
+~~~ ruby
     // Hyde theming
     $sidebar-bg-color: #202020 !default;
     $sidebar-title-color: #ffffff !default;
     $sidebar-sticky: true !default;
     $layout-reverse: false !default;
     </code>
-```
+~~~
 
 `$sidebar-bg-color` 항목을 이렇게 바꾼다.
 
-```ruby
-    <code class="ruby">
+~~~ ruby
     // Hyde theming
     //$sidebar-bg-color: #202020 !default;
     $sidebar-bg-color: #106792 !default;
@@ -84,4 +59,4 @@ Back ground 색상 변화
     $sidebar-sticky: true !default;
     $layout-reverse: false !default;
     </code>
-```
+~~~

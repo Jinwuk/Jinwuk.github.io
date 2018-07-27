@@ -29,5 +29,9 @@ comments: true
 ~~~
 
 - Markdown Source를 반드시 참조해야 한다.
+- When you may write a post or something with markdown on Web or verify the markdown page, please click the following link.
+	- 만일 간단히 Web상에서 Markdown을 사용해야 한다면, 혹은 Kramdown을 검증해야 한다면 다음 페이지에 연결한다.
+
+[Online_Kramdown_Editor](http://kramdown.herokuapp.com/)
 
 ---

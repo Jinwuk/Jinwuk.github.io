@@ -102,6 +102,8 @@ kramdown:
   hard_wrap:     false
   footnote_nr:   1
   show_warnings: false
+  syntax_highlighter:   coderay
+  coderay_line_numbers: inline
   math_engine:       mathjax
   math_engine_opts:
     preview:         true
