@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Multiple and Hierarchical Category"
-date:   2018-07-27 03:09:00 +0900
+date:   2018-07-28 18:56:00 +0900
 categories: [Multimedia and Programming, Jekyll_and_others]
 tags:
   - Multiple Category
@@ -103,76 +103,16 @@ Post 에서는 만일 @[category_1, Category_2]@ 라고 Post의 Front matter에 
 
 sidebar를 표시하는 HTML은 다음과 같다. (sidebar.html in \_includes 폴더)
 
-~~~~ html
-    <div id="sidebar">
-      <header>
-        <{% if page.layout == "index" %}h1{% else %}div{% endif %} class="site-title">
-          <a href="{{ site.baseurl }}/">
-            {% unless page.url == "/" %}
-              <span class="back-arrow icon">{% include svg/back-arrow.svg %}</span>
-            {% endunless %}
-            {{ site.title }}
-          </a>
-        </{% if page.layout == "index" %}h1{% else %}div{% endif %}>
-        <p class="lead">{{ site.description }}</p>
-      </header>
-      {% include sidebar-nav-links.html %}
-    
-      {% if site.version %}
-        <span class="site-version">Currently v{{ site.version }}</span>
-      {% endif %}
-    
-      {% include sidebar-icon-links.html %}
-      {% include copyright.html %}
-    </div>
-~~~~
+![](http://jnwhome.iptime.org/redmine/attachments/download/809/picture795-1.png)
 
 여기에서 **sidebar-nav-links.html**를 수정하여 계층적 카테고리가 표시될 수 있도록 한다.\
 Hydeout 테마에서 원래의 sidebar-nav-links.html 은 다음과 같다.
 
-~~~~php+HTML
-<nav id="sidebar-nav-links">
-      {% if site.sidebar_home_link %}
-        <a class="home-link {% if page.url == '/' %} active{% endif %}"
-            href="{{ site.baseurl }}/">Home</a>
-      {% endif %}
-      {% if site.sidebar_blog_link %}
-        <a class="page-link {% if page.url == site.sidebar_blog_link %} active{% endif %}"
-        href="{{ site.baseurl }}{{ site.sidebar_blog_link }}">Blog</a>
-      {% endif %}
-    
-      {% comment %}
-        The code below dynamically generates a sidebar nav of pages with
-        `sidebar_link: true` in the front-matter. See readme for usage.
-      {% endcomment %}
-    
-      {% include page-links.html %}
-      {% include category-links.html %}
-    
-      {% include custom-nav-links.html %}
-    </nav>
-
-~~~~
-
+![](http://jnwhome.iptime.org/redmine/attachments/download/810/picture45-1.png)
 여기를 살펴보면 **category-links.html** 를 통해 Category가 표시됨을 알 수 있다.
 다시, category-links.html 를 살펴보면
 
-~~~~html
-
-    {% comment %}
-      Dynamically generate list of links to all category pages
-    {% endcomment %}
-    {% assign pages_list = site.pages|sort:"sidebar_sort_order" %}
-    {% for node in pages_list %}
-      {% if node.title != null %}
-        {% if node.layout == "category" %}
-          <a class="category-link {% if page.url == node.url %} active{% endif %}"
-              href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a>
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-
-~~~~
+![](http://jnwhome.iptime.org/redmine/attachments/download/811/picture187-1.png)
 
 site 내의 page의 내용을 읽고 (`{% assign pages_list = site.pages|sort:"sidebar_sort_order" %}`) 이중에서 category에 해당하는 layout 정보에서 url을 가진 Category 제목을 side bar에 표시하는 것이다.
 
@@ -180,41 +120,7 @@ site 내의 page의 내용을 읽고 (`{% assign pages_list = site.pages|sort:"s
 
 이것을 다음과 같이 수정하여 계층적으로 표시한다.
 
-~~~~html
-
-    {% comment %}
-      Dynamically generate list of links to all category pages
-    {% endcomment %}
-    
-
-    {% assign pages_list = site.pages| where: "menu", true |sort:"sidebar_sort_order" %}
-    {% assign subpages   = site.pages| where: "menu", false|sort:"sidebar_sort_order" %}
-    
-    {% assign count = 0%}
-    {% for node in pages_list %}
-      {% if node.title != null %}
-        {% if node.layout == "category" %}
-        {% assign count = count | plus: 1 %}
-          <div  class="list-wrapper">
-          <a class="category-link {% if page.url == node.url %} active{% endif %}"
-              href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a>
-            {% if node.submenu %}<label class="folder" for="list-item-{{ count }}">▾</label>{% endif %}
-          </div>
-          <ul class="list-body">
-            {% for subnode in subpages %}
-                {% if subnode.layout == "category" %}
-                    {% if subnode.category == node.title %} 
-                        <li>
-                        <a class="sidebar-nav-subitem{% if page.url == subnode.url %} active{% endif %}" href="{{ subnode.url | relative_url }}">{{ subnode.title }}</a>
-                        </li>
-                    {% endif %}
-                {% endif %}
-            {% endfor %}
-          </ul>
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-~~~~
+![](http://jnwhome.iptime.org/redmine/attachments/download/812/picture98-1.png)
 
 먼저, **subpages** 변수를 선언하고, **menu** 변수가 false일때 해당 페이지로 할당한다. 앞에서 menu 변수값이 true이면 상위 category, false이면 하위 category로 두었으므로, menu 변수값이 false인 페이지는 하위 category 페이지이다.
 
@@ -226,30 +132,7 @@ site 내의 page의 내용을 읽고 (`{% assign pages_list = site.pages|sort:"s
 
 해당 되는 page 는 category.html (in \_layouts 폴더)이다.
 
-~~~~html
-    ---
-    layout: page
-    ---
-
-    {% unless page.content == '' %}
-      {{ content }}
-    {% endunless %}
-    
-    <ul class="posts-list">
-      {% assign category = page.category | default: page.title %}
-      {% for post in site.categories[category] %}
-        <li>
-          <h3>
-            <a href="{{ site.baseurl }}{{ post.url }}">
-              {{ post.title }}
-              <small>{{ post.date | date_to_string }}</small>
-            </a>
-          </h3>
-        </li>
-      {% endfor %}
-    </ul>
-
-~~~~
+![](http://jnwhome.iptime.org/redmine/attachments/download/813/picture159-1.png)
 
 여기에서 보면 상위 category에 대한 post 만 표시되도록 되어 있다.
 이것을 **submenu** 변수를 사용하여 상위 category이면 해당 되는 post가 모두 표시되도록 하고 하위 category 이면, 하위 category에 해당하는 post의 title이 표시되도록 하였다.
@@ -258,44 +141,7 @@ site 내의 page의 내용을 읽고 (`{% assign pages_list = site.pages|sort:"s
 
 수정된 코드는 다음과 같다.
 
-~~~~html 
-    ---
-    layout: page
-    ---
-
-    {% unless page.content == '' %}
-      {{ content }}
-    {% endunless %}
-    
-    <ul class="posts-list">
-        {% assign category = page.category | default: page.title %}
-        {% if page.submenu %}
-            {% for post in site.categories[category] %}
-                <li>
-                    <h3>
-                        <a href="{{ site.baseurl }}{{ post.url }}">
-                        {{ post.title }}
-                        <small>{{ post.date | date_to_string }}</small>
-                        </a>
-                    </h3>
-                </li>
-            {% endfor %}
-        {% else %}
-            {% assign subcategories = page.title %}
-            {% for post in site.categories[subcategories] %}
-                <li>
-                    <h3>
-                        <a href="{{ site.baseurl }}{{ post.url }}">
-                        {{ post.title }}
-                        <small>{{ post.date | date_to_string }}</small>
-                        </a>
-                    </h3>
-                </li>
-            {% endfor %}
-        {% endif %}
-    </ul>
-~~~~
-
+![](http://jnwhome.iptime.org/redmine/attachments/download/814/picture52-1.png)
 
 
 ## 추가 해야 할 사항

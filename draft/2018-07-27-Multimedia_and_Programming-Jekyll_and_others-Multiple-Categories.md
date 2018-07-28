@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Multiple and Hierarchical Category"
-date:   2018-07-27 03:09:00 +0900
+date:   2018-07-28 18:56:00 +0900
 categories: [Multimedia and Programming, Jekyll_and_others]
 tags:
   - Multiple Category
