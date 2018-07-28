@@ -1,0 +1,87 @@
+h1. Jekyll에 MathJax Embedding 시키기
+
+@_layouts\post.html@ 에 다음의 MathJax Rendering 코드를 첨가한다.
+
+- 원본 @post.html@ 
+<pre><code class="html">
+---
+layout: default
+---
+
+<header>
+  <h1 class="post-title">{{ page.title }}</h1>
+</header>
+<div class="content">
+  {% include post-meta.html post=page %}
+
+  <div class="post-body">
+    {{ content }}
+    {% include post-tags.html post=page %}
+  </div>
+
+  {% include comments.html %}
+  {% include related_posts.html %}
+</div>
+</code></pre> 
+
+- 다음의 MathJax Code 를...
+<pre><code class="html">
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</code></pre>
+
+- 이렇게 삽입해야 한다.
+<pre><code class="ruby">
+---
+layout: default
+---
+
+<header>
+  <h1 class="post-title">{{ page.title }}</h1>
+</header>
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="content">
+  {% include post-meta.html post=page %}
+
+  <div class="post-body">
+    {{ content }}
+    {% include post-tags.html post=page %}
+  </div>
+
+  {% include comments.html %}
+  {% include related_posts.html %}
+</div>
+</code></pre>
+
+h2. 그런데 알고보니 꼭 이렇게 안 해도 된다.
+
+다음과 같이 해도 된다. _config.yml의 Markdown Processing Setting에서
+
+<pre><code class="yml">
+kramdown:
+  auto_ids:      true
+  entity_output: as_char
+  toc_levels:    1..6
+  smart_quotes:  lsquo,rsquo,ldquo,rdquo
+  input:         GFM
+  hard_wrap:     false
+  footnote_nr:   1
+  show_warnings: false
+  math_engine:       mathjax
+  math_engine_opts:
+    preview:         true
+    preview_as_code: true
+</code></pre>
+
+될줄 알앗는데 안된다. 위에 있는대로 일단 해야 한다.
+
+나중에 [[KaTeX Embedding]]을 테스트 해본다.

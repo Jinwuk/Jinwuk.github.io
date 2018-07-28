@@ -1,0 +1,281 @@
+h1. Multiple and Hierarchical Category
+
+기본적으로는 Wordpress 등에서 제공하는 다음과 같은 계층적 Category를 구현하기 위해서이다. 
+
+!picture940-1.png!
+
+인터넷에 살펴보면 여러가지 방법론들이 나오는데, 여기에서는 오직, Category 만으로 이러한 계층적 Category를 만들고 Sidebar 에 구현하고 이를 이용할 수 있도록 해 보고자 한다.
+여기서는 Hydeout Theme를 기본으로 구현 하였다.
+
+Hydeout Theme 는 다음의 특징을 가지고 있다.
+* Jekyll 3.x 의 특성을 충실히 반영하고 있다.
+* Jekyll 을 이용한 Blog를 만들시 의 가장 기본적인 구조인 Minimal Theme에서 Sidebar 구조를 제외하고는 크게 변경된 것이 없다. 
+
+그러므로 Hydeout Theme에서 사용된 기법을 다른 Theme에 적용시키는 것은 거의 문제가 없을 것으로 본다.
+
+h2. 기본 구조
+
+Category를 다음과 같은 기본 구조로 만들고 싶다.
+
+<pre>
+------ 상위 Category (1)
+ |  |---- 하위 Category (1)
+ |  |---- 하위 Category (2) 
+ |---- 상위 Category (2)
+    |---- 하위 Category (3)
+</pre>
+
+h3. Multiple and Hierarchical 구조를 위한 기본 Front matter
+
+기본적으로 Fron matter를 어떻게 설계 하느냐가 중요하다.
+
+다음과 같이 Category의 Front matter를 놓는다.
+
+<pre><code class="ruby">
+---
+layout: category
+title: Briefs
+menu: true
+submenu: true
+order: 2
+---
+</code></pre>
+
+중요한 부분은 menu와 submenu의 존재이다. 이것을 사용하여 html 에서 상위 Category인지 하위 Category인지를 파악하고자 한다.
+
+* menu 에서 true 이면 sidebar 에서 category 의 이름이 나타나도록 하며 최상위 category 임을 의미한다.
+* submenu 에서 true 이면 자신의 category에 속하는 하위 category가 있음을 나타낸다.
+
+하위 category의 Front matter는 다음과 같이 놓는다.
+예를 들어 "Brief" category 에 속하는 "Machine Learning" Category를 다음과 같아야 한다.
+
+<pre><code class="ruby">
+---
+layout: category
+title: Machine Learning
+category: Briefs
+menu: false
+order: 2
+---
+</code></pre>
+
+* 최상위 category사 아니므로 menu는 false 이다. 
+* 만일 하위 category를 주고 싶다면 submenu에서 true를 준다.
+
+마지막으로 post는 다음과 같이 쓰면 된다.
+
+<pre><code class="ruby">
+---
+layout: post
+title:  "Deep Image Compression via End to End Learning"
+date:   2018-07-07 22:03:00 +0900
+categories: [Briefs, Machine Learning]
+tags:
+  - Machine-Learning
+subtitle:   "Machine Learning"  
+comments: true
+---
+</code></pre>
+
+* category는 복수이므로 caterories가 되고 상위는 Brief 그리고 하위는 Machine Learning임을 가켜야 한다.
+
+h2. HTML 편집
+
+Hydeout 기본 테마에서는 가장 높은 단계의 Category 혹은 Category 폴더의 Category가 모두 나타난다.
+Post 에서는 만일 [category_1, Category_2] 라고 Post의 Front matter에 적었다면, 모든 상위, 하위 Category에서 두 Category중 하나라도 속하는 post가 모두 표시된다.
+
+우리가 원하는 것은 상위 Category에 속하는 post가 표시되고 하위 Category에 표시되는 것은 상위 Category에 표시되는 것 중 하위 Category에 속하는 post만 표시 되었으면 한다.
+
+이러한 기능이 구현 되려면, HTML 에서는 Side bar에 계층적 Category가 나타나도록 하는 것과, Post에서 계층적 Category에서의 Post가 정확히 표시 되도록 하는 2가지 기능이 제공되어야 한다.
+
+h3. HTML 에서는 Side bar에 계층적 Category가 나타나도록 하는 것
+
+sidebar를 표시하는 HTML은 다음과 같다. (sidebar.html in _includes 폴더)
+
+<pre><code class="ruby">
+<div id="sidebar">
+  <header>
+    <{% if page.layout == "index" %}h1{% else %}div{% endif %} class="site-title">
+      <a href="{{ site.baseurl }}/">
+        {% unless page.url == "/" %}
+          <span class="back-arrow icon">{% include svg/back-arrow.svg %}</span>
+        {% endunless %}
+        {{ site.title }}
+      </a>
+    </{% if page.layout == "index" %}h1{% else %}div{% endif %}>
+    <p class="lead">{{ site.description }}</p>
+  </header>
+  {% include sidebar-nav-links.html %}
+
+  {% if site.version %}
+    <span class="site-version">Currently v{{ site.version }}</span>
+  {% endif %}
+
+  {% include sidebar-icon-links.html %}
+  {% include copyright.html %}
+</div>
+</code></pre>
+
+여기에서 *sidebar-nav-links.html*를 수정하여 계층적 카테고리가 표시될 수 있도록 한다.
+Hydeout 테마에서 원래의 sidebar-nav-links.html 은 다음과 같다.
+
+<pre><code class="html">
+<nav id="sidebar-nav-links">
+  {% if site.sidebar_home_link %}
+    <a class="home-link {% if page.url == '/' %} active{% endif %}"
+        href="{{ site.baseurl }}/">Home</a>
+  {% endif %}
+  {% if site.sidebar_blog_link %}
+    <a class="page-link {% if page.url == site.sidebar_blog_link %} active{% endif %}"
+	href="{{ site.baseurl }}{{ site.sidebar_blog_link }}">Blog</a>
+  {% endif %}
+
+  {% comment %}
+    The code below dynamically generates a sidebar nav of pages with
+    `sidebar_link: true` in the front-matter. See readme for usage.
+  {% endcomment %}
+
+  {% include page-links.html %}
+  {% include category-links.html %}
+
+  {% include custom-nav-links.html %}
+</nav>
+</code></pre> 
+
+여기를 살펴보면 *category-links.html* 를 통해 Category가 표시됨을 알 수 있다.
+다시, category-links.html 를 살펴보면 
+
+<pre><code class="html">
+{% comment %}
+  Dynamically generate list of links to all category pages
+{% endcomment %}
+{% assign pages_list = site.pages|sort:"sidebar_sort_order" %}
+{% for node in pages_list %}
+  {% if node.title != null %}
+    {% if node.layout == "category" %}
+      <a class="category-link {% if page.url == node.url %} active{% endif %}"
+          href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a>
+    {% endif %}
+  {% endif %}
+{% endfor %}
+</code></pre>
+
+site 내의 page의 내용을 읽고 (@{% assign pages_list = site.pages|sort:"sidebar_sort_order" %}@) 이중에서 category에 해당하는 layout 정보에서 url을 가진 Category 제목을 side bar에 표시하는 것이다.
+
+그러므로, 계층적 category가 표시될 수 없다.
+
+이것을 다음과 같이 수정하여 계층적으로 표시한다.
+
+<pre><code class="ruby">
+{% comment %}
+  Dynamically generate list of links to all category pages
+{% endcomment %}
+
+{% assign pages_list = site.pages| where: "menu", true |sort:"sidebar_sort_order" %}
+{% assign subpages   = site.pages| where: "menu", false|sort:"sidebar_sort_order" %}
+
+{% assign count = 0%}
+{% for node in pages_list %}
+  {% if node.title != null %}
+    {% if node.layout == "category" %}
+    {% assign count = count | plus: 1 %}
+      <div  class="list-wrapper">
+	  <a class="category-link {% if page.url == node.url %} active{% endif %}"
+          href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a>
+	    {% if node.submenu %}<label class="folder" for="list-item-{{ count }}">▾</label>{% endif %}
+	  </div>
+      <ul class="list-body">
+		{% for subnode in subpages %}
+			{% if subnode.layout == "category" %}
+			    {% if subnode.category == node.title %}	
+					<li>
+					<a class="sidebar-nav-subitem{% if page.url == subnode.url %} active{% endif %}" href="{{ subnode.url | relative_url }}">{{ subnode.title }}</a>
+					</li>
+				{% endif %}
+            {% endif %}
+		{% endfor %}
+	  </ul>
+	{% endif %}
+  {% endif %}
+{% endfor %}
+</code></pre>
+  
+먼저, *subpages* 변수를 선언하고, *menu* 변수가 false일때 해당 페이지로 할당한다. 앞에서 menu 변수값이 true이면 상위 category, false이면 하위 category로 두었으므로, menu 변수값이 false인 페이지는 하위 category 페이지이다.
+
+그러므로 for문을 통해 page에서의 상위 category의 제목을 표시하고 하위 category를 검색하여 제목과 url을 표시하도록 수정하면 된다.
+
+h3. Post에서 계층적 Category에서의 Post가 표시되는 것
+
+위에서는 sidebar에서 하위 category가 표시되는 반면에 하위 category를 클릭하면 해당 하위 category 페이지가 열리면서, 해당 category에 해당하는 post가 표시되는 것에 대하여 알아보자.
+
+해당 되는 page 는 category.html (in _layouts 폴더)이다.
+
+<pre><code class="html">
+---
+layout: page
+---
+
+{% unless page.content == '' %}
+  {{ content }}
+{% endunless %}
+
+<ul class="posts-list">
+  {% assign category = page.category | default: page.title %}
+  {% for post in site.categories[category] %}
+    <li>
+      <h3>
+        <a href="{{ site.baseurl }}{{ post.url }}">
+          {{ post.title }}
+          <small>{{ post.date | date_to_string }}</small>
+        </a>
+      </h3>
+    </li>
+  {% endfor %}
+</ul>
+</code></pre>
+
+여기에서 보면 상위 category에 대한 post 만 표시되도록 되어 있다.
+이것을 *submenu* 변수를 사용하여 상위 category이면 해당 되는 post가 모두 표시되도록 하고 하위 category 이면, 하위 category에 해당하는 post의 title이 표시되도록 하였다. 
+
+원본 코드와 비교해 보면 구현 방법을 쉽게 알 수 있으리라 생각한다.
+
+수정된 코드는 다음과 같다.
+
+<pre><code class="ruby">
+---
+layout: page
+---
+
+{% unless page.content == '' %}
+  {{ content }}
+{% endunless %}
+
+<ul class="posts-list">
+	{% assign category = page.category | default: page.title %}
+	{% if page.submenu %}
+		{% for post in site.categories[category] %}
+			<li>
+				<h3>
+					<a href="{{ site.baseurl }}{{ post.url }}">
+					{{ post.title }}
+					<small>{{ post.date | date_to_string }}</small>
+					</a>
+				</h3>
+			</li>
+		{% endfor %}
+	{% else %}
+		{% assign subcategories = page.title %}
+		{% for post in site.categories[subcategories] %}
+			<li>
+				<h3>
+					<a href="{{ site.baseurl }}{{ post.url }}">
+					{{ post.title }}
+					<small>{{ post.date | date_to_string }}</small>
+					</a>
+				</h3>
+			</li>
+		{% endfor %}
+	{% endif %}
+
+</ul>
+</code></pre>
