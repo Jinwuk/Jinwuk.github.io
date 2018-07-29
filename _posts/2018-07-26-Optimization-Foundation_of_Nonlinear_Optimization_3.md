@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Foundation of Nonlinear Optimization-3"
+title:  "[Lecture Note 3] Foundation of Nonlinear Optimization-3"
 date:   2018-07-29 01:05:00 +0900
 categories: [Mathematics, Optimization]
 tags:
@@ -256,7 +256,7 @@ $$
 $$
 
 Consequently, $\frac{\partial^2 f(x)}{\partial x^2}$ is Positive SemiDefinite.
-** Q.E.D of Necessity ** 
+**Q.E.D of Necessity** 
 
 #### Proof of Sufficiency ($\Leftarrow$)
 Rewrite the twice differential as 

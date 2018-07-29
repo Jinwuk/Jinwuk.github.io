@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Foundation of Nonlinear Optimization-1"
+title:  "[Lecture Note 1] Foundation of Nonlinear Optimization-1"
 date:   2018-07-25 17:39:00 +0900
 categories: [Mathematics, Optimization]
 tags:
