@@ -21,7 +21,15 @@ Please give me a comment in the bottom of each page, when you have some question
 
 Thank you for your visiting  
 
-----  
+### Tip of the translation for Chrome users
+
+When you use the CHROME browser, as you know, translation of the page is very easy.
+On the top of the CHROME browser, click the button as the below  
+
+<img alt="Chrome Translation" src="/assets/img/chrome_translation.png?raw=true" width="600px" />
+
+then you can read the contents of this page with your native language and original language. 
+
 
 ## Head of articles in markdown
 As you
