@@ -14,8 +14,9 @@ comments: true
 
 The Kullback-Leibler divergence is so widely used in machine learning algorithm. However, the core properties of the KL-Divergence is not known so widely. Therefore, I will show the main properties of KL-Divergence between the statistical distribution including the second moments. Since the statistical property of big data generally follows to the Gaussian distribution by the law of large numbers, it is important to analyze the KL-Divergence for the statistical distribution with the second moment. 
 
-I'm going to show that the minimization problem of KL-Divergence is equal to the maximization of maximum liikelihood problem. (..and it is obvious.)
+I'm going to show that the minimization problem of KL-Divergence is equal to the maximization of maximum likelihood problem. (..and it is obvious.)
 KL Divergence를 최소화 하는 문제는 결국 Maximum Likelihood를 최대화 하는 문제로 귀결됨을 보인다. (뭐 당연하지만..)
+
 Assume that two probability distribution $p$ and $q$.
 
 ##  Definition KL Divergence
@@ -129,7 +130,7 @@ $$
 \mathbb{KL}(\mathcal{N}(\mu, \mathbf{C})||\mathcal{N}(0, \mathbf{I})) = \frac{1}{2} \left[ tr \mathbf{C} + \mu_1^T \mu_1 - \log (\det \mathbf{C}) - n \right]
 $$
 
-이떄 $\det \mathbf{C} > 0$ 이라 생각한다. 아닐 경우에는 $\det |\mathbf{C}|$ 이어야 한다.
+이때 $\det \mathbf{C} > 0$ 이라 생각한다. 아닐 경우에는 $\det \mid \mathbf{C} \mid$ 이어야 한다.
 
 
 ## Correspondence to Radon-Nykodym Derivation
