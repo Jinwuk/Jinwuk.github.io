@@ -303,7 +303,7 @@ $$
 r_i = - \frac{\langle g_{i+1}, g_{i+1} \rangle - \langle g_i, g_{i+1} \rangle}{\| g_i \|^2}
 $$
 
-- **Fletcher-Reeves Formula **
+- **Fletcher-Reeves Formula**
    - Since for the quadratic case, $\langle g_{i+1}, g_{i} \rangle = 0$, that results can be extended.
 $$
 r_i = - \frac{\| g_{i+1} \|^2}{\| g_i \|^2}
@@ -468,7 +468,7 @@ plot_result(X, Y, Z, np_rX, np_Cost)
 
 ```
 
-다음은  Rosenbrook 함수에서 Conjugate Gradient Descent 중 Fletcher-Reeves 방식으로 푀적화를 수행했을 때의 결과이다.  좌측부터 $\Epsilon = \text{Previous Cost} - \text{Current Cost}$, Cost, Step Size,  Search Point가 움직인 경로 (Initial Point [-0.25548896,  0.0705816] 에서 출발한 경로) 이다.
+다음은  Rosenbrook 함수에서 Conjugate Gradient Descent 중 Fletcher-Reeves 방식으로 최적화를 수행했을 때의 결과이다.  좌측부터 $\Epsilon = \text{Previous Cost} - \text{Current Cost}$, Cost, Step Size,  Search Point가 움직인 경로 (Initial Point [-0.25548896,  0.0705816] 에서 출발한 경로) 이다.
 
 <img alt="NLP_Quantization Fig 01" src="/assets/img/2018-08-06-nlp_001.png?raw=true" width="600px"/>
 
