@@ -59,4 +59,6 @@ If you want to know the detailed contents of "Jekyll", contact here [https://jek
 
 [Online_Kramdown_Editor](http://kramdown.herokuapp.com/)
 
+- If you need a markdown article including maths, instead of the above on-line Kramdown editor, use the following alternative on-line editor
+[Online upmath Editor](https://upmath.me/)
 ---
