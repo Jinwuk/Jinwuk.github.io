@@ -13,7 +13,7 @@ comments: true
 
 NLP_Quantization01.ipynb 을 기본으로 Armijo Rule, General Conjugate Descent, Quasi Newton 방법을 모두 구현해 본다. 간단하게 각 알고리즘을 비교해 보기 위하여 대체로 앞 부분은 Library로 모아본다.
 
-```python
+```
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
@@ -38,8 +38,12 @@ Initial_StepSize  = 0.9
 CGmethod          = 0            # 0 : Polak - Riebel
                                  # 1 : Fletcher-Reeves 
 # Quasi Newton
-AlgorithmWeight   = 0.0
-  
+AlgorithmWeight   = 0.0          # Weight of DFP if zero, it means that BFGS
+
+# Line Search (Golden Search)
+F                 = 0.618
+LimitofLineSearch = 20
+
 # Algorithm Control
 stop_condition    = 0.00003
 
@@ -65,7 +69,7 @@ Argument Parsing의 경우 Google colaboratory 에서는 잘 수행되지 않으
 * Python Program의 실행 성을 본다면 Argumet를 적극 이용하는 것이 좋다.
 
 
-```python
+```
 strAlgorithmName  = ['General Gradient', 'Conjugate Gradient', 'Quasi Newton'] 
 
 
@@ -146,7 +150,7 @@ $$
     - 하지만 그렇게 효과가 있지는 않다. 보다 적절한 방법이 필요할 것으로 생각된다.
 
 
-```python
+```
 fa = 1
 fb = 100
 
@@ -255,6 +259,99 @@ def print_process(step, epsilon, prev_cost, current_cost, np_lambda, X, lRecord,
 
 ```
 
+## Line Search : Golden Search
+
+Armijo Rule 이외에,  Quasi Newton의 경우,  Armijo Rule 보다 Line Search에 의해 Hessian의 기능을 극대화 (즉, 2차 함수 근사화) 시킬 필요성이 있다. 
+
+Golden Search에 의해 Gradient Descent 혹은 $-H^{-1} \nabla f(x)$ Line 에서의 값을 최소화 시키는 점을 찾아 그 점으로 움직이도록 Step Size를 결정하도록 한다.
+
+함수는 2개로 하나는 Line Search 로 $x_{n+1}$을 찾고, 나머지 하나는 $\alpha_t $를 찾는 것이다. 
+
+일반적인 경우 Line Search 는 Length $L = b_i - a_i$에 대하여 
+$$
+\begin{align}
+a_i &= a + (1 - F) \cdot L \\
+b_i &= b - (1 - F) \cdot L
+\end{align}
+$$
+이나,  $a_0 = x, b_0 = x - h$ 로 보면 $L$은  $-h$ 가 되므로 
+
+$$
+\begin{align}
+a_i &= x + (1 - F) (-h) = x - (1 - F) h \\
+b_i &= x - h - (1 - F)(-h) = x - h + h -Fh = x - Fh 
+\end{align}
+$$
+
+## Calculate StepSize
+
+다음과 같이 주어진 Search Alorithm에서
+
+$$
+x_{i+1} = x_i - \lambda h_i
+$$
+
+$\lambda$는 다음과 같이 구할 수 있다.
+
+$$
+\begin{align}
+\lambda h_i &= x_i - x_{i+1} \\
+\lambda \langle h_i, h_i \rangle &= (x_i - x_{i+1}) \cdot h_i \\
+\therefore \lambda &= \frac{1}{\langle h_i, h_i \rangle}(x_i - x_{i+1}) \cdot h_i  
+\end{align}
+$$
+
+
+```
+def LineSearch(x, h, debug=True):
+  a       = x
+  b       = x - h
+  chk_cnt = 0
+        
+  while True:   
+      L   = b - a
+      ai  = a + (1 - F) * L
+      bi  = b - (1 - F) * L
+      
+      Pai = inference(ai)
+      Pbi = inference(bi)
+
+      if Pbi <= Pai:
+         a = ai
+      else:        
+         b = bi
+
+      if debug:
+        print("[Step:", chk_cnt, "]", "a:", a, " ai:", ai, "f(ai)=", Pai, " b:", b, " bi:", bi, "f(bi)=", Pbi)
+
+      _dLenth  = ai - bi
+      _epsilon = np.linalg.norm(_dLenth)
+
+      bStopCondition = (chk_cnt >= LimitofLineSearch) or (_epsilon < stop_condition)
+      if bStopCondition : 
+        print("[Step:", chk_cnt, "]", "a:", a, " ai:", ai, "f(ai)=", Pai, " b:", b, " bi:", bi, "f(bi)=", Pbi)
+        break
+  
+      chk_cnt = chk_cnt + 1
+  
+  if Pbi <= Pai:
+     xn = bi
+  else:        
+     xn = ai
+    
+  return xn
+
+
+def CalulateStepsize(x, xn, h):
+  
+  test_01 = np.asscalar(np.dot((x - xn), h))
+  test_02 = np.asscalar(np.dot(h, h))
+  
+  Lambda  = test_01/test_02
+
+  return Lambda
+```
+
 ##  Initialization of Main Routine
 
 본 함수 시작전의 부분을 이곳에 놓는다.
@@ -262,7 +359,7 @@ def print_process(step, epsilon, prev_cost, current_cost, np_lambda, X, lRecord,
 일부 알고리즘은 $X_0$가 필요한 경우 이곳에서 관련 연산을 미리 수행한다.
 
 
-```python
+```
 #=================================================================
 # Main Routine
 #=================================================================
@@ -303,7 +400,7 @@ $$
 r_i = - \frac{\langle g_{i+1}, g_{i+1} \rangle - \langle g_i, g_{i+1} \rangle}{\| g_i \|^2}
 $$
 
-- **Fletcher-Reeves Formula**
+- **Fletcher-Reeves Formula **
    - Since for the quadratic case, $\langle g_{i+1}, g_{i} \rangle = 0$, that results can be extended.
 $$
 r_i = - \frac{\| g_{i+1} \|^2}{\| g_i \|^2}
@@ -325,7 +422,7 @@ $$
  - **BFGS Method**
 
 $$
-\beta_{i+1}^{BFGS} = \beta_i + \left( \frac{1 + \Delta x_i^T \beta_i \Delta x_i}{\langle \Delta x_i, \Delta g_i \rangle}\right) \frac{\Delta g_i \Delta g_i^T}{\langle \Delta g_i, \Delta x_i \rangle} - \frac{\Delta g_i \Delta x_i^T \beta_i + \beta_i \Delta x_i \Delta g_i^T}{\langle \Delta x_i, \Delta g_i \rangle}
+\beta_{i+1}^{BFGS} = \beta_i + \left( \frac{\langle \Delta x_i, \Delta g_i \rangle + \Delta g_i^T \beta_i \Delta g_i}{\langle \Delta x_i, \Delta g_i \rangle}\right) \frac{\Delta x_i \Delta x_i^T}{\langle \Delta x_i, \Delta g_i \rangle} - \frac{\beta_i \Delta g_i \Delta x_i^T  +  \Delta x_i \Delta g_i^T \beta_i}{\langle \Delta x_i, \Delta g_i \rangle}
 $$
 
 ### Python 구현상의 문제점
@@ -333,14 +430,18 @@ $$
 Matrix 연산이기 때문에 Python에서 처음부터 $x \in \mathbf{R}^2$ 에 대하여 [[x_1]\ [x_2]\ ... [x_n]] 과 같이 구성되도록 하여야 한다. 이때문에, Python code상에 Matlab 에서는 볼 수 없는 matrix 연산 명령이 나타나게 된다.
 
 
-```python
+```
 #=================================================================
 # Search Routine 
 #=================================================================
 for step in range(training_steps):
   
-  # Main Search Rule 
-  lm   = Armijo_Lambda(X, gr, h, prev_cost, bArmijo_On)
+  # Main Search Rule
+  if strAlgorithmName[SearchAlgorithm] == 'Quasi Newton':
+    Xmin = LineSearch(X, h, False)
+    lm   = CalulateStepsize(X, Xmin, h)
+  else:
+    lm   = Armijo_Lambda(X, gr, h, prev_cost, bArmijo_On)
 
   Xn   = X - lm * h
   gr_n = Calculate_Gradient(Xn) 
@@ -371,9 +472,9 @@ for step in range(training_steps):
     # BFGS Method
     dGdGt = np.dot(dG, dG.T)
     test_0 = np.asscalar(np.dot(dX.T, dG))
-    test_1 = np.asscalar(np.dot(dX.T, np.dot(B, dX))) + 1
-    test_2 = np.dot(dG, np.dot(dX.T, B)) + np.dot(B, np.dot(dX, dG.T))
-    Bn_BFGS= B + (test_1/test_0) * (dGdGt/test_0) - (test_2/test_0)
+    test_1 = np.asscalar(np.dot(dG.T, np.dot(B, dG))) + test_0
+    test_2 = np.dot(B, np.dot(dG, dX.T)) + np.dot(np.dot(dX, dG.T), B)
+    Bn_BFGS= B + (test_1/test_0) * (dXdXt/test_0) - (test_2/test_0)
 
     _pr = AlgorithmWeight
     B   = _pr * Bn_DFP + (1 - _pr)*Bn_BFGS
@@ -406,7 +507,7 @@ for step in range(training_steps):
 알고리즘 수행 후 최종 결과가 나타나는 부분이다.
 
 
-```python
+```
 #=================================================================
 # Final Routine 
 #=================================================================
@@ -467,8 +568,17 @@ plt.show()
 plot_result(X, Y, Z, np_rX, np_Cost)
 
 ```
-
-다음은  Rosenbrook 함수에서 Conjugate Gradient Descent 중 Fletcher-Reeves 방식으로 최적화를 수행했을 때의 결과이다.  좌측부터 $\Epsilon = \text{Previous Cost} - \text{Current Cost}$, Cost, Step Size,  Search Point가 움직인 경로 (Initial Point [-0.25548896,  0.0705816] 에서 출발한 경로) 이다.
+다음은 Quasi Newton으로 수행한 결과이다. Armijo Rile 대신 Line Search 방식을 사용하였다.
+```
+    =========== Final Result ===========
+    Algorithm : Quasi Newton
+       Step Size Rule : Armijo 
+       Algorithm Weight [DFP] : 0.0 [BFGS] :  1.0
+    ====================================
+    step:  19 epsilon: 0.00002339  prev_cost: 0.00000066 current_cost: 0.00000066  lambda 0.9918722345253849 X [0.99938116 0.99871038]
+    ====================================
+```
+다음은  Rosenbrook 함수에서 Conjugate Gradient Descent 중 Fletcher-Reeves 방식으로 최적화를 수행했을 때의 결과이다.  좌측부터 $\epsilon = \text{Previous Cost} - \text{Current Cost}$, Cost, Step Size,  Search Point가 움직인 경로 (Initial Point [-0.25548896,  0.0705816] 에서 출발한 경로) 이다.
 
 <img alt="NLP_Quantization Fig 01" src="/assets/img/2018-08-06-nlp_001.png?raw=true" width="600px"/>
 
