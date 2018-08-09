@@ -11,6 +11,9 @@ comments: true
 
 앞 post에 있는 [Nonlinear Optimization with Quantization [1]](https://jinwuk.github.io/multimedia%20and%20programming/python/2018/07/31/Multimedia_and_Programming-Python-NLP_Quantization01.html) 의 후속편이다. 
 
+
+# Nonlinear Optimization with Quantization [3]
+
 NLP_Quantization01.ipynb 을 기본으로 Armijo Rule, General Conjugate Descent, Quasi Newton 방법을 모두 구현해 본다. 간단하게 각 알고리즘을 비교해 보기 위하여 대체로 앞 부분은 Library로 모아본다.
 
 ```
@@ -50,7 +53,9 @@ stop_condition    = 0.00003
 SearchAlgorithm   = 2             # 0 : General Gradient
                                   # 1 : Conjugate Gradient
                                   # 2 : Quasi Newton  
-bArmijo_On        = True
+StepSizeRule      = 1             # 0 : Constant
+                                  # 1 : Armijo Rule
+                                  # 2 : Line Search
 ArmijoDebugFreq   = 10 
 Constant_StepSize = 0.002
 training_steps    = 1000          # Maximum Number of Training Steps
@@ -80,35 +85,18 @@ if bArgumentInput :
   
   parser = argparse.ArgumentParser(
       description="Nonlinear Optimization")
-  parser.add_argument('-a', '--algorithm', help= Algorithm_Help_String,                                             type=int)
-  parser.add_argument('-w', '--weight',    help="Weight for Quasi Newton WEIGHT x (DFP) + (1 - WEIGHT)(BFGS). The lower limit is 0.0 and highest limit is 1.0", type=float)
-  parser.add_argument('-df', '--debugfreq',help="Debugging Frequency. Ir means that each time of (time % df)==0 prints out the debugginf infot", type=int)
+  parser.add_argument('-a',  '--algorithm', help= Algorithm_Help_String, default= SearchAlgorithm * 2, type=int)
+  parser.add_argument('-w',  '--weight',    help="Weight for Quasi Newton WEIGHT x (DFP) + (1 - WEIGHT)(BFGS). The lower limit is 0.0 and highest limit is 1.0", type=float, default= AlgorithmWeight)
+  parser.add_argument('-df', '--debugfreq', help="Debugging Frequency. Ir means that each time of (time mod df)==0 prints out the debugginf infot", type=int, default=debugfrequency)
+  parser.add_argument('-s',  '--stepsize',  help="Stepsize Rule [0] Constant [1] Armijo Rule [2] Line Search", type=int, default=StepSizeRule )
   args = parser.parse_args()
 
   # Set Algorithm Type : It should be modified when a new algorithm is added
-  if args.algorithm == 1 :
-    bArmijo_On        = True
-    SearchAlgorithm   = 0
-  elif args.algorithm == 2 :
-      bArmijo_On      = True
-      CGmethod = 0
-      SearchAlgorithm = 1
-  elif args.algorithm == 3 :
-      bArmijo_On      = True
-      CGmethod = 1
-      SearchAlgorithm = 1
-  elif args.algorithm == 4 :
-      bArmijo_On      = True
-      SearchAlgorithm = 2
-  else:
-    bArmijo_On        = False
-    SearchAlgorithm   = 0
-  
-  if args.weight != None:
-    AlgorithmWeight = np.clip(args.weight, 0.0, 1.0)
-
-  if args.debugfreq != None:
-    debugfrequency = args.debugfreq
+  SearchAlgorithm = args.algorithm >> 1
+  CGmethod        = ((args.algorithm & 2)>>1) & (args.algorithm & 1)
+  AlgorithmWeight = np.clip(args.weight, 0.0, 1.0)
+  debugfrequency  = args.debugfreq
+  StepSizeRule    = args.stepsize
 ```
 
 ## Library 
@@ -283,6 +271,8 @@ b_i &= x - h - (1 - F)(-h) = x - h + h -Fh = x - Fh
 \end{align}
 $$
 
+Line Search에서의 Stop Condition 은 $\| a_i - b_i \| < \epsilon$ 혹은 최대 Iteration=20 으로 하였다. 
+
 ## Calculate StepSize
 
 다음과 같이 주어진 Search Alorithm에서
@@ -390,7 +380,7 @@ Stop Condition을 안에 넣을 것인가 고민하다가 일단 넣기로 하�
 
 정상적으로 출력이 되는지를 모두 테스트 한 후, 코드를 변경한다.
 
-### Comjugate Gradient
+### Conjugate Gradient
 
 Conjugate Gradient의 경우 다음 두 가지 방법 중 하나를 선택한다.
 
@@ -437,11 +427,13 @@ Matrix 연산이기 때문에 Python에서 처음부터 $x \in \mathbf{R}^2$ 에
 for step in range(training_steps):
   
   # Main Search Rule
-  if strAlgorithmName[SearchAlgorithm] == 'Quasi Newton':
+  if StepSizeRule == 0:
+    lm = Armijo_Lambda(X, gr, h, prev_cost, False)
+  elif StepSizeRule == 1:
+    lm = Armijo_Lambda(X, gr, h, prev_cost, True)
+  else:
     Xmin = LineSearch(X, h, False)
     lm   = CalulateStepsize(X, Xmin, h)
-  else:
-    lm   = Armijo_Lambda(X, gr, h, prev_cost, bArmijo_On)
 
   Xn   = X - lm * h
   gr_n = Calculate_Gradient(Xn) 
@@ -568,11 +560,12 @@ plt.show()
 plot_result(X, Y, Z, np_rX, np_Cost)
 
 ```
+
 다음은 Quasi Newton으로 수행한 결과이다. Armijo Rile 대신 Line Search 방식을 사용하였다.
 ```
     =========== Final Result ===========
     Algorithm : Quasi Newton
-       Step Size Rule : Armijo 
+       Step Size Rule : Line Search 
        Algorithm Weight [DFP] : 0.0 [BFGS] :  1.0
     ====================================
     step:  19 epsilon: 0.00002339  prev_cost: 0.00000066 current_cost: 0.00000066  lambda 0.9918722345253849 X [0.99938116 0.99871038]
@@ -585,3 +578,11 @@ plot_result(X, Y, Z, np_rX, np_Cost)
 다음은 3차원으로 도시된 Rosenbrook 함수에서 움직인 경로를 도시한 것이다. 
 
 <img alt="NLP_Quantization Fig 02" src="/assets/img/2018-08-06-nlp_002.png?raw=true" width="600px"/>
+
+## 본 프로그램의 사용
+
+본 포스트에 나와 있는 코드를 단순히 이어 붙여서 사용해도 된다.  기본적인 사용법은 -h 혹은 --help 옵션을 통해 알 수 있다.  
+
+보다 진보적인 방법은 본 프로그램에서 Search Algorithm에 해당하는 부분을 Class 객체화 시켜서 사용하여 기ㅖ학습 등에 적용하는 것이다.  해당 사항에 대해서는 추후에 다시 언급하도록 한다.
+
+
