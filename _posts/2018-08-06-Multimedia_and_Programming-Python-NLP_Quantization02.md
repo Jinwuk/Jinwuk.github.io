@@ -415,6 +415,28 @@ $$
 \beta_{i+1}^{BFGS} = \beta_i + \left( \frac{\langle \Delta x_i, \Delta g_i \rangle + \Delta g_i^T \beta_i \Delta g_i}{\langle \Delta x_i, \Delta g_i \rangle}\right) \frac{\Delta x_i \Delta x_i^T}{\langle \Delta x_i, \Delta g_i \rangle} - \frac{\beta_i \Delta g_i \Delta x_i^T  +  \Delta x_i \Delta g_i^T \beta_i}{\langle \Delta x_i, \Delta g_i \rangle}
 $$
 
+Let $p_i = \frac{1}{\langle \Delta x_i, \Delta g_i \rangle} \in \mathbf{R}$ .   Since$\Delta g_i^T \beta_i \Delta g_i \in \mathbf{R}$,  $(\Delta g_i^T \beta_i \Delta g_i )\Delta x \Delta x^T = \Delta x \Delta g_i^T \beta_i \Delta g_i \Delta x^T$ . Therefore, 
+
+$$
+\begin{aligned}
+\beta_{i+1}^{BFGS} &= \beta_i +p_i (1 + p_i \Delta g_i^T \beta_i \Delta g_i ) \Delta x_i \Delta x_i^T - p_i (\beta_i \Delta g_i \Delta x_i^T + \Delta x_i \Delta g_i^T \beta_i) \\
+&= \beta_i + p_i (\Delta x_i \Delta x_i^T + p_i \Delta x_i \Delta g_i^T \beta_i \Delta g_i \Delta x_i^T) - p_i (\beta_i \Delta g_i \Delta x_i^T + \Delta x_i \Delta g_i^T \beta_i) \\
+&= \beta_i - p_i (\beta_i \Delta g_i \Delta x_i^T + \Delta x_i \Delta g_i^T \beta_i) + p_i^2 \Delta x_i \Delta g_i^T \beta_i \Delta g_i \Delta x_i^T + p_i \Delta x_i \Delta x_i^T \\
+&= (I - p_i \Delta x_i \Delta g_i^T) \beta_i (I - p_i \Delta g_i \Delta x_i^T) + p_i \Delta x_i \Delta x_i^T
+\end{aligned}
+$$
+
+In may text books, $y_i : = \Delta g_i = \nabla f(x_{i+1}) -  \nabla f(x_i)$, and $s_i := \Delta x_{i+1} - \Delta x_i$, so that I re-write the above equation as follows:
+
+$$
+\beta_{i+1}^{BFGS} = (I - p_i s_i y_i^T) \beta_i (I - p_i y_i s_i^T) + p_i s_i s_i^T
+$$
+
+- **L-BFGS and Other ethods**
+
+Since it consumes a lot of computational power to implement the BFGS algorithm with C/C++ or FORTRAN arised from the computation of matrix, the Limited-memory BFGS (L-BFGS) was developed. However, now a days, the implementation of BFGS with Python does not need a such a recursive based fast algorithm, since Python supports effective matrix or vector computation by parallel processing based on SIMD(Single Instruction Mutiple Data) or GPU.   
+Consequently, I don't develope the L-BFGS algorithm with Python, however I will write the developing procedure of L-BFGS algorithm in another post.
+
 ### Python 구현상의 문제점
 
 Matrix 연산이기 때문에 Python에서 처음부터 $x \in \mathbf{R}^2$ 에 대하여 [[x_1]\ [x_2]\ ... [x_n]] 과 같이 구성되도록 하여야 한다. 이때문에, Python code상에 Matlab 에서는 볼 수 없는 matrix 연산 명령이 나타나게 된다.
