@@ -60,3 +60,17 @@ Back ground 색상 변화
     $layout-reverse: false !default;
     </code>
 ~~~
+
+Google Adsense and Google Analytics
+---------------------
+
+본 테마에서는 **_config.yml** 과 **include** 폴더의  **google-analytics.html** 파일과  **google-adsense.html**에서 해당 정보를 저장하고 이것이 각 post에 연결되도록 구성되어 있다.
+
+먼저 _config.yml 을 보면 다음과 같이 analytics와 adsense 정보에 대한 변수를 정의한다.
+
+~~~yml
+google_analytics: UA-123456789-1
+google_ad_client: ca-pub-1234567898765432
+~~~
+
+본 테마에서는 이 변수들을 참조하여 include 폴더내의 다른 html과 연동하여 자동으로 Analytics 정보와 ad-sense 정보가 반영 될 수 있도록 되어 있다. 구체적인 내용은 별도의 페이지를 통해 설명하도록 한다.  (생각보다 내용이 많다)

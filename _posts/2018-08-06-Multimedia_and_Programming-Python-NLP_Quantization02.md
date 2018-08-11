@@ -390,7 +390,7 @@ $$
 r_i = - \frac{\langle g_{i+1}, g_{i+1} \rangle - \langle g_i, g_{i+1} \rangle}{\| g_i \|^2}
 $$
 
-- **Fletcher-Reeves Formula **
+- **Fletcher-Reeves Formula**
    - Since for the quadratic case, $\langle g_{i+1}, g_{i} \rangle = 0$, that results can be extended.
 $$
 r_i = - \frac{\| g_{i+1} \|^2}{\| g_i \|^2}
@@ -432,7 +432,7 @@ $$
 \beta_{i+1}^{BFGS} = (I - p_i s_i y_i^T) \beta_i (I - p_i y_i s_i^T) + p_i s_i s_i^T
 $$
 
-- **L-BFGS and Other ethods**
+- **L-BFGS and Other Methods**
 
 Since it consumes a lot of computational power to implement the BFGS algorithm with C/C++ or FORTRAN arised from the computation of matrix, the Limited-memory BFGS (L-BFGS) was developed. However, now a days, the implementation of BFGS with Python does not need a such a recursive based fast algorithm, since Python supports effective matrix or vector computation by parallel processing based on SIMD(Single Instruction Mutiple Data) or GPU.   
 Consequently, I don't develope the L-BFGS algorithm with Python, however I will write the developing procedure of L-BFGS algorithm in another post.
