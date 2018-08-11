@@ -12,8 +12,6 @@ comments: true
 * Table of Contents
 {:toc}
 
-# Ito Formula - Solution of Basic SDE
-
 This article is a brief of the fundamental concept of Ito calculus, thus this article is written in the Korean language.  Especially, it deals with the way of the solution about the geometrical stochastic differential equation with the various aspect.
 
 ## Simple Fundamental Case
