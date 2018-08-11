@@ -2,7 +2,7 @@
 layout: post
 title:  "Riemannian Geometry (Very Essential)"
 date:   2018-07-05 14:49:00 +0900
-categories: [Mathematics, Riemann Geometry]
+categories: [Mathematics, Differential Geometry]
 tags:
   - Differential Geometry
   - Riemannian Geometry 
