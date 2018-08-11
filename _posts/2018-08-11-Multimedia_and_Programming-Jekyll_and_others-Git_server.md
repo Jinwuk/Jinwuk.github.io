@@ -1,7 +1,7 @@
---
+---
 layout: post
-title:  "Windows 에서 Git server 설치"
-date:   2018-08-11 18:56:00 +0900
+title:  "Windows에서 Git server 설치"
+date:   2018-08-11 20:56:00 +0900
 categories: [Multimedia and Programming, Jekyll_and_others]
 tags:
   - Git
@@ -39,7 +39,7 @@ Subversion도 마찬가지지만, HTTP 프로토콜을 기반으로 버전 관�
 개인적으로는 이 방법이 그 어떤 방법보다 가장 쉬운 방법이라 생각한다.
 
 ## Redmine Apache 서버를 사용한  Git Server 설치
-  
+
 Windows에 HTTP 서버 서비스를 구현하는 가장 간단한 방법은 **Bitnami**에서 제공하는 Apache 서버 솔루션을 설치하고 그 위에서 Git 서버를 구현하는 것이다. ([Bitnami App Catalog Link](https://bitnami.com/stacks))  혹은, 아예 Apache Home Page에서 Windows용 Apache를 설치하고 (디렉토리 구조가 동일하다) Git Server를 설치한 후, Apache 서버의 Config을 조절하여 구현할 수 있다. 
 
 대체로 Bitnami에서 제공하는 Apache 서버의 경우 설치 디렉토리만 잘 세팅되면 나머지 디렉토리 구조는 기본의 WIndows용 Apache 서버와 같은 디렉토리 구조를 가진다. (이점은, Redmine의 경우 버전이 달라지면 Ruby 관련 디렉토리가 달라지는 것과 비교하여 좋은 점이라 볼 수 있다.)
@@ -65,7 +65,7 @@ Windows에서 Apache를 "C:\Apache"로 설치하였다고 가정하자.
 mkdir test_git.git
 cd test_git.git
 ~~~
- 
+
 git 명령은 Windows용 Git Bash를 사용해야 한다. 디렉토리는 **test_git.git** 이다. (즉, c:\apache\htdocs\test_git.git)
 
 ~~~
@@ -76,7 +76,7 @@ git update-server-info
 즉, Command 창과 Git Bash 창을 동시에 사용해야 한다.
 다음 WebDav를 활성화 시켜야 한다. 
 
- 
+
 ### Apache WebDav 활성화
 
 
@@ -89,7 +89,7 @@ Apache 서버에서 **httpd.conf** 파일을 찾는다. 작업을 위해 일단,
 ~~~
 Dynamic Shared Object (DSO) Support
 ~~~
- 
+
 이 항목에서 다음의 Module 3개가 모두 Load 되도록 한다.
 
 ~~~
@@ -111,7 +111,7 @@ DocumentRoot "C:/apache2/htdocs"
 그 다음 Password File을 생성해야 한다. Bin 밑에 보면 htpasswd 가 있다. 이것을 사용하여 다음과 같이 만들자.
 (현재, ./conf 디렉토리로 가정하자.) 
 ~~~
-$ htpasswd -c passwd.git <user>
+> htpasswd -c passwd.git <user>
 ~~~
 
 만일 htpasswd.exe 가 불려지지 않는다면 이는 PATH 문제이다. ./bin 디렉토리 밑에 htpasswd.exe 가 존재하니, 거기서 똑같이 해주면 된다. 
@@ -140,7 +140,7 @@ DavLockDB  "c:\apache\var\DavLock"
      Require valid-user
 </Location>
 ~~~
- 
+
 
 주의할 점은 DavLockDB 경로를 잘 적어 주어야 한다는 점이다. (존재하지 않는다면 아무 Editor를 열고 해당 파일을 그냥 만들어 준다. 그러면 0 바이트의 DavLockDB 파일이 만들어진다. 단, 자동으로 만들어지는 것은 아니고 Apache 서버를 다시 가동 시켰을 때 만들어지는 것이므로 기동시킨 후 해당 파일이 생성되는지 살펴봐야 한다.)
 
@@ -163,13 +163,13 @@ Git은 Git Bare Repository에 있는 정보를 사용하여 Git Server Service�
 **Test_git.git 폴더의 권한**을 잡아 주어야 한다. Linux에서는 이 부분을 chmod 혹은 chown -R www.www 을 통해 수행하는데 Windows 에서는 전혀 다르다. Windows에서는 Exploere 에서 git Repository인 test_git.git 에 우측 마우스를 대고 **속성->보안**으로 들어가서
 
 **Authenticated Users**를 **모든 권한**으로 해 주어야 한다. 안 그러면 Git 에서 에러가 난다. 이로서 **WebDav로 인증된 사용자가 Git Remote 서버를 인증하여 사용**할 수 있게 된다.
- 
+
 
 ## Client 에서 Git Server 동작 테스트
 
 ### Git Bash 에서의 테스트
 만일 Git Bash가 있다면 다음과 같이 하여 Git Server 테스트 겸 README 파일을 Commit 시키게 된다. (경로는 Windows 경로가 되도록 한다)
- 
+
 ~~~
 mkdir ~/Desktop/test-project
 cd ~/Desktop/test-project
@@ -180,7 +180,7 @@ git add .
 git commit -a -m “Initial import”
 git push origin master
 ~~~
- 
+
 ### TortoiseGit 에서의 테스트
 만일 TortoiseGit 이 설치되어 있다면 다음과 같이 한다.
 
@@ -194,22 +194,22 @@ git push origin master
 <URL>
 http://jnwhome.iptime.org/test_git.git
 ~~~
- 
+
 이것만 넣어 주어도 자동적으로 origin 이 뜬다. 다음이 중요하다.
 
 ~~~
 <Push URL>
 http://MyID:MyPW@jnwhome.iptime.org/test_git.git
 ~~~
- 
+
 **꼭 ID와 PW를 http:// 앞에 같이 써주어야 한다.**
 
 그리고 PUSH를 해주면 Remote에 Push가 된다.
 
 ### 주의할 점 
 
-가급적 Git의 버전을ㅇ 2.10 이상의 것으로 하기 바란다.
-최근 Git 이 1.x대 버전에서 2.x 버전으로 업그레이드 하면서 Git 자체의 특성이 변화되어 제대로 Push/Pull이 안되는 에러가 발생한다.
+가급적 Git의 버전을 2.10 이상의 것으로 하기 바란다.
+최근 Git이 1.x대 버전에서 2.x 버전으로 업그레이드 하면서 Git 자체의 특성이 변화되어 제대로 Push/Pull이 안되는 에러가 발생한다.
 이를 해결하는 것은 결국 Git 자체를 업그레이드 하는 것 외에 방법이 없다 (Server 및 Client 모두)
 
 그러므로, 본 페이지에 나와 있는 Git 서버 설치를 하기 전에 Git의 업그레이드를 Server 및 Client 모두에서 먼저 수행하기를 바란다.
