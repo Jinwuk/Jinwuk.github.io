@@ -124,3 +124,6 @@ disqus:
 google_analytics: UA-122676285-1
 google_ad_client: ca-pub-2352406350095521
 
+# This parameter is for Jekyll test or debug
+test_google_analytics: false
+test_google_ad_client: false     

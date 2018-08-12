@@ -1,6 +1,5 @@
 <!-- google_ad_client: "ca-pub-2352406350095521" -->
-
-{% if jekyll.environment == 'production' and google_ad_client %}
+<!-- {% if jekyll.environment == 'production' and google_ad_client %} -->
 	<!-- google Adsence -->
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script> (adsbygoogle = window.adsbygoogle || []).push({
@@ -9,9 +8,11 @@
 	});
 	</script>
 
+<!-- {% endif %} -->
 
+<!-- Following Code is only used for debugging -->
+{% if site.test_google_ad_client %} 
+	{% include test-paragraph.html %}
+	{{ site.google_ad_client }}
 {% endif %}
-
-{% include test-paragraph.html %}
-
 
