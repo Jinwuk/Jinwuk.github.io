@@ -12,8 +12,6 @@ comments: true
 앞 post에 있는 [Nonlinear Optimization with Quantization [1]](https://jinwuk.github.io/multimedia%20and%20programming/python/2018/07/31/Multimedia_and_Programming-Python-NLP_Quantization01.html) 의 후속편이다. 
 
 
-# Nonlinear Optimization with Quantization [3]
-
 NLP_Quantization01.ipynb 을 기본으로 Armijo Rule, General Conjugate Descent, Quasi Newton 방법을 모두 구현해 본다. 간단하게 각 알고리즘을 비교해 보기 위하여 대체로 앞 부분은 Library로 모아본다.
 
 ```
