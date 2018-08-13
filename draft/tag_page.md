@@ -1,0 +1,1 @@
+As you see, you can find an appropriate article in my blog by clicking the category on the left side.  In addition, you can also find the article related Tag from this page. When you click the Tag that you are interested, you can see the name of the articles related the Tag.  
