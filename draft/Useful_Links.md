@@ -1,8 +1,3 @@
----
-layout: search
-title: Google Search
----
-
 ## Useful Links 
 For the purpose of writing without Microsoft's office solution or windows OS, I introduce some useful links for the writing of markdown, drawing solution as like VISIO, and others, here.
 
