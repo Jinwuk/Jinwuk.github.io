@@ -100,8 +100,8 @@ $F = 0.618 $ 에서 Golden Search
 | Step 1 | Set $l_i = b_i - a_i$ and Compute |
 |        | $ a'_i = a_i + (1 - F) l_i$ |
 |        | $ b'_i = b_i - (1 - F) l_i$ |
-| Step 2 | If $\phi(b'_i) \leq \phi(a'_i)$ set $a_{i+1} = a'_i, b_{i+1} = b_i$ |
-|        | else $\phi(b'_i) > \phi(a'_i)$ set $a_{i+1} = a_i, b_{i+1} = b'_i$ |
+| Step 2 | If $$\phi(b'_i) \leq \phi(a'_i)$$ set $$a_{i+1} = a'_i, b_{i+1} = b_i$$ |
+|        | else $$\phi(b'_i) > \phi(a'_i)$$ set $$a_{i+1} = a_i, b_{i+1} = b'_i$$ |
 | Step 3 | Set i++ and goto step 1 |
 
 
