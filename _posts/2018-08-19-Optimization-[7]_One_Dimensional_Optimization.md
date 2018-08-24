@@ -172,7 +172,7 @@ T &= \{ z \in \mathbb{R}^3 | \phi(z_2) \leq \min \{ \phi(z_1), \phi(z_3)\}, z_1 
 \end{align}
 $$
 
-즉, $q(\lambda|z) = q(\lambda)|_{(z_1, z_2, z_3)}$
+즉, $$q(\lambda\mid z) = q(\lambda)\mid _{(z_1, z_2, z_3)}$$
 
 $$
 \hat{\lambda} = \arg \min q(\lambda|z)
