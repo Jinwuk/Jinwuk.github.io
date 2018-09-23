@@ -18,3 +18,10 @@ You can also obtain his detailed information from [mendeley](https://www.mendele
 <!-- ORCID information 
 <div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0001-5318-1237" href="https://orcid.org/0000-0001-5318-1237" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0001-5318-1237</a></div>
 -->
+
+
+## Interested Joural
+The following information is obtained from the JCR-IF system ([Scimago Journal & Country Rank](https://www.scimagojr.com/journalrank.php)).
+
+<a href="https://www.scimagojr.com/journalsearch.php?q=25626&amp;tip=sid&amp;exact=no" title="SCImago Journal &amp; Country Rank"><img border="0" src="https://www.scimagojr.com/journal_img.php?id=25626" alt="SCImago Journal &amp; Country Rank"  /></a>
+
