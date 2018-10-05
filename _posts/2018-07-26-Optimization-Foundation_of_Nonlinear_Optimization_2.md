@@ -38,8 +38,7 @@ $$
 ## Convexity
 ### Convex Sets 
 We say a set $A \subset \mathbb{R}^n$ is convex,
-if every $x, y \in A$, the line connexting them is also in $A$. i.e.
-
+if every $x, y \in A$, the line connecting them is also in $A$. i.e.
 $$
 \forall x, y \in A, \;\; x + \lambda(y-x) \in A, \;\; \forall \lambda \in [0,1]
 $$
@@ -49,7 +48,7 @@ Let $S \subset \mathbb{R}^n$, A convex hull, $coS$, is the smallest convex set c
 ![Fig_09](http://jnwhome.iptime.org/img/Nonlinear_Optimization/01_09.png)
 
 ### Theorem C-1
-Let $S \subset \mathbb{R}^n$ . If $\bar{x} \in coS$ then  there exist at most $n+1$ distinct points $\{x_i\}_{i=1}^{n+1}$ in $S$ such that $\bar{x}=\sum_{i=1}^{n+1} \mu^i x_i, \;\; \mu^i > 0, \;\sum_{i=1}^{n+1}\mu^i = 1$
+Let $S \subset \mathbb{R}^n​$ . If $\bar{x} \in coS​$ then  there exist at most $n+1​$ distinct points $$\{x_i\}_{i=1}^{n+1}​$$ in $S​$ such that $\bar{x}=\sum_{i=1}^{n+1} \mu^i x_i, \;\; \mu^i > 0, \;\sum_{i=1}^{n+1}\mu^i = 1​$
 ![Fig10](http://jnwhome.iptime.org/img/Nonlinear_Optimization/01_10.png)
 두 점으로는 이렇게 만들기 어렵다는 것을 의미한다. 즉, 볼록 다항식이 Convex Set 안에 정의될 수 있음을 의미한다.
 ### Definition C-1
