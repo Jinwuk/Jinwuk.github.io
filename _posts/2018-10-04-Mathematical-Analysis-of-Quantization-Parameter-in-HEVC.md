@@ -17,6 +17,7 @@ In addition, we provides simple python codes to verify the represented equations
 ## 기본 양자화 방정식 
 
 비디오 코덱에서는 기본적으로 다음과 같은 방식으로 Quantization을 수행한다. 
+Basically, in the HEVC video codec, the quantization is conducted as the following equation: 
 
 $$
 Q(\mathcal{X}, q) = \left[ \frac{1}{q^{s}} \mathcal{X} \right] \approx \left[ \frac{1}{q^{s}} \mathcal{X} \times 2^{qbits} \right] \gg qbits
@@ -24,22 +25,25 @@ Q(\mathcal{X}, q) = \left[ \frac{1}{q^{s}} \mathcal{X} \right] \approx \left[ \f
 \tag{1}
 $$
 
-여기서 $bits$는 14이다. 
+여기서 $qbits$는 14이다. 
+where $qbits$ is 14.
 
 그런데, 직접 정수 나눗셈을 수행하는 것이 아니라,  Shift 연산을 통해 정수 나눗셈을 필요한 정확도를 가지면서 수행하는 것이 비디오 코덱의 기본이다. 이를 위해 기본적인 Quantization  범위를 살펴보면 다음과 같다. 
+
+
 
 |qp    | 0   | 1   | 2   | 3   | 4 | 5   | 6  |
 |---   |---  |---  |---  |---  |---|---  |--- |
 |$q^{s}$|0.625|0.703|0.797|0.891|1.0|1.125|1.25|
 
-이를 수식으로 나타내면 다음과 같다고 하면. 
+이를 수식으로 나타내면 다음과 같다. 
 
 $$
 q^s = 0.625 \cdot 2^{\left \lfloor \frac{q}{6} \right \rfloor + k \cdot (q \mod 6)}
 \tag{2}
 $$
 
-이떄, 비례상수 $k$를 알아보기 위해 위 식을 정리하면 다음과 같은 방정식이 유도된다.  만일 $m = (q \mod 6)$ 이라 하고 $m$ 값일 때의 Quantization Step을 $q_m^s$ 라 하면 
+이때, 비례상수 $k$를 알아보기 위해 위 식을 정리하면 다음과 같은 방정식이 유도된다.  만일 $m = (q \mod 6)$ 이라 하고 $m$ 값일 때의 Quantization Step을 $q_m^s$ 라 하면 
 
 $$
 \begin{aligned}
