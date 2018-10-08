@@ -72,7 +72,6 @@ $$
 
 위에서 언급한 최적의 Step Size $h_p$가 Maximum을 얻게 하려면
 The optimal step size $h_p$ yields a maximum we further require 
-
 $$
 \frac{\partial^2 G}{\partial h_p^2} = \langle \nabla f(x_p), H(x_p) \nabla f(X_p) \rangle < 0
 $$
@@ -94,7 +93,158 @@ $H(x_p)$ 가 Positive definite 이어야 한다.
 
 ### Newton's Method
 
+식 (1)을 $x$ 에 대하여 미분하고 $\nabla f(x) = 0$ 으로 놓은 후 $x \rightarrow x_{p+1}, \; a \rightarrow x_p$로 놓으면 다음과 같다.
 
+$$
+\begin{aligned}
+0 &\approx \nabla f(x_p) + H(x_p)(x_{p+1} - x_p) \\
+&\Rightarrow x_{p+1} = x_p - H^{-1}(x_p) \nabla f(x_p) 
+\end{aligned}
+\tag{4}
+$$
+
+이는 $h_p \equiv 1$ and $B = -H^{-1}(x_p)$ 이다. 이를  **different metric**에 의한 steepest ascent 방법으로 간주한다.
+
+#### Note : Different Metric Method 
+Euclidean Metric에서 $x$ 에서 $y$의 거리는 $\langle x-y, x-y \rangle^{\frac{1}{2}}$ 이다. 
+Distance from x to y in the Euclidean metric is $\langle x-y, x-y \rangle^{\frac{1}{2}}$. 
+If $B$ is a positive definite matrix, it is possible to define a new distance measure by $\langle x-y, B(x-y) \rangle^{\frac{1}{2}}$ 
+
+따라서 만일, $\langle x - x_0, B( x - x_0) \rangle^{\frac{1}{2}} = k^2$ 이면 Center $x_0$ 인 타원 평면에 거리가 정의된다.  
+
+
+식 (3)이 Exact 이면 $f(x)$ 는 Quadratic polynomial 이고 Newton's method yields the maximum in one step. However, if $f(x)$ is not exact in (3), it has an approximation to the  the maximum which is sufficiently close to it, then it may be expected to be a very ** good approximation**. 
+
+하지만, step size $h_p$ 가 너무 크다던가, $H(x)$ 가 Negative definite 라면, 제대로 된 Search가 어렵다. (당연한 것 )
+
+이에 대하여 본 논문은 같은 Quadratic Approximation을 사용하는데, Quadratic Approximation이 잘 되면 Step size를 중가 시키고 잘 되지 못했다면, step size를 줄이는 방식이다. 
+In this paper, a new method which uses the same quadratic approximation, including a parameter which limits the step size. This parameter is altered according to the apparent accuracy of the quadratic approximation so that the step size is increased in region where the approximation is good and cut down in regions where it is bad.
+
+## Restricted Maximization of a Quadratic Function
+
+Consider a quadratic function $f^Q(x)$, and the matrix $H$ is then constant. (Quadratic 이면 당연 !!) The expansions (3) and (4) are exact. (역시 Quadratic 이면 당연) 
+
+식 (4) 에서, 만일 $H$ 가 non-singular 이면
+
+$$
+c = a - H^{-1} \nabla f(a)
+
+\tag{5}
+$$
+
+is the unique point where $\nabla f(x) = 0$ 그리고 $H < 0$ 이면 $f^Q(x)$는 unique global minimum을 $c$에서 가지게 된다. 
+
+### Lemma 1 
+
+Let $\alpha$ be any number such that $H - \alpha I$ is negative definite, and define
+
+$$
+b_{\alpha} = a - (H - \alpha I)^{-1} \nabla f(a)
+\tag{6}
+$$
+
+$$
+r_{\alpha} = \| b_{\alpha} - a \|
+\tag{7}
+$$
+
+then $f^Q(b_{\alpha}) \geq f^Q(x)$ for all $x$ such that $\| x - a \| = r_{\alpha}$.
+
+#### proof
+
+Set an exact quadratic function $f^Q(x)$ such that
+
+$$
+f^Q(x) = f^Q(a) + \langle \nabla f^Q(a), x - a \rangle + \frac{1}{2} \langle x - a, H(x-a) \rangle
+$$
+
+Consider the quadratic function
+
+$$
+\begin{aligned}
+f^R(x) 
+
+&= f^Q(a) + \langle \nabla f^Q(a), x - a \rangle + \frac{1}{2} \langle x - a, (H - \alpha I)(x-a) \rangle \\
+
+&= f^Q(a) + \langle \nabla f^Q(a), x - a \rangle + \frac{1}{2} \langle x - a, H(x-a) \rangle - \frac{1}{2} \alpha \langle x-a, x-a \rangle \\
+
+&= f^Q(x) - \frac{1}{2} \alpha \| x - a \|^2
+\end{aligned}
+$$
+
+Since $H - \alpha I < 0$ is negative definite, (5) with H replaced by $H - \alpha I$ applies to show that $f^R(x)$ has a global maximum at $b_{\alpha}$. Thus for all $x$
+
+$$
+f^R(b_{\alpha}) = f^Q(b_{\alpha}) - \frac{1}{2} \alpha \| b_{\alpha} - a \|^2 \geq Q(x) - \frac{1}{2} \alpha \|x - a \|^2 = f^R(x)
+$$
+
+and if 
+
+$$
+\| x - a \| = r_{\alpha} = \| b_{\alpha} - a \|
+$$
+
+then $f^Q(b_{\alpha}) \geq f^Q(x)$ , as asserted.
+
+### Lemma 2
+If $\nabla f(a) \neq 0$ then the $r_{\alpha}$ defined (6), (7) is a strictly decreasing dunction of $\alpha$ on the interval $(\lambda_1, \infty)$ where $\lambda_1$ is the maximum eigrnvalue of H.
+
+#### proof
+From (6), (7)
+
+$$
+r_{\alpha} = \| (H - \alpha I)^{-1} \nabla f(a) \|
+$$
+
+and application of (A-4) in the Appendix with $H$ replaced by $(H - \alpha I)^{-1}$ yields 
+
+$$
+r^2_{\alpha} = \sum_{i=1}^n c_i^2 (\lambda_i - \alpha)^{-2}
+$$
+
+## Appendix : Property of Eigenvalue and Eigenvectors corresponding to a Symmetry Matrix 
+
+For real symmetric $n \times n$ matrix $H$, there exist $n$ eigenvalues  $ \lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n$ and $n$ mutual orthogonal unit vectors (Eigenvectors) $u_1, u_2, \cdots u_n$. 즉,
+
+$$
+H u_i = \lambda_i u_i
+$$
+
+
+이때, Symmetric Matrix의 Eigenvector 가 Orthogonal 이므로 임의의 벡터 $x$는 다음과 같이 Eigenvector의 Linear Combination이 된다.
+
+$$
+x = \sum_{i=1}^n c_i u_i \;\;\; \text{where } c_k \in \mathbf{R}
+$$
+
+그러므로 임의 Quadratic function $\langle x, Hx \rangle$은 따라서 
+
+$$
+\begin{aligned}
+\langle x, Hx \rangle 
+
+&= \langle \sum_i c_i u_i, H \sum_j c_j u_j \rangle \\
+&= \langle \sum_i c_i u_i, \sum_j c_j H u_j \rangle \\
+&= \langle \sum_i c_i u_i, \sum c_j \lambda_j u_j \rangle \\
+&= \sum_j \lambda_j \langle \sum_i c_i u_i, c_j u_j \rangle \\
+&= \sum_j \lambda_j c_j^2 \delta(i-j) \\
+&= \sum_i \lambda_i c_i^2
+\end{aligned}
+$$
+
+또한
+
+$$
+\|x\|^2 = \langle x, x \rangle = \sum_i^n c_i^2
+$$
+
+이때, $x$가 unit vector라고 하면 $\sum_i c_i^2 = 1$
+
+고로 Unit vector $x$에 대하여 maximum value of $\sum_i^n \lambda_i c_i^2$ 은 $\lambda_1$ 로 놓을 수 있다. 이떄, $c_1 = \pm 1$, $ c_k = 0 $, $\forall k \neq 1$ 이다.  (위의 조건에 부합한다.) 고로
+
+$$
+\max_{\| x \| = 1} \langle x, Hx \rangle = \lambda_1
+$$
 
 
 ## Reference
