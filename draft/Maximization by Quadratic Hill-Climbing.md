@@ -200,7 +200,35 @@ and application of (A-4) in the Appendix with $H$ replaced by $(H - \alpha I)^{-
 
 $$
 r^2_{\alpha} = \sum_{i=1}^n c_i^2 (\lambda_i - \alpha)^{-2}
+\tag{8}
 $$
+
+where $c_1 \cdots c_n$ 은 certain constants 이고 $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n$은 Eigenvalues of $H$ 이다.
+
+이떄, $\forall i, \;\; \lambda_i < \alpha$, 이므로 (8)은 $\alpha$에 대하여 Decreasing function.
+**Q.E.D**
+
+### Theorem
+Let $\alpha, b_{\alpha}$, and $r_{\alpha}$ be as in Lemma 1, let $B_{\alpha}$ be the region consisting of all $x$ such that $\| x - a \| \leq r_{\alpha}$, and suppose $\nabla f(a) \neq 0$. Then the maximum value of $f^Q(x)$ on $B_{\alpha}$ is attained at $b_{\alpha}$ if $\alpha \geq 0$, and is attained at $b_0$ if $\alpha < 0$. (In this case $b_0$ is interior to the region $B_{\alpha}$)
+
+#### proof 
+본 증명은 너무나 직관적임. 따라서 요약하지 않기로 함.
+
+### Lemma 3 
+If $\nabla f(a) = 0$, then the maximum value of $f^Q(x)$ on the region $B_r$ consisting of all $x$ with $\| x - a \| \leq r$ occurs at $a \pm ru_1$ if $\lambda_1$. (The maximum eigenvalue of $S$) is positive, and at $a$ otherwise. (Here $u_1$ is a unit eigenvector associated with $\lambda_1$
+
+**해당 Lemma의 증명도 자명하여 그냥 받아들이기로 함**
+Since the proof of the Lemma 3 is so trivial, that we accept it as true proposition.
+
+### Implementation of the algorithm
+
+
+
+
+
+
+
+
 
 ## Appendix : Property of Eigenvalue and Eigenvectors corresponding to a Symmetry Matrix 
 
@@ -208,6 +236,7 @@ For real symmetric $n \times n$ matrix $H$, there exist $n$ eigenvalues  $ \lamb
 
 $$
 H u_i = \lambda_i u_i
+\tag{A1}
 $$
 
 
@@ -215,6 +244,7 @@ $$
 
 $$
 x = \sum_{i=1}^n c_i u_i \;\;\; \text{where } c_k \in \mathbf{R}
+\tag{A2}
 $$
 
 그러므로 임의 Quadratic function $\langle x, Hx \rangle$은 따라서 
@@ -223,13 +253,14 @@ $$
 \begin{aligned}
 \langle x, Hx \rangle 
 
-&= \langle \sum_i c_i u_i, H \sum_j c_j u_j \rangle \\
-&= \langle \sum_i c_i u_i, \sum_j c_j H u_j \rangle \\
-&= \langle \sum_i c_i u_i, \sum c_j \lambda_j u_j \rangle \\
-&= \sum_j \lambda_j \langle \sum_i c_i u_i, c_j u_j \rangle \\
-&= \sum_j \lambda_j c_j^2 \delta(i-j) \\
-&= \sum_i \lambda_i c_i^2
+&= \langle \sum_i c_i u_i, H \sum_j c_j u_j \rangle 
+= \langle \sum_i c_i u_i, \sum_j c_j H u_j \rangle \\
+&= \langle \sum_i c_i u_i, \sum c_j \lambda_j u_j \rangle 
+= \sum_j \lambda_j \langle \sum_i c_i u_i, c_j u_j \rangle \\
+&= \sum_j \lambda_j c_j^2 \delta(i-j) 
+= \sum_i \lambda_i c_i^2
 \end{aligned}
+\tag{A3}
 $$
 
 또한
@@ -246,8 +277,23 @@ $$
 \max_{\| x \| = 1} \langle x, Hx \rangle = \lambda_1
 $$
 
+The squared norm of $Sx$ is given by ((A3)에 의해 간단히 유도 된다.)
+
+$$
+\| Hx \|^2 = \langle x, H^2 x \rangle = \sum_{i=1}^n \lambda_i^2 c_i^2
+\tag{A4}
+$$
+
+그런데, $H^2$은 $H$외 갗은 Eigenvalue를 공유하므로ㅓ $\forall x \in \mathbf{R}^n$ 에 대하여 다음이 성립한다.
+
+$$
+\| Hx \| \leq \|x\| \max |\lambda_i|
+$$
+
+위에서 논한대로 $H$의 Eigenvalue 들이 $\lambda_i$ 이면 $H - \alpha I$의 Eigenvalue는 $\lambda_i - \alpha$가 된다. 특히 만일 $H - \alpha I$이 Negative definite 이면  $\lambda_i - \alpha \Rightarrow \alpha > \lambda_i$ 이다. 
 
 ## Reference
+
 ~~~bibtex
 @book{hillclimbing,
   abstract = {The purpose of this paper is to describe a new gradient method for
