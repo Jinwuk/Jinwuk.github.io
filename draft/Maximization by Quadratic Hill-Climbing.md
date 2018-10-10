@@ -211,22 +211,55 @@ where $c_1 \cdots c_n$ 은 certain constants 이고 $\lambda_1 \geq \lambda_2 \g
 ### Theorem
 Let $\alpha, b_{\alpha}$, and $r_{\alpha}$ be as in Lemma 1, let $B_{\alpha}$ be the region consisting of all $x$ such that $\| x - a \| \leq r_{\alpha}$, and suppose $\nabla f(a) \neq 0$. Then the maximum value of $f^Q(x)$ on $B_{\alpha}$ is attained at $b_{\alpha}$ if $\alpha \geq 0$, and is attained at $b_0$ if $\alpha < 0$. (In this case $b_0$ is interior to the region $B_{\alpha}$)
 
-#### proof 
+#### Note of theorem  
 본 증명은 너무나 직관적임. 따라서 요약하지 않기로 함.
+일단, Exact Quadratic 이면 Maximum Value는 $\| x - a \| \leq r_{\alpha}$ 임을 의미 .  여기서 $x$는  $x_{p+1} = \arg \max_{x} f^Q(x)$ 가 된다. (실제로는 이렇게 되지 않겠지만) 
+
+$r_{\alpha} = \| (H - \alpha I) \|$ 임에도 이렇게 된다는 것은 매우 중요하다. 
 
 ### Lemma 3 
 If $\nabla f(a) = 0$, then the maximum value of $f^Q(x)$ on the region $B_r$ consisting of all $x$ with $\| x - a \| \leq r$ occurs at $a \pm ru_1$ if $\lambda_1$. (The maximum eigenvalue of $S$) is positive, and at $a$ otherwise. (Here $u_1$ is a unit eigenvector associated with $\lambda_1$
 
+#### Note of Lemma 3
 **해당 Lemma의 증명도 자명하여 그냥 받아들이기로 함**
 Since the proof of the Lemma 3 is so trivial, that we accept it as true proposition.
 
+위의 Theorem 에서 이미 보였지만, $\arg \max_{x} f^Q(x) = x_{p+1}$ 이 될 수 있음을 보였다. 
+이를 보다 엄밀하게 설명한 것이 Lemma 3 이다. 즉, $x^* = \arg{x} \nabla f^Q(x) = 0$ 인 $x^* \in B^o(a, r_{\alpha})$ 임을 설명한 것이다.
+As the above theorem already shows, it is true proposition that $\arg \max_{x} f^Q(x) = x_{p+1}$. The lemma 3 illustrates the meaning of theorem rigorously. In other words, it establish that if  $x^* = \arg{x} \nabla f^Q(x) = 0$ then $x^* \in B^o(a, r_{\alpha})$.  
+
 ### Implementation of the algorithm
 
+#### $\nabla f(x_p) \neq 0$ Significantly different from 0
 
+이 경우 다음과 같이 놓는다.
 
+$$
+\alpha = \lambda_1 + R \| \nabla f(x_p) \|
+$$
 
+where $\lambda_1$ is the largest eigenvalues of $H$, and $R$ is a **positive parameter** 
+Take
 
+$$
+x_{p+1} = x_p - (H(x_p) - \alpha I)^{-1} f(x_p)
+\tag{9}
+$$
 
+$$
+x_{p+1} = x_p - H^{-1}(x_p) f(x_p)
+\tag{10}
+$$
+
+Lemma와 Theorem에서 $x_{p+1} \in B^o(x^p, \|(H(x_p) - \alpha I)^{-1} \nabla f(x_p) \|$ 이면 **the maximum of the quadratic approximation** .
+
+- Lemma 2 에서 보듯, $\alpha$ 가 크다는 것은 $R$이 크다는 것이고 그에따라 $B_{\alpha} = B^o(x^p, \|(H(x_p) - \alpha I)^{-1} \nabla f(x_p) \|$ 는 $\alpha$가 커짐에 따라  
+- Eigenvalue of $(H(x_p) - \alpha I)^{-1} $ 는  ($H(x_p) $ 의 Eigenvalue는 $\lambda_i$ 이므로 )
+$$
+\mu_i = \frac{-1}{\lambda_1 + \| \nabla f(x_p) \| R - \lambda_i} \;\;\; \forall i \in \mathbf{Z}[1, n]
+$$
+
+그러므로 Largest absolute value is $\mu_1
 
 
 
