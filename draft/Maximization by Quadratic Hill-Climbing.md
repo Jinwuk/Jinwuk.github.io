@@ -172,10 +172,10 @@ f^R(x)
 \end{aligned}
 $$
 
-Since $H - \alpha I < 0$ is negative definite, (5) with H replaced by $H - \alpha I$ applies to show that $f^R(x)$ has a global maximum at $b_{\alpha}$. Thus for all $x$
+Since $H - \alpha I < 0$ is negative definite, (5) with $H$ replaced by $H - \alpha I$ applies to show that $f^R(x)$ has a global maximum at $b_{\alpha}$. Thus for all $x$
 
 $$
-f^R(b_{\alpha}) = f^Q(b_{\alpha}) - \frac{1}{2} \alpha \| b_{\alpha} - a \|^2 \geq Q(x) - \frac{1}{2} \alpha \|x - a \|^2 = f^R(x)
+f^R(b_{\alpha}) = f^Q(b_{\alpha}) - \frac{1}{2} \alpha \| b_{\alpha} - a \|^2 \geq f^Q(x) - \frac{1}{2} \alpha \|x - a \|^2 = f^R(x)
 $$
 
 and if 
@@ -230,7 +230,7 @@ As the above theorem already shows, it is true proposition that $\arg \max_{x} f
 
 ### Implementation of the algorithm
 
-#### $\nabla f(x_p) \neq 0$ Significantly different from 0
+#### $\nabla f(x_p) \neq 0$ : Significantly different from 0
 
 이 경우 다음과 같이 놓는다.
 
@@ -240,7 +240,6 @@ $$
 
 where $\lambda_1$ is the largest eigenvalues of $H$, and $R$ is a **positive parameter** 
 Take
-
 $$
 x_{p+1} = x_p - (H(x_p) - \alpha I)^{-1} f(x_p)
 \tag{9}
@@ -259,9 +258,166 @@ $$
 \mu_i = \frac{-1}{\lambda_1 + \| \nabla f(x_p) \| R - \lambda_i} \;\;\; \forall i \in \mathbf{Z}[1, n]
 $$
 
-그러므로 Largest absolute value is $\mu_1
+위에서 논한대로 $H$의 Eigenvalue 들이 $\lambda_i$ 이면 $H - \alpha I$의 Eigenvalue는 $\lambda_i - \alpha$가 된다. 특히 만일 $H - \alpha I$이 Negative definite 이면  $\lambda_i - \alpha \Rightarrow \alpha > \lambda_i$ 이다. 
+따라서 가장 큰 $u_i$의 절대값은 $\| u_i \| = (\| \nabla f(x_p) \| R)^{-1}$ 이다. 그러므로 $B_{\alpha}$ 의 radius는 
+$$
+\| (H(x_p) - \alpha I)^{-1} \nabla f(x_p) \| \leq (\| \nabla f(x_p) \| R)^{-1} \| \nabla f(x_p) \| = R^{-1}
+$$
 
+만일, $R$이 매 step 마다 Update 된다고 가정하면, 알고리즘이 Quadratic Maximum 근처에 접근하면 Step Size는 증가하게 되고, 반대로 멀어지면 Step Size는 줄어드는 방식이 된다. [8]
 
+#### $\nabla f(x_p) \approx 0$ : near maximum
+
+이 경우에는 step size가 a preset tolerance of 0 에 위치해 있으므로 만일, $H(x_p)$가 Negative Definite이면 Process는 중단되고 $x_p$는 Maximum value가 될 것이다.
+
+만일 negative definite이 아니라면 이는 Saddle point이므로 Lemma 3이 적용될 것이며 **Step **은 $\lambda_1$에 비례하는 Eigen Vector에 따라 움직이게 될 것이다. 
+
+#### Brief : Final Algorithm
+
+그러므로 어떤 적절한 step size $h(x_p) \in \mathbf{R}$를 도입하면 다음과 같은 Search 방정식을 얻을 수 있다.
+Therefore, if we introduce an appropriate scalar step size such as $h(x_p) \in \mathbf{R}$, we can obtain the following search equation:
+
+$$
+x_{p+1} = x_p - h(x_p)(H(x_p) - \alpha I)^{-1} \nabla f(x_p)
+$$
+
+이떄, $h(x_p)$는 Armijo Rule이나 Golden Search등을 사용하면 된다.
+
+## Conclusion 
+
+본 논문을 살펴본 이유는 본 논문이 Hill-Climbing 특징을 서술하고 있기 때문이며 그 원인은 다음과 같은 Rank-1 Method를 사용하고 있기 때문이다. 
+
+### Brief 
+Lemma-1 에서
+
+$$
+f^R(x) 
+= f^Q(a) + \langle \nabla f^Q(a), x - a \rangle + \frac{1}{2} \langle x - a, H(x-a) \rangle - \frac{1}{2} \alpha \langle x-a, x-a \rangle
+$$
+
+로 놓았다.  $f^R(x)$ 를 0에 대하여 미분하고 $\nabla f^R(x) = 0$ 이라 하면.
+
+$$
+0 = \nabla f^R(x) 
+= \nabla f^Q(a) + H(x-a) - \alpha (x-a)
+$$
+
+여기에서 
+
+$$
+-\nabla f^Q(a)= (H - \alpha I)(x-a) \Rightarrow x = a - (H - \alpha I)^{-1}\cdot \nabla f^Q(a)
+$$
+으로 접근한 것이 본 논문이다.
+
+즉,  $H(x_p)$ 대신
+
+$$
+(H(x_p) - \alpha I)^{-1}
+$$
+
+이에 의해 $x_p$ 주변의 적절한 Radius를 가정하기 위해 다음과 같이 $\alpha$를 놓았다.
+
+$$
+\alpha = \lambda_1 + R \| \nabla f(x_p) \|
+$$
+
+이에 의해 탐색 영역의 Radius는 
+
+$$
+\| (H(x_p) - \alpha I)^{-1} \nabla f(x_p) \| \leq (\| \nabla f(x_p) \| R)^{-1} \| \nabla f(x_p) \| = R^{-1}
+$$
+
+의 영역을 가지게 되고 $x_{p+1}$이 다음의 조건을 만족하게 되면 
+
+$$
+x_{p+1} \in B^o(x^p, \|(H(x_p) - \alpha I)^{-1} \nabla f(x_p) \|
+$$
+
+Maxima를 찾을 수 있다는 의미이다. 고로,  $x_p$ 점에서 정확한 Newton-Rapson 법에 의한 Search가 아니라 하더라도 위의 조건을 만족하는 $\alpha$의 값이 정의되면 이에 종속적인 영역내에 $x_p$가 있기만 해도 Maxima를 찾을 수 있음을 의미한다.
+
+### My Comment 
+
+위에서 $R$ 를 다음과 같이 factorizing 시키면 
+
+$$
+R^{-1} = \varepsilon^{-1} - (\varepsilon + 1)^{-1}
+$$
+
+이렇게 놓으면 $R = \varepsilon ( \varepsilon + 1)$ 이 된다. 이에 따라 
+
+$$
+\| (H(x_p) - \alpha I)^{-1} \nabla f(x_p) \| \leq (\| \nabla f(x_p) \| R)^{-1} \| \nabla f(x_p) \| = (\| \nabla f(x_p) \| (\varepsilon^2 + \varepsilon))^{-1} \| \nabla f(x_p) \| = \frac{1}{\varepsilon} - \frac{1}{\varepsilon + 1}
+$$
+
+따라서 $\alpha$ 를 다음과 같이 쓸 수 있다. 
+
+$$
+\alpha = \lambda_1 + \varepsilon(\varepsilon + 1) \| \nabla f(x) \| = \lambda_1 + \varepsilon^2 \| \nabla f(x) \| + \varepsilon \| \nabla f(x) \|
+$$
+
+그런데 $R > 1$ 이어야 하므로 ($0 < R^{-1} < 1$)에서 $R \approx \varepsilon^2$ 그러므로 다음과 같이 Factorization 한다.
+
+$$
+\bar{a} = \lambda_1 + \varepsilon^2 \|\nabla f(x) \|, \;\;\; \beta = \varepsilon \| \nabla f(x) \|
+$$
+
+이에 따라, 
+
+$$
+(H - (\bar{a} + \beta) I)^{-1} = \left( (H - \bar{a}I) - \beta I\right) = (A - \beta I)^{-1}
+$$
+
+where $A = H - \bar{a}$. 여기에 Simple Matrix Inversion Lemma를 적용하면
+
+$$
+\begin{aligned}
+(A - \beta I)^{-1} &= (-\beta)^{-1} (I - \beta^{-1} A) \\
+
+&= (-\beta)^{-1} \left( I + (I - \beta^{-1} A)^{-1} \beta^{-1} A \right)\\
+&= (-\beta)^{-1} \left( I + (\beta I - A)^{-1} \right) = (-\beta)^{-1} I + (-\beta)^{-1} (\beta I - A)^{-1} \cdot A \\
+&= (A - \beta I)^{-1} \beta^{-1} A - \beta^{-1}I
+\end{aligned}
+$$
+
+따라서, 
+
+$$
+\begin{aligned}
+\|(A - \beta I)^{-1} \nabla f(x) \| &\leq \left\| (A - \beta I)^{-1} \beta^{-1} A - \beta^{-1}I \right\| \cdot \| \nabla f(x) \| \\
+
+&\leq \left( \left\| (A - \beta I)^{-1} \beta^{-1} A \right\| + \| \beta^{-1} \|  \right) \cdot \| \nabla f(x) \| \\
+
+& \leq \left( \| (A - \beta I)^{-1} \| \cdot \| A \| \cdot \|\beta^{-1}\| + \| \beta^{-1} \| \right) \cdot \| \nabla f(x) \| \\
+
+&= (\| (A - \beta I)^{-1} \| \cdot \| A \| + 1) \|\beta^{-1}\| \cdot \| \nabla f(x) \| \\
+&= (\| (A - \beta I)^{-1} \| \cdot \| A \| + 1) \cdot \varepsilon^{-1} \\
+&\leq (\| \nabla f(x) \| R)^{-1} \varepsilon \| \nabla f(x) \| + \varepsilon^{-1}  \;\;\;\because \|A\| = \varepsilon^2 \| \nabla f(x) \| \\
+&= R^{-1} \varepsilon + \varepsilon^{-1} = \varepsilon \cdot \left( \frac{1}{\varepsilon} - \frac{1}{\varepsilon + 1} \right) + \frac{1}{\varepsilon} \\
+&= 1 - \frac{\varepsilon}{\varepsilon + 1} + \frac{1}{\varepsilon} = R
+\end{aligned}
+\tag{11}
+$$
+
+식 (11) 에서, $\varepsilon \rightarrow \infty$ 이면 
+
+$$
+\lim_{\varepsilon \rightarrow \infty} \|(A - \beta I)^{-1} \nabla f(x) \| = 1 - 1 - 0 = 0
+$$
+
+Exact한 경우에 해당된다.
+그런데,  Exact한 경우에 대하여 $R$ 혹은 $\frac{1}{\varepsilon} - \frac{1}{\varepsilon + 1}$ 만큼의 차이가 존재하기 때문에 이만큼의 Error 혹은 Hill-Climbing 요소가 있다고 생각할 수 있다. 
+
+이를 사용하여, Stochastic 한 성분이 존재하고 있다고 보면,  이후** Stochastic Analysis를 적용하여 해석할 수 있다. 이는 이후에 생각하기로 한다.** (해석 하는 방법론이 같다.)
+
+#### Note : Simple Matrix Inversion Lemma
+
+$$
+\begin{aligned}
+(I - a^{-1} P)^{-1} 
+&= I + (I - a^{-1} P)^{-1} a^{-1} P \\
+&= I + (a \cdot I - P)^{-1} P \;\;\;\;\; a \in \mathbf{R}
+\end{aligned}
+$$
 
 ## Appendix : Property of Eigenvalue and Eigenvectors corresponding to a Symmetry Matrix 
 
@@ -323,7 +479,6 @@ $$
 \| Hx \| \leq \|x\| \max |\lambda_i|
 $$
 
-위에서 논한대로 $H$의 Eigenvalue 들이 $\lambda_i$ 이면 $H - \alpha I$의 Eigenvalue는 $\lambda_i - \alpha$가 된다. 특히 만일 $H - \alpha I$이 Negative definite 이면  $\lambda_i - \alpha \Rightarrow \alpha > \lambda_i$ 이다. 
 
 ## Reference
 
