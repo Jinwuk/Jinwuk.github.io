@@ -253,7 +253,7 @@ the mutiple production of $(1+g_j)$ in $\eqref{eq01:col}$ is replaced with $\exp
 $$
 \begin{aligned}
 y_n &\leq f_n + \sum_{0 \leq k \leq n} f_k g_k \prod_{k < j < n}(1 + g_j )\\
-&\leq f_n + \sum{0 \leq k \leq n} f_k g_k \exp(\sum_{k < j < n} g_j)
+&\leq f_n + \sum_{0 \leq k \leq n} f_k g_k \exp(\sum_{k < j < n} g_j)
 \end{aligned}
 \label{eq01:main}
 \tag{10}
@@ -268,8 +268,8 @@ When we replaced $gj$ to a positive constant $L$, we can obtain the following Gr
 $$
 \begin{aligned}
 y_n
-&\leq f_n + \sum{0 \leq k \leq n} f_k L \exp(\sum_{k < j < n} L) \\
-&\leq f_n + L \sum{0 \leq k \leq n} f_k \exp(L(n-k)) \\
+&\leq f_n + \sum_{0 \leq k \leq n} f_k L \exp(\sum_{k < j < n} L) \\
+&\leq f_n + L \sum_{0 \leq k \leq n} f_k \exp(L(n-k)) \\
 \end{aligned}
 $$
 
