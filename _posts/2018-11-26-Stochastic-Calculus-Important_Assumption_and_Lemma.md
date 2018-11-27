@@ -63,7 +63,7 @@ $$
 for all $t \in [t_0, T]$ and $x, y \in \mathbf{R}$
 
 ### Initial value 
-$X_{t_0}$ is $\mathcal{F}_{t_0}$ -measurable with $\mathbb{E}(\|X_{t_0}\|^2) < \infty$.
+$X_{t_{0}}$ is $\mathcal{F}_{t_0} $ measurable with $\mathbb{E}( \|X_{t_0} \|^2) < \infty$.
 
 ## Lemma
 ### Grownwall Inequality
