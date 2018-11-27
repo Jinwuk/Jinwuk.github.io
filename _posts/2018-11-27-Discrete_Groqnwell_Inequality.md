@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Discrete_Groqnwell_Inequality"
+title:  "DiscreteGronwall Inequality"
 date:   2018-11-27 01:45:00 +0900
 categories: [Mathematics, Stochastic Calculus]
 tags:
