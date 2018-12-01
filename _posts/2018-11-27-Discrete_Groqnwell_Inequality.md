@@ -39,7 +39,7 @@ and therein lies the problem.
 
 이러한 경우에 대한 해석을 위해 Discrete Gronwell's Lemma가 필요하다. 
 
-In [1], let  $\{x_n\}_{n=0}^{\infty}, \; \{a_n\}_{n=0}^{\infty}, \text{and} \; \{b_n\}_{n=0}^{\infty}$ be sequences of real numbers, with the $b_n \geq 0$, which satisfy
+In [1], let  $$\{x_n\}_{n=0}^{\infty}, \; \{a_n\}_{n=0}^{\infty}, \text{and} \; \{b_n\}_{n=0}^{\infty}$$ be sequences of real numbers, with the $b_n \geq 0$, which satisfy
 
 $$
 x_n \leq a_n + \sum_{j=n_0}^{n-1} b_j x_j n, \;\;  \in \mathbf{Z}[n_0, \infty]
@@ -221,7 +221,7 @@ $$
 
 - No $k < j$ so that $\sum_{0\leq k < m} \sum_{0\leq j < k} = \sum_{0\leq j < m-1} \sum_{j \leq k < m}$. It is trivial
 
-Consequently, $x_n = \chi_n$. 
+Consequently, $x_n = \chi_n​$. 
 
 **Q.E.D**
 
