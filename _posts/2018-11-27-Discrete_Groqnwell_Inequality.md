@@ -39,7 +39,7 @@ and therein lies the problem.
 
 이러한 경우에 대한 해석을 위해 Discrete Gronwell's Lemma가 필요하다. 
 
-In [1], let $\{x_n\}_{n=0}^{\infty}$, $\{a_n\}_{n=0}^{\infty}$, and $\{b_n\}_{n=0}^{\infty}$ be sequences of real numbers, with the $b_n \geq 0$, which satisfy
+In [1], let $$\{x_n\}_{n=0}^{\infty}$$, $$\{a_n\}_{n=0}^{\infty}$$, and $$\{b_n\}_{n=0}^{\infty}$$ be sequences of real numbers, with the $b_n \geq 0$, which satisfy
 
 $$
 x_n \leq a_n + \sum_{j=n_0}^{n-1} b_j x_j n, \;\;  \in \mathbf{Z}[n_0, \infty]
@@ -59,7 +59,7 @@ $$
 x_n \leq a_{\theta} \prod_{j=n_0}^{n-1} (1 + b_j), \;\; n \in \mathbf{Z}[n_0, N]
 $$
 
-In paticular, for $\bar{a}_{\theta} = \min a_{\theta} \prod_{j=n_0}^{n-1} (1 + b_j), \; \text{for } \theta \in S(n_0, N),\; n \in \mathbf{Z}[n_0, N] $,
+In paticular, for $$\bar{a}_{\theta} = \min a_{\theta} \prod_{j=n_0}^{n-1} (1 + b_j), \; \text{for } \theta \in S(n_0, N),\; n \in \mathbf{Z}[n_0, N] $$,
 
 $$
 x_n = \bar{a}_{\theta} \prod_{j=n_0}^{n-1} (1 + b_j), \;\; n \in \mathbf{Z}[n_0, N]

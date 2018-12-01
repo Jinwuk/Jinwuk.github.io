@@ -63,7 +63,16 @@ $$
 for all $t \in [t_0, T]$ and $x, y \in \mathbf{R}$
 
 ### Initial value 
-$X_{t_{0}}$ is $\mathcal{F}_{t_0} $ measurable with $\mathbb{E}( \|X_{t_0} \|^2) < \infty$.
+$X_{t_{0}}$ is $$\mathcal{F}_{t_0}$$measurable with $\mathbb{E}( \|X_{t_0} \|^2) < \infty$.
+
+### H&ouml;lder continuous condition
+
+The following is the **$\alpha$-H&ouml;der continuous**
+$$
+\| f(x) - f(y) \| \leq C \| x - y\|^{\alpha}
+$$
+
+If $\alpha=1$ then it is a Lipschitz condition. 
 
 ## Lemma
 ### Grownwall Inequality
