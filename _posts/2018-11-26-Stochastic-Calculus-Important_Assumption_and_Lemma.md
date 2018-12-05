@@ -242,6 +242,12 @@ $$
 
 이는 **Discrete index (n)** 에 대한 **Continuous index t** 가 존재하는 경우에 대한 해석학적 표현에서 매우 중요한 방법론이다.
 
+### Borel Cantelli Lemma
+For any sequence of events $$A_1, A_2, \cdots A_n, \cdots \in \mathcal{A}$$
+
+$$
+P \left( \cap_{n=1}^{\infty} \cup_{k=n}^{\infty} A_k \right) = 0 \;\;\text{if } \sum_{n=1}^{\infty} P(A_n) < \infty
+$$
 
 ## References
 [1]
