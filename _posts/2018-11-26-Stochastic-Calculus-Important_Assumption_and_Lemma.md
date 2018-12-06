@@ -246,8 +246,19 @@ $$
 For any sequence of events $$A_1, A_2, \cdots A_n, \cdots \in \mathcal{A}$$
 
 $$
-P \left( \cap_{n=1}^{\infty} \cup_{k=n}^{\infty} A_k \right) = 0 \;\;\text{if } \sum_{n=1}^{\infty} P(A_n) < \infty
+P \left( \bigcap_{n=1}^{\infty} \bigcup_{k=n}^{\infty} A_k \right) = 0 \;\;\text{if } \sum_{n=1}^{\infty} P(A_n) < \infty
 $$
+
+### Exponential Inequality
+Simple but very important.  Suppose that $h < 1$ and $r_1 > h$, then
+
+$$
+(1 + r_1 h)^n \leq e^{r_1}
+$$
+
+as $n$ is increased.
+
+
 
 ## References
 [1]
