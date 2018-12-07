@@ -104,7 +104,7 @@ Apply **Grownwall's Lemma** with
 
 $$
 \alpha(t) = \mathbb{E}\left( \left| Z_t^{(N)} \right|^2 \right)
-$$ 
+$$
 
 and $$\beta(t) \equiv 0​$$, then
 
@@ -172,9 +172,7 @@ By the Cauchy-Schwartz inequality,
 $$
 \begin{aligned}
 \left| \int_{t_0}^T A(s) ds \right|^2 
-
 &\leq \int_{t_0}^T \left| A(s) \right| ds \cdot \int_{t_0}^T \left| A(s) \right| ds \\
-
 &\leq \int_{t_0}^T \left| A(s) \right|^2 ds \cdot \int_{t_0}^T  ds 
 \;\;\; \because |a|^2 \leq |A|^3
 \end{aligned}
@@ -195,13 +193,9 @@ we obtain
 $$
 \begin{aligned}
 \mathbb{E} \left( \left| X_t^{(n+1)} \right|^2 \right)
-
 &\leq 3 \mathbb{E} \left( \left| X_{t_0} \right|^2 \right) + 3 \mathbb{E} \left( \left| \int_{t_0}^t a(s, X_s^{(n)}) ds \right|^2 \right) + 3 \mathbb{E} \left( \left| \int_{t_0}^t b(S, X_s^{(n)}) dW_s \right|^2 \right)  \\
-
 &\leq 3 \mathbb{E} \left( \left| X_{t_0} \right|^2 \right) + 3 (T - t_0) \mathbb{E} \left(  \int_{t_0}^t \left| a(s, X_s^{(n)}) \right|^2 ds  \right) + 3 \mathbb{E} \left( \int_{t_0}^t \left| b(S, X_s^{(n)}) \right|^2 d_s  \right) \\
-
 &\leq 3 \mathbb{E} \left( \left| X_{t_0} \right|^2 \right) + 3 (T - t_0 + 1) K^2 \mathbb{E} \left( \int_{t_0}^t \left( 1 + \left| X_s^{(n)} \right|^2 \right) d_s  \right)
-
 \end{aligned}
 $$
 
