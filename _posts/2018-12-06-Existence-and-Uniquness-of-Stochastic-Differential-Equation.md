@@ -100,7 +100,13 @@ $$
 
 for $$ t \in [t_0, T]$$ where $$L = 2(T - t_0 + 1)K^2 $$.
 
-Apply **Grownwall's Lemma** with $$\alpha(t) = \mathbb{E}\left( \left| Z_t^{(N)} \right|^2 \right)​$$ and $$\beta(t) \equiv 0$$, then
+Apply **Grownwall's Lemma** with 
+
+$$
+\alpha(t) = \mathbb{E}\left( \left| Z_t^{(N)} \right|^2 \right)
+$$ 
+
+and $$\beta(t) \equiv 0​$$, then
 
 $$
 \alpha(t) \leq \beta(t) + L \int_{t_0}^t e^{L(t-s)}\beta(s) ds
@@ -162,6 +168,7 @@ Applying the inequality $$(a + b +c)^2 \leq 3(a^2 + b^2 + c^2)$$, the Cauchy-Sch
 
 **Note 1**
 By the Cauchy-Schwartz inequality,
+
 $$
 \begin{aligned}
 \left| \int_{t_0}^T A(s) ds \right|^2 
@@ -179,10 +186,12 @@ $$
 \left| \int_{t_0}^T A(s) ds \right|^2 = (T - t_0) \int_{t_0}^T \left| A(s) \right|^2 ds
 \tag{13}
 $$
+
 **End of Note 1**
 
 
 we obtain
+
 $$
 \begin{aligned}
 \mathbb{E} \left( \left| X_t^{(n+1)} \right|^2 \right)
