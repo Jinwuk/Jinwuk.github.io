@@ -20,6 +20,7 @@ Let the stochastic differential equation as follows:
 $$
 dX_t = a(t, X_t) dt + b(t, X_t)dW_t
 \label{eq01:strong}
+\tag{1}
 $$
 
 The integral form of  $$\eqref{eq01:strong}$$ is
@@ -27,6 +28,7 @@ The integral form of  $$\eqref{eq01:strong}$$ is
 $$
 X_t = X_{t_0} + \int_{t_0}^t a(s, X_s)ds + \int_{t_0}^t b(S, X_s) dW_s
 \label{eq02:strong}
+\tag{2}
 $$
 
 ### Lemma : Uniqueness
@@ -42,6 +44,7 @@ I_t^{(N)}(w) =
 1 &: |X_u(w)|, |\tilde{X}_u(w)| \leq N \;\; \text{for} t_0 \leq u \leq t \\
 0 &: \text{otherwise}
 \end{cases}
+\tag{3}
 $$
 
 Obviously $$I_t^{(N)}$$ is $$\mathcal{A}_t$$-measurable and $$I_t^{(N)} = I_t^{(N)} I_s^{(N)}$$ for $$t_0 \leq u \leq t​$$.
@@ -52,6 +55,7 @@ $$
 Z_t^{(N)} 
 = I_t^{(N)} \int_{t_0}^t I_s^{(N)} \left( a(s, X_s) - a (s, \tilde{X}_s) ds \right) 
 + I_t^{(N)} \int_{t_0}^t I_s^{(N)} \left( b(s, X_s) - b(s, \tilde{X}_s) dW_s \right)
+\tag{4}
 $$
 
 By the Lipschitz condition, for $$t_0 \leq s \leq t$$,
@@ -61,6 +65,7 @@ $$
 
 \leq K I_s^{(N)} \left| X_s - \tilde{X}_s \right| \leq 2KN
 \label{eq01:pf_lemma}
+\tag{5}
 $$
 
 Thus the following inequality is evaluated (and see the **Note 1**)
@@ -90,6 +95,7 @@ Therefore, we can obtain
 
 $$
 \mathbb{E} \left( \left| Z_t^{(N)} \right|^2 \right) \leq L \int_{t_0}^t \mathbb{E} \left( \left| Z_s^{(N)}  \right|^2 \right)
+\tag{6}
 $$
 
 for $$ t \in [t_0, T]$$ where $$L = 2(T - t_0 + 1)K^2 $$.
@@ -99,6 +105,7 @@ Apply **Grownwall's Lemma** with $$\alpha(t) = \mathbb{E}\left( \left| Z_t^{(N)}
 $$
 \alpha(t) \leq \beta(t) + L \int_{t_0}^t e^{L(t-s)}\beta(s) ds
 = 0.
+\tag{7}
 $$
 
 We conclude that
@@ -106,6 +113,7 @@ We conclude that
 $$
 \mathbb{E} \left( \left| Z_t^{(N)} \right|^2 \right) 
 = \mathbb{E} \left( \left| I_t^{(N)} (X_t - \tilde{X}_t) \right|^2 \right) = 0.
+\tag{8}
 $$
 
 In addition, for $$t \in [t_0, T]$$, $$I_t^{(N)} X_t = I_t^{(N)} \tilde{X}_t$$ with probability 1.
@@ -114,6 +122,7 @@ Since **the sample paths are continuous almost surely**, they are bounded almost
 
 $$
 P \left( I_t^{(N)} \not\equiv 1, \forall t \in [t_0, T] \right) \leq P \left( \sup_{t_0 \leq t \leq T} |X_t| > N \right) + P \left( \sup_{t_0 \leq t \leq T} |\tilde{X}_t| > N \right)
+\tag{9}
 $$
 
 arbitrarily small by taking $$N$$ sufficiently large. This means that $$P \left( X_t \neq \tilde{X}_t \right) = 0$$ for each $$t \in [t_0, T] $$, and hence that $$P \left( X_t \neq \tilde{X}_t : t \in D \right) = 0$$ for any countable dense subset $$D$$ of $$[t_0, T]$$.
@@ -128,6 +137,7 @@ Under assumptions in the article, [Important Assumption and Lemma for Stochastic
 
 $$
 \sup_{t_0 \leq t \leq T} \mathbb{E} \left( |X_t |^2 \right) < \infty
+\tag{10}
 $$
 
 #### proof
@@ -136,6 +146,7 @@ Let $$X_t^{(0)} \equiv X_{t_0}$$ and
 $$
 X_t^{(n+1)} = X_{t_0} + \int_{t_0}^t a(s, X_s^{(n)})ds + \int_{t_0}^t b(S, X_s^{(n)}) dW_s
 \label{eq01:strong_pf}
+\tag{11}
 $$
 
 for $$n = 0, 1, 2, \cdots $$.
@@ -144,6 +155,7 @@ For assumption of the initial value, it is clear that
 
 $$
 \sup_{t_0 \leq t \leq T} E\left( |X_t^{(0)} |^2 \right) < \infty
+\tag{12}
 $$
 
 Applying the inequality $$(a + b +c)^2 \leq 3(a^2 + b^2 + c^2)$$, the Cauchy-Schwarz inequality and the linear growth bound to $$\eqref{eq01:strong_pf}$$, 
@@ -165,6 +177,7 @@ Therefore,
 
 $$
 \left| \int_{t_0}^T A(s) ds \right|^2 = (T - t_0) \int_{t_0}^T \left| A(s) \right|^2 ds
+\tag{13}
 $$
 **End of Note 1**
 
@@ -187,6 +200,7 @@ for $$n=0, 1, 2, \cdots $$. By induction we thus have
 
 $$
 \sup_{t_0 \leq t \leq T} \mathbb{E} \left( \left| X_t^{(n)} \right|^2\right) \leq C_0 < \infty
+\tag{14}
 $$
 
 for $$n=0, 1, 2, \cdots $$.
