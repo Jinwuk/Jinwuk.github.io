@@ -208,7 +208,7 @@ $$
 
 for $$n=0, 1, 2, \cdots $$.
 
-이로써 **$$\mathbb{E} \left( \left| X_t^{(n+1)} \right|^2 \right)$$의 Finite 특성이 증명**되었음. 이를 토대로 **Lemma를 적용**한다.
+이로써 **$$\mathbb{E} \left( {\mid X_t^{(n+1)} \mid }^2 \right)$$의 Finite 특성이 증명**되었음. 이를 토대로 **Lemma를 적용**한다.
 
 
 
