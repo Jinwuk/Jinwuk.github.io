@@ -95,6 +95,7 @@ Therefore, we can obtain
 
 $$
 \mathbb{E} \left( \left| Z_t^{(N)} \right|^2 \right) \leq L \int_{t_0}^t \mathbb{E} \left( \left| Z_s^{(N)}  \right|^2 \right)
+\label{eq02:pf_lemma}
 \tag{6}
 $$
 
@@ -210,7 +211,15 @@ for $$n=0, 1, 2, \cdots $$.
 
 이로써 **$$\mathbb{E} \left( {\mid X_t^{(n+1)} \mid }^2 \right)$$의 Finite 특성이 증명**되었음. 이를 토대로 **Lemma를 적용**한다.
 
+**Note 2**
+앞에서 $$\mathbb{E} \left( {\mid X_t^{(n+1)} \mid }^2 \right)$$ 가 증명 되었으므로 Lemma 에서의 식 $$\eqref{eq02:pf_lemma}$$ 에서 다음의 특성을 얻는다.
 
+$$
+\mathbb{E} \left( \left| X_t^{(n+1)} - X_t^{(n)} \right|^2 \right)
+\leq L \int_{t_0}^t \mathbb{E} \left( \left| X_s^{(n+1)} - X_s^{(n)} \right|^2 \right) ds
+$$
+
+for $$ t \in [t_0, T]$$ and $$n=1, 2, 3 \cdots $$ where $$L = 2(T - t_0 + 1)K^2$$.
 
 
 
