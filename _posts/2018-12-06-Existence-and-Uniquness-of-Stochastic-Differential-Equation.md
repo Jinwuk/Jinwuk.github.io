@@ -169,7 +169,6 @@ Applying the inequality $$(a + b +c)^2 \leq 3(a^2 + b^2 + c^2)$$, the Cauchy-Sch
 
 **Note 1**
 By the Cauchy-Schwartz inequality,
-
 $$
 \begin{aligned}
 \left| \int_{t_0}^T A(s) ds \right|^2 
@@ -182,7 +181,7 @@ $$
 Therefore,
 
 $$
-\left| \int_{t_0}^T A(s) ds \right|^2 = (T - t_0) \int_{t_0}^T \left| A(s) \right|^2 ds
+\left| \int_{t_0}^T A(s) ds \right|^2 \leq (T - t_0) \int_{t_0}^T \left| A(s) \right|^2 ds
 \tag{13}
 $$
 
@@ -195,8 +194,8 @@ $$
 \begin{aligned}
 \mathbb{E} \left( \left| X_t^{(n+1)} \right|^2 \right)
 &\leq 3 \mathbb{E} \left( \left| X_{t_0} \right|^2 \right) + 3 \mathbb{E} \left( \left| \int_{t_0}^t a(s, X_s^{(n)}) ds \right|^2 \right) + 3 \mathbb{E} \left( \left| \int_{t_0}^t b(S, X_s^{(n)}) dW_s \right|^2 \right)  \\
-&\leq 3 \mathbb{E} \left( \left| X_{t_0} \right|^2 \right) + 3 (T - t_0) \mathbb{E} \left(  \int_{t_0}^t \left| a(s, X_s^{(n)}) \right|^2 ds  \right) + 3 \mathbb{E} \left( \int_{t_0}^t \left| b(S, X_s^{(n)}) \right|^2 d_s  \right) \\
-&\leq 3 \mathbb{E} \left( \left| X_{t_0} \right|^2 \right) + 3 (T - t_0 + 1) K^2 \mathbb{E} \left( \int_{t_0}^t \left( 1 + \left| X_s^{(n)} \right|^2 \right) d_s  \right)
+&\leq 3 \mathbb{E} \left( \left| X_{t_0} \right|^2 \right) + 3 (T - t_0) \left( \mathbb{E} \left(  \int_{t_0}^t \left| a(s, X_s^{(n)}) \right|^2 ds  \right) +  \mathbb{E} \left( \int_{t_0}^t \left| b(S, X_s^{(n)}) \right|^2 ds  \right) \right)\\
+&\leq 3 \mathbb{E} \left( \left| X_{t_0} \right|^2 \right) + 3 (T - t_0 + 1) K^2 \mathbb{E} \left( \int_{t_0}^t \left( 1 + \left| X_s^{(n)} \right|^2 \right) ds  \right)
 \end{aligned}
 $$
 
@@ -222,6 +221,15 @@ $$
 for $$ t \in [t_0, T]$$ and $$n=1, 2, 3 \cdots $$ where $$L = 2(T - t_0 + 1)K^2$$.
 
 
+
+## Appendix
+### Cauchy Formula
+
+$$
+\int_{t_0}^t \int_{t_0}^{t_{n-1}} \cdots \int_{t_0}^{t_1} f(s) ds dt_1 \cdots dt_{n-1} = \frac{1}{n-1} \int_{t_0}^t (t-s)N{n-1} f(s) ds
+\label{eq01:appd}
+\tag{A1}
+$$
 
 
 
