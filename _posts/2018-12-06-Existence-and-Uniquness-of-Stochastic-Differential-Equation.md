@@ -165,7 +165,7 @@ $$
 \tag{12}
 $$
 
-Applying the inequality $$(a + b +c)^2 \leq 3(a^2 + b^2 + c^2)$$, the Cauchy-Schwarz inequality and the linear growth bound to $$\eqref{eq01:strong_pf}$$, 
+Applying the inequality $$(a + b +c)^2 \leq 3(a^2 + b^2 + c^2)$$, the Cauchy-Schwarz inequality and the linear growth bound to $$\eqref{eq01:strong_pf}​$$, 
 
 **Note 1**
 By the Cauchy-Schwartz inequality,
