@@ -136,6 +136,15 @@ arbitrarily small by taking $$N$$ sufficiently large. This means that $$P \left(
 
 **Q.E.D**
 
+#### Meaning of Superscript (N)
+See the following diagram.
+![](https://drive.google.com/uc?id=1k48IbTc1JLy-Gt4-7vPDDPonmk9y_oKq)
+
+즉, 위 그림에서 처럼, 어떤 단계를 Stochastic process가 도달 했는지 아닌지를 알리는 것이다.
+
+이는 Lebesgue Integral을 위해 필요한 단계이다.
+
+
 
 
 ### Theorem : Strong Solution
@@ -220,6 +229,71 @@ $$
 
 for $$ t \in [t_0, T]$$ and $$n=1, 2, 3 \cdots $$ where $$L = 2(T - t_0 + 1)K^2$$.
 
+Cauchy Formula $$\eqref{eq01:appd}$$에 의해 $$\mathbb{E} \left( \left| X_t^{(n+1)} - X_t^{(n)} \right|^2 \right)$$ 와 $$\mathbb{E} \left( \left| X_s^{(n+1)} - X_s^{(n)} \right|^2 \right)$$ 간의 관계식은 다음과 같다. 
+(즉 Level이 $$X_s^{(0)}$$ 에서 $$X_s^{(n)}$$ 까지 움직여야 한다. Cauchty Formula의 자세한 내용은 Appendix를 참조한다.)
+
+By Cauchy Formula, We obtain
+
+$$
+\mathbb{E} \left( \left| X_t^{(n+1)} - X_t^{(n)} \right|^2 \right)
+\leq \frac{L^n}{(n-1)!} \int_{t_0}^t (t-s)^{n-1} \mathbb{E} \left( \left| X_s^{(1)} - X_s^{(0)} \right|^2 \right) ds
+\label{eq02:strong_pf}
+\tag{14}
+$$
+
+for $$t \in [t_0, T], \; n=0, 1, 2, \cdots ​$$.
+
+Herein, we use **Growth bound** Condition, instead of Lipschitz Condition,  (look at the [Link of Assumption](https://jinwuk.github.io/mathematics/stochastic%20calculus/2018/11/25/Stochastic-Calculus-Important_Assumption_and_Lemma.html) )
+in the derivation of $$\eqref{eq02:strong_pf}$$, then, for $n=0$, we find that 
+
+$$
+\begin{aligned}
+\mathbb{E} \left( \left| X_t^{(n+1)} - X_t^{(n)} \right|^2 \right) 
+
+&\leq L \int_{t_0}^t \left( 1 + \mathbb{E} \left( \left | X_s^{(0)} \right |^2   \right) \right) \\
+
+&\leq L (T - t_0) \left( 1 + \mathbb{E} \left( \left | X_s^{(0)} \right |^2   \right) \right) = C_1
+
+\end{aligned}
+$$
+
+On inserting this into $$\eqref{eq02:strong_pf}$$, we obtain
+
+$$
+\mathbb{E} \left( \left| X_t^{(n+1)} - X_t^{(n)} \right|^2 \right) 
+\leq \frac{C_1 L^n (t - t_0)^n}{n!}
+$$
+
+for $$t \in [t_0, T], \; n = 0, 1, 2,  \cdots$$m and hence
+
+$$
+\sup_{t_0 \leq t \leq T} \mathbb{E} \left( \left| X_t^{(n+1)} - X_t^{(n)} \right|^2 \right) 
+\leq \frac{C_1 L^n (t - t_0)^n}{n!}
+$$
+
+이 자체로 **the mean-suqare convergence of the successive approximation uniformly** 를 의미한다. 
+
+하지만 우리가 원하는 것은 **the almost sure convergence of their sample paths uniformly** 이다. 
+
+이를 위해서는 최종적으로 이것이, 최소한 **Chebyshev 부등식을 만족**함을 보여야 한다.
+그러기 위해서는 다음의 **Square 값의 Supremum을 계산**하여야 한다.
+
+To show this, we define
+
+$$
+Z_n = \sup_{t_0 \leq t \leq T} \left | X_t^{n+1} - X_t^{n}  \right |
+$$
+
+For $$n=\mathbf{Z}[0, \infty]$$ 
+From $$\eqref{eq01:pf_lemma}$$, we obtain
+
+$$
+Z_n 
+\leq \int_{t_0}^t \left | a(s, X_s^{n}) - a(s, X_s^{n-1}) \right | ds 
++ \sup_{t_0 \leq t \leq T} \left | \int_{t_0}^t \left( b(s, X_s^{(n)} - b(s, X_s^{(n-1)}) \right) \right | dW_s
+$$
+
+
 
 
 ## Appendix
@@ -231,7 +305,24 @@ $$
 \tag{A1}
 $$
 
+### Maximal Martingale inequality
+A seperable martingale $$X = \{ X_t, t \geq 0 \}​$$ with finite p-th moment satisfies the maximal martingale inequality
 
+$$
+P \left( \left\{ w \in \Omega : \sup_{0 \leq s \leq t} \left | X_s (w) \right | \geq a \right\} \right) \leq \frac{1}{a^p} \mathbb{E} \left( \left | X_t \right |^p \right)
+\label{eq02:appd}
+\tag{A2}
+$$
+
+### Doob's Inequality
+
+$$
+\mathbb{E} \left( \sup_{0 \leq s \leq t}  \left | X_t \right |^p \right)
+\leq \left( \frac{p}{p-1} \right)^p \mathbf{E} \left( \left | X_t \right |^p \right)
+\label{}
+\label{eq03:appd}
+\tag{A3}
+$$
 
 
 
