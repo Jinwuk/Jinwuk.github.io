@@ -269,6 +269,8 @@ for $$t \in [t_0, T], \; n = 0, 1, 2,  \cdots$$m and hence
 $$
 \sup_{t_0 \leq t \leq T} \mathbb{E} \left( \left| X_t^{(n+1)} - X_t^{(n)} \right|^2 \right) 
 \leq \frac{C_1 L^n (t - t_0)^n}{n!}
+\label{eq03:strong_pf}
+\tag{15}
 $$
 
 이 자체로 **the mean-suqare convergence of the successive approximation uniformly** 를 의미한다. 
@@ -285,18 +287,136 @@ Z_n = \sup_{t_0 \leq t \leq T} \left | X_t^{n+1} - X_t^{n}  \right |
 $$
 
 For $$n=\mathbf{Z}[0, \infty]$$ 
-From $$\eqref{eq01:pf_lemma}$$, we obtain
-
+From $$\eqref{eq01:pf_lemma}​$$, we obtain
 $$
 Z_n 
 \leq \int_{t_0}^t \left | a(s, X_s^{n}) - a(s, X_s^{n-1}) \right | ds 
-+ \sup_{t_0 \leq t \leq T} \left | \int_{t_0}^t \left( b(s, X_s^{(n)} - b(s, X_s^{(n-1)}) \right) \right | dW_s
++ \sup_{t_0 \leq t \leq T} \left | \int_{t_0}^t \left( b(s, X_s^{(n)} - b(s, X_s^{(n-1)}) \right) \right | dW_s.
 $$
 
+By Lipschitz Condition
+
+$$
+\begin{aligned}
+\left | a(s, X_s^{(n)}) - a(s, X_s^{(n-1)}) \right | &\leq K \left |X_s^{(n)} -X_s^{(n-1)} \right | \\
+
+\left | b(s, X_s^{(n)}) - b(s, X_s^{(n-1)}) \right | &\leq K \left | X_s^{(n)} -X_s^{(n-1)} \right | 
+
+\end{aligned}
+$$
+
+By Cauchy-Schawartz
+
+$$
+\begin{aligned}
+\left | a + b \right |^2 &\leq 2 \left | a \right |^2 + 2 \left | b \right |^2 \\
+\left(\int_{t_0}^T a(s) ds \right)^2 
+&= \left(\int_{t_0}^T a^2(s) ds \right)\left(\int_{t_0}^T a^2(s) ds \right) \\
+&\leq \int_{t_0}^T a^2(s) ds \int_{t_0}^T ds = (T-t_0) \int_{t_0}^T a^2(s) ds
+\end{aligned}
+$$
+
+By Doob's Inequality
+
+$$
+\mathbb{E} \sup_{0 \leq s \leq t} \left | b(s, X_s^{(n)}) - b(s, X_s^{(n-1)}) \right |^2 \leq \left( \frac{2}{2-1} \right)^2 \mathbb{E} \left | b(s, X_s^{(n)}) - b(s, X_s^{(n-1)}) \right |^2
+$$
+
+Subsequently,
+
+$$
+\begin{aligned}
+\mathbb{| Z_n |^2} &\leq 2(T - t_0) K^2 \int_{t_0}^T \mathbb{E} \left( \left | X_s^{(n)} -X_s^{(n-1)}  \right | \right) ds
++ 8K^2 \int_{t_0}^T \mathbb{E} \left( \left | X_s^{(n)} -X_s^{(n-1)}  \right | \right) ds \\
+& \leq 2(T - t_0 + 4)K^2 \int_{t_0}^T \mathbb{E} \left( \left | X_s^{(n)} -X_s^{(n-1)}  \right | \right) ds 
+\end{aligned}
+$$
+
+We combined with $\eqref{eq03:strong_pf}$ to conclude that
+
+$$
+\mathbb{E}| Z_n |^2 \leq \frac{C_1 L^n (t - t_0)^n}{n!}
+$$
+
+where $C_2 = C_1 K^2 (T - t_0 + 4)(T - t_0)$  for $n = 1, 2, 3,  \cdots$.
+
+After applying the Markov inequality, i.e.
+$$
+P(Z_n > \frac{1}{n^2}) \leq \left( n^2 \right) \mathbb{E}|Z_n|^2
+$$
+to each term and summing, we have
+
+$$
+\sum_{n=1}^{\infty} P(Z_n > \frac{1}{n^2}) \leq C_2 \sum_{n=1}^{\infty} \frac{n^4}{(n-1)!} L^{n-1} (T - t_0)^{n-1}
+$$
+
+Checking the internal term of summation in the right-side ,  we evaluate the ratio of order such that
+
+$$
+\frac{e_n}{e_{n-1}} = \frac{\frac{n^4}{(n-1)!} L^{n-1} (T - t_0)^{n-1}}{\frac{{(n-1)}^4}{(n-2)!} L^{n-2} (T - t_0)^{n-2}} = \frac{n^4}{(n-1)^5} L (T - t_0).
+$$
+
+When $$ n > 4 $$ , $$\frac{e_n}{e_{n-1}}  < 1$$  and $n^4 < (n -1)!$. Therefore the summation can be converges for $n > n_0$ where $n_0 > 0$ is a sufficient large.  
+
+Hence the series on the left side also converges, so by the **Borel-Cantelli Lemma**, $Z_n$ converges 0, almost surely.  that is **the successive approximations $X_s^{(n)} $ converges almost surely**, uniformly on $[t_0, T] $ to a limit $\tilde{X}_t$ defined by
+$$
+\tilde{X}_t = X_{t_0} + \sum_{n=0}^{\infty} \left( X_t^{(n+1)} - X_t^{(n)}\right)
+$$
+즉, 여기서 $\sum_{n=0}^{\infty} \left( X_t^{(n+1)} - X_t^{(n)}\right)$ 가 확률적으로 유한하므로 $\left( X_t^{(n+1)} - X_t^{(n)}\right)$ 는 $n \uparrow \infty$ 에 따라 0에 수렴해야 한다. 
+
+As the limit of $\mathcal{A}^*$ -adapted processes, $\tilde{X}$ is $\mathcal{A}^*$ -adapted and as the uniform limit of continuous, it is continuous 
+
+따라서, $n \rightarrow \infty$ 에 따라 Lipschitz Continuous 에 의해
+
+$$
+\begin{aligned}
+\left | \int_{t_0}^t a(s, X_s^{(n)}) ds - \int_{t_0}^t a(s, \tilde{X}_s^{(n)}) ds \right | 
+&\leq K \int_{t_0}^t \left | X_s^{(n)} - \tilde{X}_s^{(n)} \right | ds \rightarrow 0 \\
+\int_{t_0}^t \left | b(s, X_s^{(n)}) - b(s, \tilde{X}_s)  \right |^2 ds 
+&\leq K^2 \int_{t_0}^t \left | X_s^{(n)} - \tilde{X}_s \right |^2 ds \rightarrow 0
+\end{aligned}
+$$
+
+with probability 1, which implies
+
+$$
+\begin{aligned}
+\int_{t_0}^t a(s, X_s^{(n)}) ds &\rightarrow \int_{t_0}^t a(s, \tilde{X}_s^{(n)}) ds \\
+\int_{t_0}^t b(s, X_s^{(n)}) dW_s &\rightarrow \int_{t_0}^t b(s, \tilde{X}_s)   dW_s
+\end{aligned}
+$$
+
+in probability, as $n \rightarrow \infty​$ for each $t \in [t_0, T] ​$ . Hence the right side of $\eqref{eq01:strong_pf}​$ converges to  the right side of $\eqref{eq02:strong}​$, and so the limit process $\tilde{X}​$ satisfies the stochastic integral equation $\eqref{eq02:strong}​$.
+
+This completes the proof of the existence and uniqueness of a strong solution of  the stochastic differential equation $\eqref{eq01:strong}$  for an initial value $X_{t_0}$ with $$\mathbb{E}(|X_{t_0}|^2) < \infty$$.
+
+### Conclusion
+
+- 다시말해, Assumption A1~A4 를 만족하면, (Measurabilitry, Lipschitz Continuous, Linear Growth, Finite Initial Value) 만 만족하면,  **pathwise unique strong solution $X_t$** 가 $[t_0, T]$ 에서 존재한다는 것이다.
+- $\eqref{eq03:strong_pf}$ 조건이 최근 여러 논문에서 자주 언급된다. 
+
+$$
+\sup_{t_0 \leq t \leq T} \mathbb{E} \left( \left| X_t^{(n+1)} - X_t^{(n)} \right|^2 \right) 
+\leq \frac{C_1 L^n (t - t_0)^n}{n!}
+$$
+
+- 생각해 보면 이 조건은 다음 Stochastic integral 에서 $\eqref{eq01:strong_pf}$ 의 solution $X_t^{(n+1)}$ 이 존재한다는 것을 증명하는 것으로 $n \uparrow \infty$ 에서 사실상 $X_t^{(n)} \rightarrow  X_t^{(n+1)}$ with **the mean-square convergence of the successive approximation uniformly** 특성을 통해 다음이 **Unique 하게 존재한다는 것을 Strong Sense로 증명**한 것이다. 
+  $$
+  \begin{aligned}
+  X_t^{(n+1)} 
+  &= X_{t_0} + \int_{t_0}^t a(s, X_s^{(n)})ds + \int_{t_0}^t b(S, X_s^{(n)}) dW_s \\
+  \Rightarrow
+  X_t &= X_{t_0} + \int_{t_0}^t a(s, X_s)ds + \int_{t_0}^t b(S, X_s) dW_s
+  \end{aligned}
+  $$
+
+- 그러므로 알고리즘의 수렴성을 증명하기 위해서는 이러한 Bounded 조건이 만족됨을 보이고 (최소한 Reference를 통해서 ... )   그 다음에 본격적으로 수렴성을 증명해야 한다.
+- Therefore, to prove the convergence of any machine learning algorithm, researchers have to verify such a bounded condition of $\mathbb{E}(|X_t|)^2 < \infty, \;\; \forall t \in [t_0, T]$ ( at least, by reference). Following this, they have to prove the main convergence property of any proposed algorithm, additionally.
 
 
 
 ## Appendix
+
 ### Cauchy Formula
 
 $$
@@ -306,7 +426,7 @@ $$
 $$
 
 ### Maximal Martingale inequality
-A seperable martingale $$X = \{ X_t, t \geq 0 \}​$$ with finite p-th moment satisfies the maximal martingale inequality
+A seperable martingale $$X = \{ X_t, t \geq 0 \}$$ with finite p-th moment satisfies the maximal martingale inequality
 
 $$
 P \left( \left\{ w \in \Omega : \sup_{0 \leq s \leq t} \left | X_s (w) \right | \geq a \right\} \right) \leq \frac{1}{a^p} \mathbb{E} \left( \left | X_t \right |^p \right)
@@ -318,13 +438,18 @@ $$
 
 $$
 \mathbb{E} \left( \sup_{0 \leq s \leq t}  \left | X_t \right |^p \right)
-\leq \left( \frac{p}{p-1} \right)^p \mathbf{E} \left( \left | X_t \right |^p \right)
+\leq \left( \frac{p}{p-1} \right)^p \mathbb{E} \left( \left | X_t \right |^p \right)
 \label{}
 \label{eq03:appd}
 \tag{A3}
 $$
 
+### Borel Cantelli Lemma
+For any sequence of events $$A_1, A_2, \cdots A_n, \cdots \in \mathcal{A}$$
 
+$$
+P \left( \bigcap_{n=1}^{\infty} \bigcup_{k=n}^{\infty} A_k \right) = 0 \;\;\text{if } \sum_{n=1}^{\infty} P(A_n) < \infty
+$$
 
 
 
