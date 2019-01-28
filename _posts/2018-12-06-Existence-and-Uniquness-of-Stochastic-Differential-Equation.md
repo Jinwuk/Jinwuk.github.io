@@ -23,7 +23,7 @@ dX_t = a(t, X_t) dt + b(t, X_t)dW_t
 \tag{1}
 $$
 
-The integral form of  $$\eqref{eq01:strong}$$ is
+The integral form of  $$\eqref{eq01:strong}​$$ is
 
 $$
 X_t = X_{t_0} + \int_{t_0}^t a(s, X_s)ds + \int_{t_0}^t b(S, X_s) dW_s
@@ -451,6 +451,39 @@ $$
 P \left( \bigcap_{n=1}^{\infty} \bigcup_{k=n}^{\infty} A_k \right) = 0 \;\;\text{if } \sum_{n=1}^{\infty} P(A_n) < \infty
 $$
 
+### Corollary 
+Suppose that A1-A4 (Fundamental Assumptions in [the link](https://jinwuk.github.io/mathematics/stochastic%20calculus/2018/11/25/Stochastic-Calculus-Important_Assumption_and_Lemma.html) ) hold and that 
+
+$$
+\mathbb{E} \left( | X_{t_0} |^{2n} \right) < \infty
+$$
+
+for some integer $ n \geq 1$. Then the solution $X_t$ of $\eqref{eq01:strong}$ satisfies 
+
+$$
+\mathbb{E}\left(  \left | X_{t_0}  \right |^{2n} \right) \leq \left( 1 + \mathbb{E} \left( \left | X_{t_0} \right |^{2n} \right)\right) e^{C(t - t_0)}
+\label{eq01:corollary}
+\tag{C1}
+$$
+
+and
+
+$$
+\mathbb{E}\left(  \left |X_t -  X_{t_0}  \right |^{2n} \right) \leq D \left( 1 + \mathbb{E} \left( \left | X_{t_0} \right |^{2n} \right)\right) (t -t_0 )^n e^{C(t - t_0)}
+\label{eq02:corollary}
+\tag{C2}
+$$
+
+for $t \in [t_0, T]$ where $T < \infty, \; C = 2n (2n + 1) K^2$ and $D$ is a positive constant depending only on $K$ and $T - t_0$.
+
+#### Note
+
+The above Collorlary illustrates that the bounded condition $\eqref{eq03:strong_pf}$ is not suffcient for the convergence.
+Suppose the case of $n=1$, the bound of $\mathbb{E}\left(  \left |X_t -  X_{t_0}  \right |^{2n} \right)$ is diverge as $t$ is monotone increased to $\infty$. There is not any control parameter the increasing time parameter in $\eqref{eq02:corollary}$.
+
+- The proof is very similar to that of theorem 1.
+   - Therefore, it requires an additional analysis of the algorithm.
+- Using H\older inequality and Grownwell's lemma additionally. 
 
 
 
