@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Existence and Uniqueness of Stochastic Differential Equation"
-date:   2018-12-06 01:45:00 +0900
+date:   2019-01-27 01:45:00 +0900
 categories: [Mathematics, Stochastic Calculus]
 tags:
   - Stochastic Calculus
