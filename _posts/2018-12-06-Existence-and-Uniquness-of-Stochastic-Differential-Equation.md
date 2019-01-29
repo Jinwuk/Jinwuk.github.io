@@ -413,7 +413,7 @@ $$
   $$
 
 - 그러므로 알고리즘의 수렴성을 증명하기 위해서는 이러한 Bounded 조건이 만족됨을 보이고 (최소한 Reference를 통해서 ... )   그 다음에 본격적으로 수렴성을 증명해야 한다.
-- Therefore, to prove the convergence of any machine learning algorithm, researchers have to verify such a bounded condition of $$\mathbb{E}(\left | X_t \right |)^2 < \infty, \;\; \forall t \in [t_0, T]$$ ( at least, by reference). Following this, they have to prove the main convergence property of any proposed algorithm, additionally.
+- Therefore, to prove the convergence of any machine learning algorithm, researchers have to verify such a bounded condition of $$\mathbb{E}(\mid X_t \mid )^2 < \infty, \;\; \forall t \in [t_0, T]$$ ( at least, by reference). Following this, they have to prove the main convergence property of any proposed algorithm, additionally.
 
 
 
