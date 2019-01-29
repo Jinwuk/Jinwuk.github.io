@@ -390,7 +390,7 @@ $$
 
 in probability, as $n \rightarrow \infty​$ for each $t \in [t_0, T] ​$ . Hence the right side of $\eqref{eq01:strong_pf}​$ converges to  the right side of $\eqref{eq02:strong}​$, and so the limit process $\tilde{X}​$ satisfies the stochastic integral equation $\eqref{eq02:strong}​$.
 
-This completes the proof of the existence and uniqueness of a strong solution of  the stochastic differential equation $\eqref{eq01:strong}$  for an initial value $X_{t_0}$ with $$\mathbb{E}( \mid X_{t_0} \right \mid^2) < \infty$$.
+This completes the proof of the existence and uniqueness of a strong solution of  the stochastic differential equation $\eqref{eq01:strong}$  for an initial value $X_{t_0}$ with $$\mathbb{E}( \mid X_{t_0}  \mid^2) < \infty$$.
 
 ### Conclusion
 
