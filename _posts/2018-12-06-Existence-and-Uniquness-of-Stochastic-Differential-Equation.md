@@ -358,10 +358,12 @@ $$
 
 When $$ n > 4 $$ , $$\frac{e_n}{e_{n-1}}  < 1$$  and $n^4 < (n -1)!$. Therefore the summation can be converges for $n > n_0$ where $n_0 > 0$ is a sufficient large.  
 
-Hence the series on the left side also converges, so by the **Borel-Cantelli Lemma**, $Z_n$ converges 0, almost surely.  that is **the successive approximations $X_s^{(n)} $ converges almost surely**, uniformly on $[t_0, T] $ to a limit $\tilde{X}_t$ defined by
+Hence the series on the left side also converges, so by the **Borel-Cantelli Lemma**, $Z_n$ converges 0, almost surely.  that is **the successive approximations $X_s^{(n)} $ converges almost surely**, uniformly on $[t_0, T]$ to a limit $\tilde{X}_t$ defined by
+
 $$
 \tilde{X}_t = X_{t_0} + \sum_{n=0}^{\infty} \left( X_t^{(n+1)} - X_t^{(n)}\right)
 $$
+
 즉, 여기서 $\sum_{n=0}^{\infty} \left( X_t^{(n+1)} - X_t^{(n)}\right)$ 가 확률적으로 유한하므로 $\left( X_t^{(n+1)} - X_t^{(n)}\right)$ 는 $n \uparrow \infty$ 에 따라 0에 수렴해야 한다. 
 
 As the limit of $\mathcal{A}^*$ -adapted processes, $\tilde{X}$ is $\mathcal{A}^*$ -adapted and as the uniform limit of continuous, it is continuous 
