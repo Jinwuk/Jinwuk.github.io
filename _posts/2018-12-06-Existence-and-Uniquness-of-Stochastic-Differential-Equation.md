@@ -366,7 +366,7 @@ $$
 
 즉, 여기서 $\sum_{n=0}^{\infty} \left( X_t^{(n+1)} - X_t^{(n)}\right)$ 가 확률적으로 유한하므로 $\left( X_t^{(n+1)} - X_t^{(n)}\right)$ 는 $n \uparrow \infty$ 에 따라 0에 수렴해야 한다. 
 
-As the limit of $\mathcal{A}^*$ -adapted processes, $\tilde{X}$ is $\mathcal{A}^*$ -adapted and as the uniform limit of continuous, it is continuous 
+As the limit of $$\mathcal{A}^*$$ -adapted processes, $\tilde{X}$ is $$\mathcal{A}^*$$ -adapted and as the uniform limit of continuous, it is continuous 
 
 따라서, $n \rightarrow \infty$ 에 따라 Lipschitz Continuous 에 의해
 
@@ -390,7 +390,7 @@ $$
 
 in probability, as $n \rightarrow \infty​$ for each $t \in [t_0, T] ​$ . Hence the right side of $\eqref{eq01:strong_pf}​$ converges to  the right side of $\eqref{eq02:strong}​$, and so the limit process $\tilde{X}​$ satisfies the stochastic integral equation $\eqref{eq02:strong}​$.
 
-This completes the proof of the existence and uniqueness of a strong solution of  the stochastic differential equation $\eqref{eq01:strong}$  for an initial value $X_{t_0}$ with $$\mathbb{E}(|X_{t_0}|^2) < \infty$$.
+This completes the proof of the existence and uniqueness of a strong solution of  the stochastic differential equation $\eqref{eq01:strong}$  for an initial value $X_{t_0}$ with $$\mathbb{E}( \left |X_{t_0} \right |^2) < \infty$$.
 
 ### Conclusion
 
