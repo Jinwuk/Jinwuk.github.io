@@ -353,7 +353,7 @@ $$
 Checking the internal term of summation in the right-side ,  we evaluate the ratio of order such that
 
 $$
-\frac{e_n}{e_{n-1}} = \frac{\frac{n^4}{(n-1)!} L^{n-1} (T - t_0)^{n-1}}{\frac{{(n-1)}^4}{(n-2)!} L^{n-2} (T - t_0)^{n-2}} = \frac{n^4}{(n-1)^5} L (T - t_0).
+\frac{e_n}{e_{n-1}} = \frac{\frac{n^4}{(n-1)!} L^{n-1} (T - t_0)^{n-1}}{ \frac{ {(n-1)}^4 }{(n-2)!} L^{n-2} (T - t_0)^{n-2}} = \frac{n^4}{(n-1)^5} L (T - t_0).
 $$
 
 When $$ n > 4 $$ , $$\frac{e_n}{e_{n-1}}  < 1$$  and $n^4 < (n -1)!$. Therefore the summation can be converges for $n > n_0$ where $n_0 > 0$ is a sufficient large.  
