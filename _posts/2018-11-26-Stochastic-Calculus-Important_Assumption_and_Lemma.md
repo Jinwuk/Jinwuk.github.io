@@ -258,7 +258,33 @@ $$
 
 as $n$ is increased.
 
+### Gilbarg and Trudinger Inequality [2]
+If $\theta:[0,1]^n \rightarrow \mathbf{R}$ is continuosly differentiable, and if 
 
+$$
+\int \theta (x) dx = 0,
+$$
+
+then
+
+$$
+\int \theta(x)^2 dx \leq \int \| \nabla \theta (x) \|^2 dx
+$$
+
+#### Note
+If we obtain an equation of an integral to probability, such that 
+
+$$
+\int (\frac{p}{\pi} - 1) \pi dx = \int p - pi dx = \int p dx - \int \pi dx = 0,
+$$
+
+we have to the squared error of the internal term of the integral such that
+
+$$
+\int (\frac{p}{\pi} - 1)^2 \pi dx.
+$$
+
+In this case, the Gilbarg and Trudinger inequality is very useful to analyze the squared term.
 
 ## References
 [1]
@@ -272,6 +298,21 @@ as $n$ is increased.
   series={Stochastic Modelling and Applied Probability},
   url={https://books.google.co.kr/books?id=BCvtssom1CMC},
   year={2011},
+  publisher={Springer Berlin Heidelberg}
+}
+~~~
+
+[2] 
+
+~~~bibtex
+@book{Gilbarg, 
+  title={Elliptic Partial Differential Equations of Second Order},
+  author={David Gilbarg, Neil S. Trudinger},
+  isbn={978-3-540-41160-4},
+  lccn={0072-7830},
+  series={Classics in Mathematics},
+  url={https://link.springer.com/book/10.1007/978-3-642-61798-0#about},
+  year={2001},
   publisher={Springer Berlin Heidelberg}
 }
 ~~~
