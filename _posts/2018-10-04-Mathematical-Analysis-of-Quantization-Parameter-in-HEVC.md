@@ -21,7 +21,6 @@ Basically, in the HEVC video codec, the quantization is conducted as the followi
 
 $$
 Q(\mathcal{X}, q) = \left[ \frac{1}{q^{s}} \mathcal{X} \right] \approx \left[ \frac{1}{q^{s}} \mathcal{X} \times 2^{qbits} \right] \gg qbits
-
 \tag{1}
 $$
 
@@ -29,7 +28,6 @@ $$
 where $qbits$ is 14.
 
 그런데, 직접 정수 나눗셈을 수행하는 것이 아니라,  Shift 연산을 통해 정수 나눗셈을 필요한 정확도를 가지면서 수행하는 것이 비디오 코덱의 기본이다. 이를 위해 기본적인 Quantization  범위를 살펴보면 다음과 같다. 
-
 
 
 |qp    | 0   | 1   | 2   | 3   | 4 | 5   | 6  |
@@ -48,13 +46,9 @@ $$
 $$
 \begin{aligned}
 q_m^s &= 0.625 \cdot 2^{\left( \left \lfloor \frac{q}{6} \right \rfloor + k \cdot m \right)} \\
-
 \frac{q_m^s}{0.625} &= 2^{\left( \left \lfloor \frac{q}{6} \right \rfloor + k \cdot m \right)} \\
-
 \log_2 \frac{q_m^s}{0.625} &= \left \lfloor \frac{q}{6} \right \rfloor + k \cdot m \\
-
 k &= \frac{1}{m} \cdot \left( \log_2 \frac{q_m^s}{0.625} - \left \lfloor \frac{q}{6} \right \rfloor \right)
-
 \end{aligned}
 \tag{3}
 $$
@@ -76,24 +70,19 @@ npK = np.log2(npQA/0.625) * 1/np.array(list(range(1, 6)))
 |---   |---  |---  |---  |---  |---  |---  |
 | $k$ |0.1696685|0.17536177|0.17052308|0.16951798|0.16959938|0.17093414|
 
+그런데, 이 $k = 1/6$ 이므로 원래 $k$ 값은 $0.166667$ 이 되어야 한다. 추정에 의한 값과 약간의 차이가 있다. 
+
 식 (2)를  식(1)에 대입하여 정리하면
 
 $$
 \begin{aligned}
 Q(\mathcal{X}, q) &\approx \left[ \frac{1}{0.625 \cdot 2^{\left \lfloor \frac{q}{6} \right \rfloor + k \cdot m}} \mathcal{X} \times 2^{qbits} \right] \gg qbits \\
-
 &= \left[ \frac{8}{5} \cdot 2^{-\left( \left \lfloor \frac{q}{6} \right \rfloor + k \cdot m \right)} \mathcal{X} \times 2^{qbits} \right] \gg qbits \\
-
 &= \left[ \frac{8}{5} \cdot 2^{qbits - k \cdot m} \mathcal{X} \times 2^{- \left \lfloor \frac{q}{6} \right \rfloor} \right] \gg qbits \\
-
 &\approx \left[ \frac{8}{5} \cdot 2^{qbits - \left( \log_2 \frac{q_m^s}{0.625} - \left \lfloor \frac{q}{6} \right \rfloor \right)} \mathcal{X} \right] \gg (qbits + \left \lfloor \frac{q}{6} \right \rfloor) \\
-
 &= \left[ \left( \frac{8}{5} \cdot 2^{qbits - \log_2 \frac{q_m^s}{0.625}} \right) 2^{\left \lfloor \frac{q}{6} \right \rfloor } \mathcal{X} \right] \gg (qbits + \left \lfloor \frac{q}{6} \right \rfloor) \\
-
 &= \left[ \left( \frac{8}{5} \cdot 2^{- \log_2 \frac{q_m^s}{0.625}} \cdot 2^{qbits} \right)  \cdot 2^{\left \lfloor \frac{q}{6} \right \rfloor } \mathcal{X} \right] \gg (qbits + \left \lfloor \frac{q}{6} \right \rfloor) \\
-
 &= \left[ \left( \frac{8}{5} \cdot \frac{0.625}{q_m^s} \cdot 2^{qbits} \right) \cdot 2^{\left \lfloor \frac{q}{6} \right \rfloor } \mathcal{X} \right] \gg (qbits + \left \lfloor \frac{q}{6} \right \rfloor) \\
-
 &= \left[ \left( \frac{1}{q_m^s} \cdot 2^{qbits} \right) \cdot 2^{\left \lfloor \frac{q}{6} \right \rfloor } \mathcal{X} \right] \gg (qbits + \left \lfloor \frac{q}{6} \right \rfloor)
 \end{aligned}
 \tag{4}
@@ -120,7 +109,6 @@ array([ 26214.4, 23305.83214794,  20557.08908407,  18388.32772166,
 $$
 \begin{aligned}
 Q(\mathcal{X}, q) &\approx \left[ \left( \frac{1}{q_m^s} \cdot 2^{qbits} \right) \cdot 2^{\left \lfloor \frac{q}{6} \right \rfloor } \cdot 2^5 \cdot \mathcal{X} \right] \gg (qbits + \left \lfloor \frac{q}{6} \right \rfloor + 5) \\
-
 &= \left[ \left( \frac{1}{q_m^s} \cdot 2^{qbits} \right) \cdot 2^{\left \lfloor \frac{q}{6} \right \rfloor } \cdot \bar{\mathcal{X}} \right] \gg (qbits + \left \lfloor \frac{q}{6} \right \rfloor + 5)
 \end{aligned}
 $$
@@ -130,12 +118,11 @@ $$
 $$
 \begin{aligned}
 Q(\mathcal{X}, q) &\approx \left[ \frac{1}{q_m^s} \cdot 2^{qbits + \left \lfloor \frac{q}{6} \right \rfloor} \cdot \bar{\mathcal{X}} \right] \gg (qbits + \left \lfloor \frac{q}{6} \right \rfloor + 5) \\
-
 &= \left \lfloor \frac{1}{q_m^s} \cdot 2^{qbits + \left \lfloor \frac{q}{6} \right \rfloor} \cdot \bar{\mathcal{X}} + f \right \rfloor \gg (qbits + \left \lfloor \frac{q}{6} \right \rfloor + 5)
 \end{aligned}
 $$
 
-일반적인 반 올림이 되기 위해서는 $f$ 의 값이 다음과 같아야 한다. 
+일반적인 반올림이 되기 위해서는 $f$ 의 값이 다음과 같아야 한다. 
 - 외부에서 수행되는 나눗셈 때문에 $2^{qbits + \left \lfloor \frac{q}{6} \right \rfloor + 5}$ 이 곱해져야 한다.
 
 $$
@@ -155,7 +142,6 @@ HEVC에서 $f$의 값은 Intra의 경우 $f = \frac{1}{3} \cdot 2^{qbits + \left
 $$
 \begin{aligned}
 f_{q_1} &= f_0  \cdot 2^{qbits + \left \lfloor \frac{q_1}{6} \right \rfloor + 5} \\
-
 f_{q_2} &= \cdot f_0  \cdot 2^{qbits + \left \lfloor \frac{q_2}{6} \right \rfloor + 5} = 2 \cdot f_0  \cdot 2^{qbits + \left \lfloor \frac{q_1}{6} \right \rfloor + 5} = 2 f_{q_1} 
 \end{aligned}
 $$
@@ -163,11 +149,8 @@ $$
 $$
 \begin{aligned}
 Q(\mathcal{X}, q_1) &\approx \left \lfloor \frac{1}{q_m^s} \cdot 2^{qbits + \left \lfloor \frac{q_1}{6} \right \rfloor} \cdot \bar{\mathcal{X}} + f_{q_1} \right \rfloor \gg (qbits + \left \lfloor \frac{q_1}{6} \right \rfloor + 5) = \lfloor A \rfloor \gg B\\
-
 Q(\mathcal{X}, q_2) &\approx \left \lfloor \frac{1}{q_m^s} \cdot 2^{qbits + \left \lfloor \frac{q_2}{6} \right \rfloor} \cdot \bar{\mathcal{X}} + f_{q_2} \right \rfloor \gg (qbits + \left \lfloor \frac{q_2}{6} \right \rfloor + 5) \\ 
-
 &=\left \lfloor \frac{1}{q_m^s} \cdot 2^{qbits + \left \lfloor \frac{q_1 + 6}{6} \right \rfloor} \cdot \bar{\mathcal{X}} + f_{q_2} \right \rfloor \gg (qbits + \left \lfloor \frac{q_1 + 6}{6} \right \rfloor + 5) \\
-
 &=\left \lfloor 2 \cdot \frac{1}{q_m^s} \cdot 2^{qbits + \left \lfloor \frac{q_1}{6} \right \rfloor} \cdot \bar{\mathcal{X}} + 2 f_{q_1}  \right \rfloor \gg (qbits + \left \lfloor \frac{q_1}{6} \right \rfloor + 5 + 1 ) = \lfloor 2 A \rfloor \gg (B + 1)
 \end{aligned}
 $$
@@ -181,11 +164,8 @@ $$
 $$
 \begin{aligned}
 \left[ \frac{1}{q^{s}} \mathcal{X} \right]  &= \left[ \frac{1}{q^{s}} \mathcal{X} \cdot 2^{qbits} \cdot 2^{-qbits}  \right] \\
-
 &= \left[ \frac{8}{5} \cdot 2^{\left( qbits - \left \lfloor \frac{q}{6} \right \rfloor - k \cdot m \right)} \mathcal{X} \cdot  2^{-qbits} \right] \\
-
 &= \left[ \frac{1}{10} \cdot 2^{\left( qbits - \left \lfloor \frac{q}{6} \right \rfloor + 4 - k \cdot m \right)} \mathcal{X} \cdot  2^{-qbits} \right]
-
 \end{aligned}
 \tag{5}
 $$
@@ -197,11 +177,8 @@ $$
 $$
 \begin{aligned}
 \left[ \frac{1}{q^{s}} \mathcal{X} \right]  
-
 &= \left[ \frac{2^{- k \cdot m}}{10} \cdot \mathcal{X} \cdot 2^{L(q)}  \cdot  2^{-qbits} \right] \\
-
 &= \left[ \frac{2^{- k \cdot m}}{10} \cdot \mathcal{X} \cdot 2^{10 + 8 - \left \lfloor \frac{q}{6} \right \rfloor}  \cdot  2^{-qbits} \right]
-
 \end{aligned}
 \tag{6}
 $$
@@ -244,12 +221,9 @@ $$
 $$
 \begin{aligned}
 Q^{-1}(q, X^Q) &= X^Q \cdot 0.625 \cdot 2^{\left \lfloor \frac{q}{6} \right \rfloor + k \cdot (q \mod 6)} \cdot 2^6 \\
-
 &= X^Q \cdot \frac{5}{8} \cdot 2^{\left \lfloor \frac{q}{6} \right \rfloor + k \cdot (q \mod 6)} \cdot 2^3 \cdot 2^3 \\
-
 &= X^Q \cdot 40 \cdot 2^{\left \lfloor \frac{q}{6} \right \rfloor + k \cdot (q \mod 6)} 
 \end{aligned}
-
 \tag{10}
 $$
 
@@ -273,12 +247,40 @@ HEVC 표준에서는 식 (10)에 추가적으로 양자화 변환계수의 Scale
 $$
 \begin{aligned}
 Q^{-1}(q, X^Q) 
-
 &= \left [X^Q \cdot 40 \cdot 2^{\left \lfloor \frac{q}{6} \right \rfloor + k \cdot m + 4} \right] \gg shift \\
-
 &= \left \lfloor X^Q \cdot 40 \cdot 2^{\left \lfloor \frac{q}{6} \right \rfloor + k \cdot m + 4} + 2^{shift -1}\right \rfloor \gg shift 
-
 \end{aligned}
-
 \tag{11}
 $$
+
+## 일반적인 Scalable Qunatization 방법론
+
+I proposed the scalable quantization methodology for HEVC as the international patents to Korea and the U.S.  In this chapter, I extend the quantization method from the method shown in the patents to a general case. 
+
+Suppose that a basic quantization parameter is given as $q​$, and we consider another quantization is given such as $q_1 = q - \alpha​$, where $0 < \alpha < 6, \alpha \in \mathbf{Z}^+​$. 
+
+we evaluate the stepsize for the quantization of HEVC such that
+
+$$
+q_q^s = \Kappa_0 2^{\lfloor \frac{q}{6} \rfloor + k (q \mod 6)}
+$$
+
+Let $q = 6 \cdot \bar{q} + m​$  then $\lfloor \frac{q}{6} \rfloor = \bar{q}​$, and $m = q \mod 6​$ , thus the above equation is rewritten as :
+
+$$
+q_q^s = \Kappa_0 2^{\frac{6 \cdot \bar{q} + m}{6}} = \Kappa_0 2^{\bar{q} + \frac{1}{6}m}
+$$
+
+where $k = 1/6​$. 
+
+Subsequently, the quantization step size of $q_1​$ is 
+$$
+q_{q_1}^s = \Kappa_0 2^{\frac{1}{6}(q - \alpha)} = \Kappa_0 2^{\frac{1}{6}(6 \cdot \bar{q} + m - \alpha)} = \Kappa_0 2^{\bar{q} + \frac{1}{6}(m - \alpha)} = q_q^s 2^{-\frac{1}{6} \alpha}
+$$
+
+To verify the considering,  let $a = 6​$, then it is equal to the method illustrated in the patents such that
+
+$$
+q_{q_1}^s = \Kappa_0 2^{\bar{q} + \frac{1}{6}m - \frac{1}{6} 6} = \Kappa_0 2^{\bar{q} + \frac{1}{6}m} \cdot 2^{-1} = q_q^s \frac{1}{2}.
+$$
+
