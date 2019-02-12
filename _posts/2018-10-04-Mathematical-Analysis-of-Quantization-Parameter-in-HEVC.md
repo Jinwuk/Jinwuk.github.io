@@ -262,25 +262,27 @@ Suppose that a basic quantization parameter is given as $q​$, and we consider 
 we evaluate the stepsize for the quantization of HEVC such that
 
 $$
-q_q^s = \Kappa_0 2^{\lfloor \frac{q}{6} \rfloor + k (q \mod 6)}
+q_q^s = K_0 2^{\lfloor \frac{q}{6} \rfloor + k (q \mod 6)}
 $$
 
-Let $q = 6 \cdot \bar{q} + m​$  then $\lfloor \frac{q}{6} \rfloor = \bar{q}​$, and $m = q \mod 6​$ , thus the above equation is rewritten as :
+Let $q = 6 \cdot \bar{q} + m$  then $\lfloor \frac{q}{6} \rfloor = \bar{q}$, and $m = q \mod 6$ , thus the above equation is rewritten as :
 
 $$
-q_q^s = \Kappa_0 2^{\frac{6 \cdot \bar{q} + m}{6}} = \Kappa_0 2^{\bar{q} + \frac{1}{6}m}
+q_q^s = K_0 2^{\frac{6 \cdot \bar{q} + m}{6}} = K_0 2^{\bar{q} + \frac{1}{6}m}
 $$
 
 where $k = 1/6​$. 
 
-Subsequently, the quantization step size of $q_1​$ is 
+Subsequently, the quantization step size of $q_1$ is 
 $$
-q_{q_1}^s = \Kappa_0 2^{\frac{1}{6}(q - \alpha)} = \Kappa_0 2^{\frac{1}{6}(6 \cdot \bar{q} + m - \alpha)} = \Kappa_0 2^{\bar{q} + \frac{1}{6}(m - \alpha)} = q_q^s 2^{-\frac{1}{6} \alpha}
+q_{q_1}^s = K_0 2^{\frac{1}{6}(q - \alpha)} = K_0 2^{\frac{1}{6}(6 \cdot \bar{q} + m - \alpha)} = K_0 2^{\bar{q} + \frac{1}{6}(m - \alpha)} = q_q^s 2^{-\frac{1}{6} \alpha}
 $$
 
-To verify the considering,  let $a = 6​$, then it is equal to the method illustrated in the patents such that
+To verify the considering,  let $a = 6$, then it is equal to the method illustrated in the patents such that
 
 $$
-q_{q_1}^s = \Kappa_0 2^{\bar{q} + \frac{1}{6}m - \frac{1}{6} 6} = \Kappa_0 2^{\bar{q} + \frac{1}{6}m} \cdot 2^{-1} = q_q^s \frac{1}{2}.
+q_{q_1}^s = K_0 2^{\bar{q} + \frac{1}{6}m - \frac{1}{6} 6} = K_0 2^{\bar{q} + \frac{1}{6}m} \cdot 2^{-1} = q_q^s \frac{1}{2}.
 $$
+
+
 
