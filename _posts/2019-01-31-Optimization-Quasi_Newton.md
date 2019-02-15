@@ -389,6 +389,7 @@ $$
 
 ### Rank Two Method
 In rank one method
+
 $$
 \begin{align}
 \beta_{i+1} &= \beta_i + \alpha_i (\Delta x_i - \beta_i \Delta g_i)(\Delta x_i - \beta_i \Delta g_i)^T \;\;\; \alpha_i \in \mathbb{R} \\
@@ -396,7 +397,9 @@ $$
 + \alpha_i \beta_i \Delta g_i (\beta_i \Delta g_i)^T
 \end{align}
 $$
+
 여기에서 다음은 Symmetric 이다.
+
 - $\beta_i$ 
 - $\Delta x_i \Delta x_i^T$ 
 - $(\beta_i \Delta g_i \Delta x_i ^T + \Delta x_i (\beta_i \Delta g_i)^T)$
@@ -408,17 +411,21 @@ $$
 
 #### Idea
 Supress the non-symmetric terms, and let
+
 $$
 \beta_{i+1}^{DFP} \triangleq \beta_i + \beta_i \Delta x_i \Delta x_i^T + \gamma (\beta_i \Delta g_i)(\beta_i \Delta g_i)^T
 $$
+
 it is invented by Davison, Fletcher, Powell .. 그래서 DFP 법이라고 한다.
 
 Since it has to satisfy Quasi-Newton method property, i.e. $\beta_{i+1} \Delta g_i = \Delta x_i$ 
+
 $$
 \Delta x_i = \beta_i \Delta g_i + \beta_i \Delta x_i \Delta x_i^T \Delta g_i + \gamma_i (\beta_i \Delta g_i)(\beta_i \Delta g_i)^T \Delta g_i
 $$
 
 Pick 
+
 $$
 \beta_i = \frac{1}{\langle \Delta x_i, \Delta g_i \rangle}, \;\;\; \gamma_i = \frac{-1}{\langle \beta_i \Delta g_i, \Delta g_i \rangle}
 $$
@@ -476,7 +483,8 @@ $$
 H_{i+1} = H_i + \frac{\Delta g_i \Delta g_i^T}{\langle \Delta g_i, \Delta x_i \rangle} - \frac{(H_i \Delta x_i)(H_i \Delta x_i)^T}{\langle x_i , H_i \Delta x_i \rangle}
 $$
 
-**Duality **
+**Duality**
+
 $$
 \beta_i \rightarrow H_i \;\;\; \Delta g_i \rightarrow \Delta x_i \;\;\; \Delta x_i \rightarrow \Delta g_i
 $$
