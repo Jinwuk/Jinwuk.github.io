@@ -134,7 +134,7 @@ $$
 \end{aligned}
 $$
 
-따라서 $g_{ij}$ 의 Inverse의 정의에 의해 ($\because G(q)^{-1} \triangleq |G(q)|^{-\frac{1}{2}} [\tilde{g}^{ij}] = [g^{ij}]$)
+따라서 $g_{ij}$ 의 Inverse의 정의에 의해 ($\because G(q)^{-1} \triangleq \mid G(q) \mid^{-\frac{1}{2}} [\tilde{g}^{ij}] = [g^{ij}]$)
 
 $$
 (\nabla_x f)_i = \frac{\partial f}{\partial x_i} = \sum_j g^{ij} \frac{\partial f}{\partial q_j}
