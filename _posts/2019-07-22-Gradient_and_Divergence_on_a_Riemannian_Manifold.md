@@ -105,7 +105,7 @@ $$
 e_i^q \triangleq \frac{\partial }{\partial q_i} = \frac{\partial }{\partial x_k}\frac{\partial x_k}{\partial q_i} = e_k^x \frac{\partial x_k}{\partial q_i}
 $$
 
-이때 $e_k^x \in \mathbb{R}$ 이고 $|\frac{\partial x_k}{\partial q_i}| = 1$ 이다.  만일  $e_k^x \in \mathbb{R}^n $ 이면  $|e_i^q | = 1$ 이므로
+이때 $e_k^x \in \mathbb{R}$ 이고 $\mid \frac{\partial x_k}{\partial q_i}\mid = 1$ 이다.  만일  $e_k^x \in \mathbb{R}^n $ 이면  $\mid e_i^q \mid = 1$ 이므로
 
 $$
 e_i^q \triangleq \alpha_i \frac{\partial }{\partial q_i} = \frac{1}{|J_i(q)|}\sum_k \frac{\partial }{\partial x_k}\frac{\partial x_k}{\partial q_i} = \frac{1}{|G_i(q)|^{\frac{1}{2}}} \sum_k e_k^x \frac{\partial x_k}{\partial q_i}
@@ -119,7 +119,7 @@ $$
 \nabla_x f(x) = \sum_k \frac{\partial f}{\partial x_k} e_k^x, \;\; \nabla_q f(x(q)) = \sum_i \frac{\partial f(x(q))}{\partial q_i} e_i^q
 $$
 
-논의를 간편하게 하기 위해 $|G_i(q)| = 1$인 경우만 생각하자.
+논의를 간편하게 하기 위해 $\mid G_i(q) \mid = 1$인 경우만 생각하자.
 
 위 Gradient 식은 좌항의 $e_k^x$ Frame상의 Gradient를 $e_i^q$ Frame에 대하여 표현하는 것이므로 
 
