@@ -1,5 +1,3 @@
-#  Convergence analysis for Stochastic Gradient Descent
-
 ---
 layout: post
 title:  "Convergence analysis for Stochastic Gradient Descent"
@@ -19,7 +17,7 @@ comments: true
 
 본 내용은 모두를 위한 컨벡스 최적화 https://wikidocs.net/book/1896  의  https://wikidocs.net/18090 를 정리한 것이다. 
 
-
+## Assumption 
 f는 convex이고 differentiable하며 **dom** f = R^n일 때 다음 식을 만족한다고 하자.
 $$
 \lVert \nabla f(x) - \nabla f(y) \rVert_2 \le L \lVert x - y \rVert_2 \text{ for any } x, y \text { and } L \gt 0
