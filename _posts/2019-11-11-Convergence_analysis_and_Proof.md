@@ -1,13 +1,13 @@
 #  Convergence analysis for Stochastic Gradient Descent
 
-
 ---
 layout: post
 title:  "Convergence analysis for Stochastic Gradient Descent"
 date:   2019-11-11 01:45:00 +0900
 categories: [Mathematics, Machine Learning]
 tags:
-  - Manifold Denosing
+
+  - Convergence analysis for Stochastic Gradient Descent
   - Machine Learning
 comments: true
 
